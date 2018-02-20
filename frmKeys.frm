@@ -1,14 +1,16 @@
 VERSION 5.00
 Begin VB.Form frmKeys 
+   BorderStyle     =   1  'Fixed Single
    Caption         =   "frmConnections"
    ClientHeight    =   4380
    ClientLeft      =   60
    ClientTop       =   450
    ClientWidth     =   5310
    LinkTopic       =   "Form1"
+   MaxButton       =   0   'False
+   MinButton       =   0   'False
    ScaleHeight     =   4380
    ScaleWidth      =   5310
-   StartUpPosition =   3  'Windows Default
    Begin VB.ComboBox cmbProduct 
       Height          =   315
       ItemData        =   "frmKeys.frx":0000

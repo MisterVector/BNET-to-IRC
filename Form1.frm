@@ -1,13 +1,16 @@
 VERSION 5.00
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
-Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "Mswinsck.ocx"
 Begin VB.Form frmMain 
+   BorderStyle     =   1  'Fixed Single
    Caption         =   "BNET To IRC Daemon"
    ClientHeight    =   6075
-   ClientLeft      =   165
-   ClientTop       =   855
+   ClientLeft      =   150
+   ClientTop       =   780
    ClientWidth     =   14265
    LinkTopic       =   "Form1"
+   MaxButton       =   0   'False
+   MinButton       =   0   'False
    ScaleHeight     =   6075
    ScaleWidth      =   14265
    StartUpPosition =   3  'Windows Default
@@ -145,6 +148,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"Form1.frx":0000
       End
@@ -159,6 +163,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"Form1.frx":0082
       End
@@ -307,6 +312,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"Form1.frx":0108
       End
