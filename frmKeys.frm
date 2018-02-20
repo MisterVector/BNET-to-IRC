@@ -55,7 +55,7 @@ Begin VB.Form frmKeys
       Height          =   300
       Left            =   3120
       TabIndex        =   2
-      Top             =   3135
+      Top             =   3120
       Width           =   855
    End
    Begin VB.ListBox lstKeys 
@@ -96,6 +96,10 @@ Private Sub btnAdd_Click()
 
   lstKeys.AddItem txtKey.Text & " -> " & getProduct(cmbProduct.ListIndex)
   cmbProduct.Text = "Choose product for this key"
+End Sub
+
+Private Sub btnCancel_Click()
+  Unload Me
 End Sub
 
 Private Sub btnOk_Click()
