@@ -606,6 +606,12 @@ Private Sub Form_Unload(Cancel As Integer)
   WriteINI "IRC", "Username", txtIRCUsername.Text, "Config.ini"
   WriteINI "IRC", "Server", txtIRCServer.Text, "Config.ini"
   WriteINI "IRC", "Channel", txtIRCChannel.Text, "Config.ini"
+
+  Dim oFrm As Form
+
+  For Each oFrm In Forms
+    Unload oFrm
+  Next
 End Sub
 
 Private Sub mnuKeys_Click()
