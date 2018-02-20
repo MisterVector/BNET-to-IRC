@@ -1,7 +1,6 @@
 Attribute VB_Name = "modOtherCode"
 Public Function getVerByte(ByVal product As String) As Long
   Select Case product
-    Case "STAR": getVerByte = &HD3
     Case "W2BN": getVerByte = &H4F
     Case "D2DV": getVerByte = &HD
     Case "WAR3": getVerByte = &H18
@@ -10,7 +9,6 @@ End Function
 
 Public Function getProdID(ByVal product As String) As Long
   Select Case product
-    Case "STAR": getProdID = &H1
     Case "W2BN": getProdID = &H3
     Case "D2DV": getProdID = &H4
     Case "WAR3": getProdID = &H7

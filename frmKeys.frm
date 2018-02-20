@@ -13,7 +13,7 @@ Begin VB.Form frmKeys
       Height          =   315
       ItemData        =   "frmKeys.frx":0000
       Left            =   120
-      List            =   "frmKeys.frx":0010
+      List            =   "frmKeys.frx":000D
       TabIndex        =   7
       Text            =   "Choose product for this key"
       Top             =   3120
@@ -134,10 +134,9 @@ End Sub
 
 Public Function getProduct(ByVal prodIdx As Integer) As String
   Select Case prodIdx
-    Case 0: getProduct = "STAR"
-    Case 1: getProduct = "W2BN"
-    Case 2: getProduct = "D2DV"
-    Case 3: getProduct = "WAR3"
+    Case 0: getProduct = "W2BN"
+    Case 1: getProduct = "D2DV"
+    Case 2: getProduct = "WAR3"
   End Select
 End Function
 
