@@ -532,7 +532,6 @@ Private Sub Form_Load()
       ReDim pBNET(BotCount - 1)
       ReDim pBNLS(BotCount - 1)
       ReDim BNET(BotCount - 1)
-      Set dicQueue = New Dictionary
       
       For i = 0 To BotCount - 1
         If i > 0 Then

@@ -6,7 +6,7 @@ Public Const timeToWait = 3
 Public BNLSServer As String
 Public BNETServer As String
 
-Public dicQueue As Dictionary
+Public dicQueue As New Dictionary
 Public dicIdx As Integer
 
 Public isFlood As Boolean
