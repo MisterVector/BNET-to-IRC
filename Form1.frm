@@ -504,7 +504,19 @@ Private Sub chkBtoIRC_Click()
 End Sub
 
 Private Sub Form_Load()
-  Dim tmpLI As String
+  Dim tmpLI As String, val As Variant
+
+  val = ReadINI("Main", "Top", "Config.ini")
+
+  If (IsNumeric(val)) Then
+    Me.Top = val
+  End If
+
+  val = ReadINI("Main", "Left", "Config.ini")
+
+  If (IsNumeric(val)) Then
+    Me.Left = val
+  End If
 
   txtUsername.Text = ReadINI("Main", "Username", "Config.ini")
   txtPassword.Text = ReadINI("Main", "Password", "Config.ini")
@@ -592,6 +604,9 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
+  WriteINI "Main", "Top", Me.Top, "Config.ini"
+  WriteINI "Main", "Left", Me.Left, "Config.ini"
+
   WriteINI "Main", "Username", txtUsername.Text, "Config.ini"
   WriteINI "Main", "Password", txtPassword.Text, "Config.ini"
   WriteINI "Main", "Channel", txtChannel.Text, "Config.ini"
