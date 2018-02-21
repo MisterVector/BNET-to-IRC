@@ -504,7 +504,7 @@ Private Sub chkBtoIRC_Click()
 End Sub
 
 Private Sub Form_Load()
-  Dim tmpLI As String, val As Variant
+  Dim tmpLI As String, val As Variant, arrGateways() As Variant, gateway As String, IPs() As String
 
   val = ReadINI("Main", "Top", "Config.ini")
 
@@ -554,55 +554,22 @@ Private Sub Form_Load()
   txtIRCServer.Text = ReadINI("IRC", "Server", "Config.ini")
   txtIRCChannel.Text = ReadINI("IRC", "Channel", "Config.ini")
   rcConsole.value = True
-  
-  cmbServer.AddItem "useast.battle.net"
-  cmbServer.AddItem "63.240.202.139"
-  cmbServer.AddItem "63.240.202.138"
-  cmbServer.AddItem "63.240.202.134"
-  cmbServer.AddItem "63.240.202.131"
-  cmbServer.AddItem "63.240.202.130"
-  cmbServer.AddItem "63.240.202.129"
-  cmbServer.AddItem "63.240.202.128"
-  cmbServer.AddItem "63.240.202.127"
-  cmbServer.AddItem "63.240.202.126"
-  cmbServer.AddItem "63.240.202.122"
-  cmbServer.AddItem "63.240.202.121"
-  cmbServer.AddItem "63.240.202.120"
-  cmbServer.AddItem ""
-  cmbServer.AddItem "uswest.battle.net"
-  cmbServer.AddItem "63.241.83.7"
-  cmbServer.AddItem "63.241.83.8"
-  cmbServer.AddItem "63.241.83.9"
-  cmbServer.AddItem "63.241.83.11"
-  cmbServer.AddItem "63.241.83.12"
-  cmbServer.AddItem "63.241.83.13"
-  cmbServer.AddItem "63.241.83.107"
-  cmbServer.AddItem "63.241.83.108"
-  cmbServer.AddItem "63.241.83.109"
-  cmbServer.AddItem "63.241.83.110"
-  cmbServer.AddItem "63.241.83.111"
-  cmbServer.AddItem "63.241.83.112"
-  cmbServer.AddItem ""
-  cmbServer.AddItem "europe.battle.net"
-  cmbServer.AddItem "213.248.106.200"
-  cmbServer.AddItem "213.248.106.201"
-  cmbServer.AddItem "213.248.106.202"
-  cmbServer.AddItem "213.248.106.204"
-  cmbServer.AddItem ""
-  cmbServer.AddItem "asia.battle.net"
-  cmbServer.AddItem "211.233.0.49"
-  cmbServer.AddItem "211.233.0.50"
-  cmbServer.AddItem "211.233.0.51"
-  cmbServer.AddItem "211.233.0.52"
-  cmbServer.AddItem "211.233.0.53"
-  cmbServer.AddItem "211.233.0.72"
-  cmbServer.AddItem "211.233.0.73"
-  cmbServer.AddItem "211.233.0.74"
-  cmbServer.AddItem "211.233.0.75"
-  cmbServer.AddItem "211.233.0.76"
-  cmbServer.AddItem "211.233.0.78"
-  cmbServer.AddItem "211.233.0.79"
-  cmbServer.AddItem "211.233.0.80"
+
+  arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net")
+
+  For i = 0 To 3
+    gateway = arrGateways(i)
+    cmbServer.AddItem gateway
+    IPs = Split(Resolve(gateway))
+
+    For j = 0 To UBound(IPs)
+      cmbServer.AddItem IPs(j)
+    Next j
+
+    If (i < 3) Then
+      cmbServer.AddItem ""
+    End If
+  Next i
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
