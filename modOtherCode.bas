@@ -1,4 +1,13 @@
 Attribute VB_Name = "modOtherCode"
+Private Sub AddQ(ByVal msg As String)
+  dicQueue.Add dicQueue.Count + 1, msg
+
+  If Not frmMain.tmrReleaseQueue.Enabled Then
+    dicIdx = 1
+    frmMain.tmrReleaseQueue.Enabled = True
+  End If
+End Sub
+
 Public Function getVerByte(ByVal product As String) As Long
   Select Case product
     Case "W2BN": getVerByte = &H4F
@@ -22,18 +31,13 @@ Public Function findFirstAliveBot() As Integer
       Exit Function
     End If
   Next i
+
+  findFirstAliveBot = -1
 End Function
 
-Public Sub AddQ(ByVal msg As String)
-  dicQueue.Add dicQueue.Count + 1, msg
-  
-  If Not frmMain.tmrReleaseQueue.Enabled Then
-    dicIdx = 1
-    frmMain.tmrReleaseQueue.Enabled = True
-  End If
-End Sub
-
 Public Sub SendToBNET(ByVal msg As String)
+  If (findFirstAliveBot() = -1) Then Exit Sub
+
   Dim grabPartOfMessage As String
 
   If Len(msg) > 140 Then
