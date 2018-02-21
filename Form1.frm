@@ -604,6 +604,10 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
+  If Dir$(App.Path & "\Config.ini") <> vbNullString Then
+    Kill App.Path & "\Config.ini"
+  End If
+
   WriteINI "Main", "Top", Me.Top, "Config.ini"
   WriteINI "Main", "Left", Me.Left, "Config.ini"
 
