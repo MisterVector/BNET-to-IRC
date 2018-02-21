@@ -528,24 +528,26 @@ Private Sub Form_Load()
   If IsNumeric(ReadINI("Main", "BotCount", "Config.ini")) Then
     BotCount = ReadINI("Main", "BotCount", "Config.ini")
     
-    ReDim pBNET(BotCount - 1)
-    ReDim pBNLS(BotCount - 1)
-    ReDim BNET(BotCount - 1)
-    Set dicQueue = New Dictionary
-    
-    For i = 0 To BotCount - 1
-      If i > 0 Then
-        Load sckBNET(i)
-        Load sckBNLS(i)
-      End If
+    If (BotCount > 0) Then
+      ReDim pBNET(BotCount - 1)
+      ReDim pBNLS(BotCount - 1)
+      ReDim BNET(BotCount - 1)
+      Set dicQueue = New Dictionary
       
-      Set pBNET(i) = New clsPacket
-      Set pBNLS(i) = New clsPacket
-      With BNET(i)
-        .prodStr = ReadINI(i, "Product", "Config.ini")
-        .CDKey = ReadINI(i, "CDKey", "Config.ini")
-      End With
-    Next i
+      For i = 0 To BotCount - 1
+        If i > 0 Then
+          Load sckBNET(i)
+          Load sckBNLS(i)
+        End If
+
+        Set pBNET(i) = New clsPacket
+        Set pBNLS(i) = New clsPacket
+        With BNET(i)
+          .prodStr = ReadINI(i, "Product", "Config.ini")
+          .CDKey = ReadINI(i, "CDKey", "Config.ini")
+        End With
+      Next i
+    End If
   End If
   
   txtIRCUsername.Text = ReadINI("IRC", "Username", "Config.ini")
