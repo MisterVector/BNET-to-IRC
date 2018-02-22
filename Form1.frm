@@ -792,10 +792,9 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
       End Select
     Else
       If sckIRC.State <> sckConnected Then Exit Sub
-    
-      AddChat rtbChatBNET, vbYellow, "PRIVMSG " & IRC.Channel & " :" & getText ' & vbCrLf
-      'sckIRC.SendData getText & vbCrLf
+
       sckIRC.SendData "PRIVMSG " & IRC.Channel & " :" & getText & vbCrLf
+      AddChat rtbChatIRCChat, vbWhite, IRC.Server & " (", vbYellow, IRC.Channel, vbWhite, ") " & getText
     End If
   End If
 End Sub
