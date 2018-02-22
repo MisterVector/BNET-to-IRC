@@ -30,14 +30,14 @@ Public Sub Recv_BNLS_0x01(index As Integer)
 End Sub
 
 Public Sub Send_BNLS_0x09(index As Integer)
-  Dim tmpLD As String
-  tmpLD = Mid(BNET(index).LockdownFile, InStr(BNET(index).LockdownFile, "mpq") - 3, 2)
-  If Not IsNumeric(tmpLD) Or Left(tmpLD, 1) = "-" Then tmpLD = Mid(tmpLD, 2)
+  Dim lockdownFile As String
+  lockdownFile = Mid(BNET(index).lockdownFile, InStr(BNET(index).lockdownFile, "mpq") - 3, 2)
+  If Not IsNumeric(lockdownFile) Or Left(lockdownFile, 1) = "-" Then lockdownFile = Mid(lockdownFile, 2)
 
   AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Requesting version info..."
   With pBNLS(index)
     .InsertDWORD getProdID(BNET(index).prodStr)
-    .InsertDWORD tmpLD
+    .InsertDWORD lockdownFile
     .InsertNTString BNET(index).ValueString
     .sendPacket &H9, True, index
   End With
@@ -60,9 +60,9 @@ End Sub
 
 Public Sub Send_BNLS_0x0B(index As Integer)
   With pBNLS(index)
-    .InsertDWORD Len(Password)
+    .InsertDWORD Len(password)
     .InsertDWORD &H2
-    .InsertNonNTString Password
+    .InsertNonNTString password
     .InsertDWORD BNET(index).ClientToken
     .InsertDWORD BNET(index).ServerToken
     .sendPacket &HB, True, index
@@ -84,7 +84,7 @@ Public Sub Recv_BNLS_0x0B(index As Integer)
     
     With pBNET(index)
       .InsertNonNTString BNET(index).NewAccPasswordHash
-      .InsertNTString Username
+      .InsertNTString username
       .sendPacket &H3D, False, index
     End With
   Else

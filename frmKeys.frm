@@ -91,13 +91,13 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub btnAdd_Click()
-  If cmbProduct.Text = "Choose product for this key" Then
+  If cmbProduct.text = "Choose product for this key" Then
     MsgBox "Choose a product for this key."
     Exit Sub
   End If
 
-  lstKeys.AddItem txtKey.Text & " -> " & getProduct(cmbProduct.ListIndex)
-  cmbProduct.Text = "Choose product for this key"
+  lstKeys.AddItem txtKey.text & " -> " & getProduct(cmbProduct.ListIndex)
+  cmbProduct.text = "Choose product for this key"
 End Sub
 
 Private Sub btnCancel_Click()
@@ -105,7 +105,7 @@ Private Sub btnCancel_Click()
 End Sub
 
 Private Sub btnOk_Click()
-  Dim getKeyLine As String, getKey As String, getProduct As String
+  Dim keyLine As String, key As String, product As String
 
   If Dir$(App.Path & "\Config.ini") = vbNullString Then
     Kill App.Path & "\Config.ini"
@@ -115,18 +115,18 @@ Private Sub btnOk_Click()
   ReDim BNET(BotCount - 1)
   
   For i = 0 To BotCount - 1
-    getKeyLine = lstKeys.List(i)
+    keyLine = lstKeys.List(i)
     
-    getKey = Split(getKeyLine, " -> ")(0)
-    getProduct = Split(getKeyLine, " -> ")(1)
+    key = Split(keyLine, " -> ")(0)
+    product = Split(keyLine, " -> ")(1)
   
     With BNET(i)
-      .CDKey = getKey
-      .prodStr = getProduct
+      .CDKey = key
+      .prodStr = product
     End With
     
-    WriteINI i, "Product", getProduct, "Config.ini"
-    WriteINI i, "CDKey", getKey, "Config.ini"
+    WriteINI i, "Product", product, "Config.ini"
+    WriteINI i, "CDKey", key, "Config.ini"
   Next i
   
   Unload Me

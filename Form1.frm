@@ -410,22 +410,22 @@ Private Sub chkDisplayRTB_Click()
 End Sub
 
 Private Sub btnConnectBNET_Click()
-  Dim bnlsAlive As Boolean
+  Dim socketsStillAlive As Boolean, username As String, password As String, channel As String, bnetServer As String
 
-  If BotCount = 0 Then
+  If botCount = 0 Then
     MsgBox "Your keys are not configured. Go to File -> Manage Keys first."
     Exit Sub
   End If
   
-  Username = txtUsername.Text
-  Password = txtPassword.Text
-  Channel = txtChannel.Text
-  BNETServer = cmbServer.Text
+  username = txtUsername.text
+  password = txtPassword.text
+  channel = txtChannel.text
+  bnetServer = cmbServer.text
   
   If btnConnectBNET.Caption = "Connect!" Then
     
     AddChat rtbChatBNET, vbYellow, "Bot #0: [BNET] Connecting..."
-    sckBNET(0).Connect cmbServer.Text, 6112
+    sckBNET(0).Connect cmbServer.text, 6112
     
     btnConnectBNET.Caption = "Disconnect!"
   Else
@@ -435,12 +435,12 @@ Private Sub btnConnectBNET_Click()
       sckBNET(i).Close
       
       If sckBNLS(i).State <> sckClosed Then
-        If Not bnlsAlive Then bnlsAlive = True
+        If Not socketsStillAlive Then socketsStillAlive = True
         sckBNLS(i).Close
       End If
     Next i
     
-    If bnlsAlive Then
+    If socketsStillAlive Then
       AddChat rtbChatBNET, vbRed, "[BNLS] All connections closed."
     End If
     
@@ -449,24 +449,24 @@ Private Sub btnConnectBNET_Click()
 End Sub
 
 Private Sub btnConnectIRC_Click()
-  If txtIRCServer.Text = vbNullString Then
+  If txtIRCServer.text = vbNullString Then
     MsgBox "You have not entered a server name!"
     Exit Sub
   End If
 
-  If txtIRCUsername.Text = vbNullString Then
+  If txtIRCUsername.text = vbNullString Then
     MsgBox "No username was entered!"
     Exit Sub
   End If
   
   If btnConnectIRC.Caption = "Connect!" Then
-    IRC.Username = txtIRCUsername.Text
+    IRC.username = txtIRCUsername.text
     
-    If InStr(txtIRCServer.Text, ":") Then
-      IRC.Server = Split(txtIRCServer.Text, ":")(0)
-      IRC.Port = Split(txtIRCServer.Text, ":")(1)
+    If InStr(txtIRCServer.text, ":") Then
+      IRC.Server = Split(txtIRCServer.text, ":")(0)
+      IRC.Port = Split(txtIRCServer.text, ":")(1)
     Else
-      IRC.Server = txtIRCServer.Text
+      IRC.Server = txtIRCServer.text
       IRC.Port = 6667
     End If
   
@@ -504,7 +504,7 @@ Private Sub chkBtoIRC_Click()
 End Sub
 
 Private Sub Form_Load()
-  Dim tmpLI As String, val As Variant, arrGateways() As Variant, gateway As String, IPs() As String
+  Dim val As Variant, arrGateways() As Variant, gateway As String, IPs() As String
 
   val = ReadINI("Main", "Top", "Config.ini")
 
@@ -518,22 +518,22 @@ Private Sub Form_Load()
     Me.Left = val
   End If
 
-  txtUsername.Text = ReadINI("Main", "Username", "Config.ini")
-  txtPassword.Text = ReadINI("Main", "Password", "Config.ini")
-  txtChannel.Text = ReadINI("Main", "Channel", "Config.ini")
+  txtUsername.text = ReadINI("Main", "Username", "Config.ini")
+  txtPassword.text = ReadINI("Main", "Password", "Config.ini")
+  txtChannel.text = ReadINI("Main", "Channel", "Config.ini")
   
-  cmbServer.Text = ReadINI("Main", "Server", "Config.ini")
+  cmbServer.text = ReadINI("Main", "Server", "Config.ini")
   BNLSServer = ReadINI("Main", "BNLSServer", "Config.ini")
 
   If IsNumeric(ReadINI("Main", "BotCount", "Config.ini")) Then
-    BotCount = ReadINI("Main", "BotCount", "Config.ini")
+    botCount = ReadINI("Main", "BotCount", "Config.ini")
     
-    If (BotCount > 0) Then
-      ReDim pBNET(BotCount - 1)
-      ReDim pBNLS(BotCount - 1)
-      ReDim BNET(BotCount - 1)
+    If (botCount > 0) Then
+      ReDim pBNET(botCount - 1)
+      ReDim pBNLS(botCount - 1)
+      ReDim BNET(botCount - 1)
       
-      For i = 0 To BotCount - 1
+      For i = 0 To botCount - 1
         If i > 0 Then
           Load sckBNET(i)
           Load sckBNLS(i)
@@ -549,9 +549,9 @@ Private Sub Form_Load()
     End If
   End If
   
-  txtIRCUsername.Text = ReadINI("IRC", "Username", "Config.ini")
-  txtIRCServer.Text = ReadINI("IRC", "Server", "Config.ini")
-  txtIRCChannel.Text = ReadINI("IRC", "Channel", "Config.ini")
+  txtIRCUsername.text = ReadINI("IRC", "Username", "Config.ini")
+  txtIRCServer.text = ReadINI("IRC", "Server", "Config.ini")
+  txtIRCChannel.text = ReadINI("IRC", "Channel", "Config.ini")
   rcConsole.value = True
 
   arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net")
@@ -579,20 +579,20 @@ Private Sub Form_Unload(Cancel As Integer)
   WriteINI "Main", "Top", Me.Top, "Config.ini"
   WriteINI "Main", "Left", Me.Left, "Config.ini"
 
-  WriteINI "Main", "Username", txtUsername.Text, "Config.ini"
-  WriteINI "Main", "Password", txtPassword.Text, "Config.ini"
-  WriteINI "Main", "Channel", txtChannel.Text, "Config.ini"
-  WriteINI "Main", "Server", cmbServer.Text, "Config.ini"
-  WriteINI "Main", "BotCount", BotCount, "Config.ini"
+  WriteINI "Main", "Username", txtUsername.text, "Config.ini"
+  WriteINI "Main", "Password", txtPassword.text, "Config.ini"
+  WriteINI "Main", "Channel", txtChannel.text, "Config.ini"
+  WriteINI "Main", "Server", cmbServer.text, "Config.ini"
+  WriteINI "Main", "BotCount", botCount, "Config.ini"
 
-  For i = 0 To BotCount - 1
+  For i = 0 To botCount - 1
     WriteINI i, "Product", BNET(i).prodStr, "Config.ini"
     WriteINI i, "CDKey", BNET(i).CDKey, "Config.ini"
   Next i
   
-  WriteINI "IRC", "Username", txtIRCUsername.Text, "Config.ini"
-  WriteINI "IRC", "Server", txtIRCServer.Text, "Config.ini"
-  WriteINI "IRC", "Channel", txtIRCChannel.Text, "Config.ini"
+  WriteINI "IRC", "Username", txtIRCUsername.text, "Config.ini"
+  WriteINI "IRC", "Server", txtIRCServer.text, "Config.ini"
+  WriteINI "IRC", "Channel", txtIRCChannel.text, "Config.ini"
 
   Dim oFrm As Form
 
@@ -652,9 +652,9 @@ End Sub
 Private Sub sckBNLS_Connect(index As Integer)
   If newAccFlag Then
     With pBNLS(index)
-      .InsertDWORD Len(Password)
+      .InsertDWORD Len(password)
       .InsertDWORD &H4
-      .InsertNonNTString Password
+      .InsertNonNTString password
       .InsertDWORD &H0
       .sendPacket &HB, True, index
     End With
@@ -694,18 +694,18 @@ End Sub
 
 Private Sub sckIRC_Connect()
   AddChat rtbChatIRCConsole, vbGreen, "[IRC] Connected!"
-  sckIRC.SendData "NICK " & IRC.Username & vbCrLf
-  sckIRC.SendData "USER " & IRC.Username & " 0 0 " & IRC.Username & vbCrLf
+  sckIRC.SendData "NICK " & IRC.username & vbCrLf
+  sckIRC.SendData "USER " & IRC.username & " 0 0 " & IRC.username & vbCrLf
   'SendToBNET "Connected to the IRC server at " & IRC.Server & "!"
   SendToBNET "Connected to IRC!"
 End Sub
 
 Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
-  Dim data As String, arrData() As String
+  Dim data As String, arrData() As String, name As String, text As String, channel As String
   sckIRC.GetData data
   
-  If InStr(data, IRC.Username) Then
-    data = Mid(data, InStr(data, IRC.Username) + Len(IRC.Username) + 1)
+  If InStr(data, IRC.username) Then
+    data = Mid(data, InStr(data, IRC.username) + Len(IRC.username) + 1)
   End If
     
   If UBound(Split(data)) > 1 Then
@@ -713,15 +713,15 @@ Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
     
     Select Case UCase(arrData(1))
       Case "PRIVMSG"
-        getName = Mid(Split(arrData(0), "!")(0), 2)
-        getText = Split(data, arrData(1))(1)
-        getText = Replace(Mid(getText, InStr(getText, ":") + 1), vbCrLf, vbNullString)
-        'getText = Replace(Split(Split(data, arrData(1))(1), ":")(1), vbCrLf, vbNullString)
-        getChannel = Split(arrData(2), ":")(0)
+        name = Mid(Split(arrData(0), "!")(0), 2)
+        text = Split(data, arrData(1))(1)
+        text = Replace(Mid(text, InStr(text, ":") + 1), vbCrLf, vbNullString)
+        'text = Replace(Split(Split(data, arrData(1))(1), ":")(1), vbCrLf, vbNullString)
+        channel = Split(arrData(2), ":")(0)
   
         If isBroadcastToBNET Then
           'SendToBNET "(" & IRC.Channel & " @ " & IRC.Server & ") " & getName & ": " & getText
-          SendToBNET getName & ": " & getText
+          SendToBNET name & ": " & text
         End If
       Case Else
         AddChat rtbChatIRCConsole, vbYellow, data
@@ -761,10 +761,10 @@ End Sub
 Private Sub txtBNETChat_KeyDown(KeyCode As Integer, Shift As Integer)
   If KeyCode = 13 Then
     If sckBNET(cIdx).State = sckConnected Then
-      txtBNETChat.Text = Replace(txtBNETChat.Text, vbNewLine, "")
-      AddChat rtbChatBNET, vbYellow, "Bot #" & cIdx & ": <" & Username & "> ", vbWhite, txtBNETChat.Text
-      SendToBNET txtBNETChat.Text
-      txtBNETChat.Text = vbNullString
+      txtBNETChat.text = Replace(txtBNETChat.text, vbNewLine, "")
+      AddChat rtbChatBNET, vbYellow, "Bot #" & cIdx & ": <" & username & "> ", vbWhite, txtBNETChat.text
+      SendToBNET txtBNETChat.text
+      txtBNETChat.text = vbNullString
     End If
     
     cIdx = cIdx + 1
@@ -774,27 +774,27 @@ Private Sub txtBNETChat_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
-  Dim getText As String, cmd() As String
+  Dim text As String, cmd() As String, cmdEx() As String
   
   If KeyCode = 13 Then
-    getText = txtIRCChat.Text
-    txtIRCChat.Text = Split(txtIRCChat.Text, vbNewLine)(0)
-    txtIRCChat.Text = vbNullString
+    text = txtIRCChat.text
+    txtIRCChat.text = Split(txtIRCChat.text, vbNewLine)(0)
+    txtIRCChat.text = vbNullString
     
-    If Left(getText, 1) = "/" Then
-      cmd = Split(Mid(getText, 2))
+    If Left(text, 1) = "/" Then
+      cmd = Split(Mid(text, 2))
       
       Select Case LCase(cmd(0))
         Case "join"
-          cmdEx = Split(getText, " ", 2)
-          IRC.Channel = cmdEx(1)
+          cmdEx = Split(text, " ", 2)
+          IRC.channel = cmdEx(1)
           sckIRC.SendData "JOIN " & cmdEx(1) & vbCrLf
       End Select
     Else
       If sckIRC.State <> sckConnected Then Exit Sub
 
-      sckIRC.SendData "PRIVMSG " & IRC.Channel & " :" & getText & vbCrLf
-      AddChat rtbChatIRCChat, vbWhite, IRC.Server & " (", vbYellow, IRC.Channel, vbWhite, ") " & getText
+      sckIRC.SendData "PRIVMSG " & IRC.channel & " :" & text & vbCrLf
+      AddChat rtbChatIRCChat, vbWhite, IRC.Server & " (", vbYellow, IRC.channel, vbWhite, ") " & text
     End If
   End If
 End Sub

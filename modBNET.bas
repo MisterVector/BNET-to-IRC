@@ -89,7 +89,7 @@ Public Sub Send0x3A(index As Integer)
     .InsertDWORD BNET(index).ClientToken
     .InsertDWORD BNET(index).ServerToken
     .InsertNonNTString BNET(index).PasswordHash
-    .InsertNTString frmMain.txtUsername.Text
+    .InsertNTString frmMain.txtUsername.text
     .sendPacket &H3A, False, index
   End With
 End Sub
@@ -131,8 +131,6 @@ Public Sub Send0x0A(index As Integer)
 End Sub
 
 Public Sub Recv0x0A(index As Integer)
-  Dim getUniqueName As String
-  
   BNET(index).UniqueName = pBNET(index).getNTString
   pBNET(index).getNTString 'skip statstring
   BNET(index).AccountName = pBNET(index).getNTString
@@ -150,51 +148,51 @@ End Sub
 Public Sub Send0x0C(index As Integer)
   With pBNET(index)
     .InsertDWORD &H2 'IIf(BNET(index).prodStr = "D2DV", &H5, &H1)
-    .InsertNTString Channel
+    .InsertNTString channel
     .sendPacket &HC, False, index
   End With
 End Sub
 
 Public Sub Recv0x0F(index As Integer)
-  Dim User As String, Text As String, ID As Long, Flags As Long
+  Dim user As String, text As String, ID As Long, flags As Long, myChannel As String
   Dim supressEvent As Boolean
 
   If index <> findFirstAliveBot Then supressEvent = True
   
   With pBNET(index)
     ID = .GetDWORD
-    Flags = .GetDWORD
+    flags = .GetDWORD
     .Skip 16
-    User = .getNTString
-    Text = .getNTString
+    user = .getNTString
+    text = .getNTString
     Select Case ID
       Case &H2:
                 If Not supressEvent Then
-                  AddChat frmMain.rtbChatBNET, vbWhite, User, vbYellow, " joined " & myChannel
-                  If isBroadcastToIRC Then SendToIRC User & " has joined " & myChannel & "."
+                  AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " joined " & myChannel
+                  If isBroadcastToIRC Then SendToIRC user & " has joined " & myChannel & "."
                 End If
       Case &H3:
                 If Not supressEvent Then
-                  AddChat frmMain.rtbChatBNET, vbWhite, User, vbYellow, " left " & myChannel
-                  If isBroadcastToIRC Then SendToIRC User & " has left " & myChannel & "."
+                  AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " left " & myChannel
+                  If isBroadcastToIRC Then SendToIRC user & " has left " & myChannel & "."
                 End If
       Case &H5, &H17:
                 If Not supressEvent Then
-                  AddChat frmMain.rtbChatBNET, vbWhite, "<" & User & "> ", vbYellow, Text
+                  AddChat frmMain.rtbChatBNET, vbWhite, "<" & user & "> ", vbYellow, text
         
                   For i = 0 To UBound(BNET)
-                    If Left(LCase(User), Len(BNET(i).AccountName)) = LCase(BNET(i).AccountName) Then
+                    If Left(LCase(user), Len(BNET(i).AccountName)) = LCase(BNET(i).AccountName) Then
                       Exit Sub
                     End If
                   Next i
                   
                   If isBroadcastToIRC Then
                     'SendToIRC "(" & myChannel & " @ " & BNETServer & ") " & User & ": " & Text
-                    SendToIRC IIf(ID = &H17, "/me ", "") & User & ": " & Text
+                    SendToIRC IIf(ID = &H17, "/me ", "") & user & ": " & text
                   End If
                 End If
-      Case &H7: AddChat frmMain.rtbChatBNET, vbYellow, "You joined the channel ", vbWhite, Text
-                myChannel = Text
+      Case &H7: AddChat frmMain.rtbChatBNET, vbYellow, "You joined the channel ", vbWhite, text
+                myChannel = text
                 If isBroadcastToIRC Then SendToIRC BNET(index).UniqueName & " has joined the Battle.Net channel " & myChannel
     End Select
   End With

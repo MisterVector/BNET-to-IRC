@@ -4,7 +4,7 @@ Public Const joinTillFlood = 5
 Public Const timeToWait = 3
 
 Public BNLSServer As String
-Public BNETServer As String
+Public bnetServer As String
 
 Public dicQueue As New Dictionary
 Public dicIdx As Integer
@@ -14,9 +14,9 @@ Public isFlood As Boolean
 Public isBroadcastToIRC As Boolean
 Public isBroadcastToBNET As Boolean
 
-Public Username As String
-Public Password As String
-Public Channel As String
+Public username As String
+Public password As String
+Public channel As String
 Public newAccFlag As Boolean
 Public myChannel As String
 
@@ -25,7 +25,7 @@ Public bIdx As Integer
 
 Public pBNET() As clsPacket
 Public pBNLS() As clsPacket
-Public BotCount As Integer
+Public botCount As Integer
 
 Public Type BNETData
   AccountName As String
@@ -38,7 +38,7 @@ Public Type BNETData
   ClientToken As Long
   ValueString As String
   ServerToken As Long
-  LockdownFile As String
+  lockdownFile As String
   ChecksumFormula As String
   EXEInfo As String
   EXEVersion As String
@@ -53,10 +53,10 @@ Public BNET() As BNETData
 
 '// IRC SIDE
 Public Type IRCData
-  Username As String
-  Password As String
+  username As String
+  password As String
   Server As String
   Port As Long
-  Channel As String
+  channel As String
 End Type
 Public IRC As IRCData
