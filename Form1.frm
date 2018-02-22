@@ -413,7 +413,7 @@ Private Sub btnConnectBNET_Click()
   Dim bnlsAlive As Boolean
 
   If BotCount = 0 Then
-    MsgBox "Click File -> Manage CD-Keys to determne how many connections you can have."
+    MsgBox "Your keys are not configured. Go to File -> Manage Keys first."
     Exit Sub
   End If
   
