@@ -148,7 +148,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
       End
@@ -163,7 +162,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
       End
@@ -312,7 +310,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0108
       End
@@ -458,8 +455,14 @@ Private Sub btnConnectIRC_Click()
     Exit Sub
   End If
   
+  If txtIRCChannel.text = vbNullString Then
+    MsgBox "No IRC channel specified!", vbOKOnly, PROGRAM_VERSION
+    Exit Sub
+  End If
+  
   If btnConnectIRC.Caption = "Connect!" Then
     IRC.username = txtIRCUsername.text
+    IRC.channel = txtIRCChannel.text
     
     If InStr(txtIRCServer.text, ":") Then
       IRC.server = Split(txtIRCServer.text, ":")(0)
@@ -724,6 +727,10 @@ Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
           SendToBNET name & ": " & text
         End If
       Case Else
+        If (InStr(data, "End of /MOTD command.")) Then
+          sckIRC.SendData "JOIN " & IRC.channel & vbCrLf
+        End If
+
         AddChat rtbChatIRCConsole, vbYellow, data
     End Select
   Else
