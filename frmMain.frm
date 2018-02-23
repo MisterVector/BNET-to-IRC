@@ -148,9 +148,8 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
-         TextRTF         =   $"Form1.frx":0000
+         TextRTF         =   $"frmMain.frx":0000
       End
       Begin RichTextLib.RichTextBox rtbChatIRCChat 
          Height          =   3855
@@ -163,9 +162,8 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
-         TextRTF         =   $"Form1.frx":0082
+         TextRTF         =   $"frmMain.frx":0082
       End
       Begin VB.Label Label5 
          Caption         =   "Channel:"
@@ -277,9 +275,9 @@ Begin VB.Form frmMain
       End
       Begin VB.ComboBox cmbServer 
          Height          =   315
-         ItemData        =   "Form1.frx":0104
+         ItemData        =   "frmMain.frx":0104
          Left            =   3840
-         List            =   "Form1.frx":0106
+         List            =   "frmMain.frx":0106
          TabIndex        =   10
          Text            =   "Select Server"
          Top             =   360
@@ -312,9 +310,8 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
-         TextRTF         =   $"Form1.frx":0108
+         TextRTF         =   $"frmMain.frx":0108
       End
       Begin VB.Label Label1 
          Caption         =   "Channel:"
