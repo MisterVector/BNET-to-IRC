@@ -153,13 +153,13 @@ Begin VB.Form frmMain
          TextRTF         =   $"Form1.frx":0000
       End
       Begin RichTextLib.RichTextBox rtbChatIRCChat 
-         Height          =   3375
+         Height          =   3855
          Left            =   120
          TabIndex        =   25
          Top             =   1560
-         Width           =   5055
-         _ExtentX        =   8916
-         _ExtentY        =   5953
+         Width           =   6735
+         _ExtentX        =   11880
+         _ExtentY        =   6800
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
