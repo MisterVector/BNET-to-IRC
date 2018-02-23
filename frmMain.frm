@@ -3,7 +3,7 @@ Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "Mswinsck.ocx"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
-   Caption         =   "BNET To IRC Daemon"
+   Caption         =   "BNET To IRC %v"
    ClientHeight    =   6075
    ClientLeft      =   150
    ClientTop       =   780
@@ -148,6 +148,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
       End
@@ -162,6 +163,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
       End
@@ -310,6 +312,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0108
       End
@@ -501,6 +504,8 @@ Private Sub chkBtoIRC_Click()
 End Sub
 
 Private Sub Form_Load()
+  Me.Caption = Replace(Me.Caption, "%v", "v" & PROGRAM_VERSION)
+
   Dim val As Variant, arrGateways() As Variant, gateway As String, IPs() As String
 
   val = ReadINI("Main", "Top", "Config.ini")

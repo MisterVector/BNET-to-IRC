@@ -1,5 +1,6 @@
 Attribute VB_Name = "modVars"
-'// BNET SIDE
+Public Const PROGRAM_VERSION As String = "0.0.0"
+
 Public Const joinTillFlood = 5
 Public Const timeToWait = 3
 
