@@ -778,7 +778,7 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
   
   If KeyCode = 13 Then
     text = txtIRCChat.text
-    txtIRCChat.text = Split(txtIRCChat.text, vbNewLine)(0)
+    text = Replace(text, vbNewLine, vbNullString)
     txtIRCChat.text = vbNullString
     
     If Left(text, 1) = "/" Then
