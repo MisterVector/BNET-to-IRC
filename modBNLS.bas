@@ -1,8 +1,9 @@
 Attribute VB_Name = "modBNLS"
 Public Sub Send_BNLS_0x01(index As Integer)
   AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Hashing Key..."
+  
   With pBNLS(index)
-    .InsertDWORD BNET(index).ServerToken
+    .InsertDWORD BNET(index).serverToken
     .InsertNTString BNET(index).CDKey
     .sendPacket &H1, True, index
   End With
@@ -17,8 +18,9 @@ Public Sub Recv_BNLS_0x01(index As Integer)
   Else
     AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Key hashed successfully!"
   End If
+  
   With pBNLS(index)
-    BNET(index).ClientToken = .GetDWORD
+    BNET(index).clientToken = .GetDWORD
     BNET(index).CDKeyLength = .GetDWORD
     BNET(index).CDKeyProductValue = .GetDWORD
     BNET(index).CDKeyPublicValue = .GetDWORD
@@ -35,10 +37,11 @@ Public Sub Send_BNLS_0x09(index As Integer)
   If Not IsNumeric(lockdownFile) Or Left(lockdownFile, 1) = "-" Then lockdownFile = Mid(lockdownFile, 2)
 
   AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Requesting version info..."
+  
   With pBNLS(index)
     .InsertDWORD getProdID(BNET(index).prodStr)
     .InsertDWORD lockdownFile
-    .InsertNTString BNET(index).ValueString
+    .InsertNTString BNET(index).valueString
     .sendPacket &H9, True, index
   End With
 End Sub
@@ -49,9 +52,9 @@ Public Sub Recv_BNLS_0x09(index As Integer)
   Else
     AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Version info received!"
     With pBNLS(index)
-      BNET(index).EXEVersion = .GetDWORD
+      BNET(index).exeVersion = .GetDWORD
       BNET(index).checksum = .GetDWORD
-      BNET(index).EXEInfo = .getNTString
+      BNET(index).exeInfo = .getNTString
     End With
     
     Send_BNLS_0x0B index
@@ -63,8 +66,8 @@ Public Sub Send_BNLS_0x0B(index As Integer)
     .InsertDWORD Len(password)
     .InsertDWORD &H2
     .InsertNonNTString password
-    .InsertDWORD BNET(index).ClientToken
-    .InsertDWORD BNET(index).ServerToken
+    .InsertDWORD BNET(index).clientToken
+    .InsertDWORD BNET(index).serverToken
     .sendPacket &HB, True, index
   End With
 End Sub
@@ -72,18 +75,19 @@ End Sub
 Public Sub Recv_BNLS_0x0B(index As Integer)
   With pBNLS(index)
     If newAccFlag Then
-      BNET(index).NewAccPasswordHash = .GetNonNTString(20)
+      BNET(index).newAccPasswordHash = .GetNonNTString(20)
     Else
-      BNET(index).PasswordHash = .GetNonNTString(20)
+      BNET(index).passwordHash = .GetNonNTString(20)
     End If
   End With
 
   frmMain.sckBNLS(index).Close
+  
   If newAccFlag Then
     newAccFlag = False
     
     With pBNET(index)
-      .InsertNonNTString BNET(index).NewAccPasswordHash
+      .InsertNonNTString BNET(index).newAccPasswordHash
       .InsertNTString username
       .sendPacket &H3D, False, index
     End With

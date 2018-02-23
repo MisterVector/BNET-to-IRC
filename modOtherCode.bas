@@ -56,15 +56,15 @@ End Sub
 
 Public Sub SendToIRC(ByVal msg As String)
   If frmMain.sckIRC.State = sckConnected Then
-    frmMain.sckIRC.SendData "PRIVMSG " & IRC.Channel & " :" & msg & vbCrLf
+    frmMain.sckIRC.SendData "PRIVMSG " & IRC.channel & " :" & msg & vbCrLf
   End If
 End Sub
 
 Public Sub ConnectOtherBots()
-  If BotCount > 1 Then
+  If botCount > 1 Then
     For i = 1 To frmMain.sckBNET.Count - 1
       If frmMain.sckBNET(i).State = sckClosed Then
-        frmMain.sckBNET(i).Connect frmMain.cmbServer.Text, 6112
+        frmMain.sckBNET(i).Connect frmMain.cmbServer.text, 6112
       End If
     Next i
   End If

@@ -14,4 +14,3 @@ Public Sub AddChat(rtb As RichTextBox, ParamArray saElements() As Variant)
     Next i
   End With
 End Sub
-

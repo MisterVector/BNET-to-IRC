@@ -148,7 +148,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
       End
@@ -163,7 +162,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
       End
@@ -312,7 +310,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0108
       End
@@ -423,7 +420,6 @@ Private Sub btnConnectBNET_Click()
   bnetServer = cmbServer.text
   
   If btnConnectBNET.Caption = "Connect!" Then
-    
     AddChat rtbChatBNET, vbYellow, "Bot #0: [BNET] Connecting..."
     sckBNET(0).Connect cmbServer.text, 6112
     
@@ -463,16 +459,16 @@ Private Sub btnConnectIRC_Click()
     IRC.username = txtIRCUsername.text
     
     If InStr(txtIRCServer.text, ":") Then
-      IRC.Server = Split(txtIRCServer.text, ":")(0)
-      IRC.Port = Split(txtIRCServer.text, ":")(1)
+      IRC.server = Split(txtIRCServer.text, ":")(0)
+      IRC.port = Split(txtIRCServer.text, ":")(1)
     Else
-      IRC.Server = txtIRCServer.text
-      IRC.Port = 6667
+      IRC.server = txtIRCServer.text
+      IRC.port = 6667
     End If
   
     btnConnectIRC.Caption = "Disconnect!"
-    AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & IRC.Server & ":" & IRC.Port & "..."
-    sckIRC.Connect IRC.Server, IRC.Port
+    AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & IRC.server & ":" & IRC.port & "..."
+    sckIRC.Connect IRC.server, IRC.port
   Else
     AddChat rtbChatIRCConsole, vbRed, "[IRC] All connectiosn closed."
     btnConnectIRC.Caption = "Connect!"
@@ -482,8 +478,8 @@ Private Sub btnConnectIRC_Click()
       sckIRC.SendData "QUIT"
       DoEvents: DoEvents: DoEvents: DoEvents
     End If
-    sckIRC.Close
 
+    sckIRC.Close
   End If
 End Sub
 
@@ -525,7 +521,7 @@ Private Sub Form_Load()
   txtChannel.text = ReadINI("Main", "Channel", "Config.ini")
   
   cmbServer.text = ReadINI("Main", "Server", "Config.ini")
-  BNLSServer = ReadINI("Main", "BNLSServer", "Config.ini")
+  bnlsServer = ReadINI("Main", "BNLSServer", "Config.ini")
 
   If IsNumeric(ReadINI("Main", "BotCount", "Config.ini")) Then
     botCount = ReadINI("Main", "BotCount", "Config.ini")
@@ -622,7 +618,6 @@ Private Sub sckBNET_Connect(index As Integer)
   sckBNET(index).SendData Chr$(1)
   Send0x50 index
 End Sub
-
 
 Private Sub sckBNET_DataArrival(index As Integer, ByVal bytesTotal As Long)
   Dim data As String, pLen As Long, pID As Byte
@@ -796,7 +791,7 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
       If sckIRC.State <> sckConnected Then Exit Sub
 
       sckIRC.SendData "PRIVMSG " & IRC.channel & " :" & text & vbCrLf
-      AddChat rtbChatIRCChat, vbWhite, IRC.Server & " (", vbYellow, IRC.channel, vbWhite, ") " & text
+      AddChat rtbChatIRCChat, vbWhite, IRC.server & " (", vbYellow, IRC.channel, vbWhite, ") " & text
     End If
   End If
 End Sub

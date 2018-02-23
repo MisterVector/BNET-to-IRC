@@ -111,10 +111,10 @@ Private Sub btnOk_Click()
     Kill App.Path & "\Config.ini"
   End If
   
-  BotCount = lstKeys.ListCount
-  ReDim BNET(BotCount - 1)
+  botCount = lstKeys.ListCount
+  ReDim BNET(botCount - 1)
   
-  For i = 0 To BotCount - 1
+  For i = 0 To botCount - 1
     keyLine = lstKeys.List(i)
     
     key = Split(keyLine, " -> ")(0)
@@ -147,7 +147,7 @@ Public Function getProduct(ByVal prodIdx As Integer) As String
 End Function
 
 Private Sub Form_Load()
-  If BotCount > 0 Then
+  If botCount > 0 Then
     For i = 0 To UBound(BNET)
       lstKeys.AddItem BNET(i).CDKey & " -> " & BNET(i).prodStr
     Next i

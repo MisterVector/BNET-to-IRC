@@ -29,21 +29,22 @@ End Sub
 Public Sub Recv0x50(index As Integer)
   With pBNET(index)
     .Skip 4
-    BNET(index).ClientToken = GetTickCount
-    BNET(index).ServerToken = .GetDWORD
+    BNET(index).clientToken = GetTickCount
+    BNET(index).serverToken = .GetDWORD
     .Skip 12
-    BNET(index).LockdownFile = .getNTString
-    BNET(index).ValueString = .getNTString
+    BNET(index).lockdownFile = .getNTString
+    BNET(index).valueString = .getNTString
   End With
-  
-  AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Connecting to " & BNLSServer & "..."
-  frmMain.sckBNLS(index).Connect BNLSServer, 9367
+
+  AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Connecting to " & bnlsServer & "..."
+
+  frmMain.sckBNLS(index).Connect bnlsServer, 9367
 End Sub
 
 Public Sub Send0x51(index As Integer)
   With pBNET(index)
-    .InsertDWORD BNET(index).ClientToken
-    .InsertDWORD BNET(index).EXEVersion
+    .InsertDWORD BNET(index).clientToken
+    .InsertDWORD BNET(index).exeVersion
     .InsertDWORD BNET(index).checksum
     .InsertDWORD &H1
     .InsertDWORD &H0
@@ -52,7 +53,7 @@ Public Sub Send0x51(index As Integer)
     .InsertDWORD BNET(index).CDKeyPublicValue
     .InsertDWORD &H0
     .InsertNonNTString BNET(index).CDKeyHash
-    .InsertNTString BNET(index).EXEInfo
+    .InsertNTString BNET(index).exeInfo
     .InsertNTString "BNET to IRC"
     .sendPacket &H51, False, index
   End With
@@ -62,6 +63,7 @@ Public Sub Recv0x51(index As Integer)
   Dim results As Long
   
   results = pBNET(index).GetDWORD
+  
   Select Case results
     Case &H0:    AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & " [BNET] CDKey is accepted."
     Case &H100:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & " [BNET] Your game is out of date."
@@ -85,10 +87,11 @@ End Sub
 
 Public Sub Send0x3A(index As Integer)
   AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNET] Logging in..."
+  
   With pBNET(index)
-    .InsertDWORD BNET(index).ClientToken
-    .InsertDWORD BNET(index).ServerToken
-    .InsertNonNTString BNET(index).PasswordHash
+    .InsertDWORD BNET(index).clientToken
+    .InsertDWORD BNET(index).serverToken
+    .InsertNonNTString BNET(index).passwordHash
     .InsertNTString frmMain.txtUsername.text
     .sendPacket &H3A, False, index
   End With
@@ -104,7 +107,7 @@ Public Sub Recv0x3A(index As Integer)
     Case &H1: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account does not exist!"
               AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": Creating account..."
               newAccFlag = True
-              frmMain.sckBNLS(index).Connect BNLSServer, 9367
+              frmMain.sckBNLS(index).Connect bnlsServer, 9367
               
     Case &H2: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Password is invalid!"
     Case &H6: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account is closed: " & pBNET(index).getNTString
@@ -131,11 +134,11 @@ Public Sub Send0x0A(index As Integer)
 End Sub
 
 Public Sub Recv0x0A(index As Integer)
-  BNET(index).UniqueName = pBNET(index).getNTString
+  BNET(index).uniqueName = pBNET(index).getNTString
   pBNET(index).getNTString 'skip statstring
-  BNET(index).AccountName = pBNET(index).getNTString
+  BNET(index).accountName = pBNET(index).getNTString
   
-  AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": Logged in as " & BNET(index).UniqueName
+  AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": Logged in as " & BNET(index).uniqueName
 End Sub
 
 Public Sub Send0x0B(index As Integer)
@@ -165,6 +168,7 @@ Public Sub Recv0x0F(index As Integer)
     .Skip 16
     user = .getNTString
     text = .getNTString
+    
     Select Case ID
       Case &H2:
                 If Not supressEvent Then
@@ -181,7 +185,7 @@ Public Sub Recv0x0F(index As Integer)
                   AddChat frmMain.rtbChatBNET, vbWhite, "<" & user & "> ", vbYellow, text
         
                   For i = 0 To UBound(BNET)
-                    If Left(LCase(user), Len(BNET(i).AccountName)) = LCase(BNET(i).AccountName) Then
+                    If Left(LCase(user), Len(BNET(i).accountName)) = LCase(BNET(i).accountName) Then
                       Exit Sub
                     End If
                   Next i
@@ -193,7 +197,7 @@ Public Sub Recv0x0F(index As Integer)
                 End If
       Case &H7: AddChat frmMain.rtbChatBNET, vbYellow, "You joined the channel ", vbWhite, text
                 myChannel = text
-                If isBroadcastToIRC Then SendToIRC BNET(index).UniqueName & " has joined the Battle.Net channel " & myChannel
+                If isBroadcastToIRC Then SendToIRC BNET(index).uniqueName & " has joined the Battle.Net channel " & myChannel
     End Select
   End With
 End Sub
