@@ -445,22 +445,22 @@ Private Sub btnConnectBNET_Click()
 End Sub
 
 Private Sub btnConnectIRC_Click()
-  If txtIRCServer.text = vbNullString Then
-    MsgBox "You have not entered a server name!", vbOKOnly, PROGRAM_VERSION
-    Exit Sub
-  End If
-
-  If txtIRCUsername.text = vbNullString Then
-    MsgBox "No username was entered!", vbOKOnly, PROGRAM_VERSION
-    Exit Sub
-  End If
-  
-  If txtIRCChannel.text = vbNullString Then
-    MsgBox "No IRC channel specified!", vbOKOnly, PROGRAM_VERSION
-    Exit Sub
-  End If
-  
   If btnConnectIRC.Caption = "Connect!" Then
+    If txtIRCServer.text = vbNullString Then
+      MsgBox "You have not entered a server name!", vbOKOnly, PROGRAM_VERSION
+      Exit Sub
+    End If
+  
+    If txtIRCUsername.text = vbNullString Then
+      MsgBox "No username was entered!", vbOKOnly, PROGRAM_VERSION
+      Exit Sub
+    End If
+    
+    If txtIRCChannel.text = vbNullString Then
+      MsgBox "No IRC channel specified!", vbOKOnly, PROGRAM_VERSION
+      Exit Sub
+    End If
+  
     IRC.username = txtIRCUsername.text
     IRC.channel = txtIRCChannel.text
     
