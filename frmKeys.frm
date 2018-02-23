@@ -92,7 +92,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub btnAdd_Click()
   If cmbProduct.text = "Choose product for this key" Then
-    MsgBox "Choose a product for this key."
+    MsgBox "Choose a product for this key.", vbOKOnly, PROGRAM_VERSION
     Exit Sub
   End If
 

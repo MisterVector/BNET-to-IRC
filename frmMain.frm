@@ -148,6 +148,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
       End
@@ -162,6 +163,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
       End
@@ -310,6 +312,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0108
       End
@@ -410,7 +413,7 @@ Private Sub btnConnectBNET_Click()
   Dim socketsStillAlive As Boolean, username As String, password As String, channel As String, bnetServer As String
 
   If botCount = 0 Then
-    MsgBox "Your keys are not configured. Go to File -> Manage Keys first."
+    MsgBox "Your keys are not configured. Go to File -> Manage Keys first.", vbOKOnly, PROGRAM_VERSION
     Exit Sub
   End If
   
@@ -446,12 +449,12 @@ End Sub
 
 Private Sub btnConnectIRC_Click()
   If txtIRCServer.text = vbNullString Then
-    MsgBox "You have not entered a server name!"
+    MsgBox "You have not entered a server name!", vbOKOnly, PROGRAM_VERSION
     Exit Sub
   End If
 
   If txtIRCUsername.text = vbNullString Then
-    MsgBox "No username was entered!"
+    MsgBox "No username was entered!", vbOKOnly, PROGRAM_VERSION
     Exit Sub
   End If
   

@@ -1,5 +1,6 @@
 Attribute VB_Name = "modVars"
 Public Const PROGRAM_VERSION As String = "0.0.0"
+Public Const PROGRAM_TITLE As String = "BNET to IRC v" & PROGRAM_VERSION
 
 Public Const joinTillFlood = 5
 Public Const timeToWait = 3
