@@ -157,7 +157,7 @@ Public Sub Send0x0C(index As Integer)
 End Sub
 
 Public Sub Recv0x0F(index As Integer)
-  Dim user As String, text As String, ID As Long, flags As Long, myChannel As String
+  Dim user As String, text As String, ID As Long, flags As Long
   Dim supressEvent As Boolean
 
   If index <> findFirstAliveBot Then supressEvent = True
@@ -172,13 +172,13 @@ Public Sub Recv0x0F(index As Integer)
     Select Case ID
       Case &H2:
                 If Not supressEvent Then
-                  AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " joined " & myChannel
-                  If isBroadcastToIRC Then SendToIRC user & " has joined " & myChannel & "."
+                  AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " joined " & text
+                  If isBroadcastToIRC Then SendToIRC user & " has joined " & text & "."
                 End If
       Case &H3:
                 If Not supressEvent Then
-                  AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " left " & myChannel
-                  If isBroadcastToIRC Then SendToIRC user & " has left " & myChannel & "."
+                  AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " left " & text
+                  If isBroadcastToIRC Then SendToIRC user & " has left " & text & "."
                 End If
       Case &H5, &H17:
                 If Not supressEvent Then
@@ -196,8 +196,7 @@ Public Sub Recv0x0F(index As Integer)
                   End If
                 End If
       Case &H7: AddChat frmMain.rtbChatBNET, vbYellow, "You joined the channel ", vbWhite, text
-                myChannel = text
-                If isBroadcastToIRC Then SendToIRC BNET(index).uniqueName & " has joined the Battle.Net channel " & myChannel
+                If isBroadcastToIRC Then SendToIRC BNET(index).uniqueName & " has joined the Battle.Net channel " & text
     End Select
   End With
 End Sub
