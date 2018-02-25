@@ -116,7 +116,6 @@ Private Sub btnOk_Click()
   
   For i = 0 To botCount - 1
     keyLine = lstKeys.List(i)
-    
     key = Split(keyLine, " -> ")(0)
     product = Split(keyLine, " -> ")(1)
   

@@ -478,6 +478,7 @@ Private Sub btnConnectIRC_Click()
   Else
     AddChat rtbChatIRCConsole, vbRed, "[IRC] All connectiosn closed."
     btnConnectIRC.Caption = "Connect!"
+    
     If sckIRC.State = sckConnected Then
       'SendToBNET "Disconnected from " & IRC.Server & "!"
       SendToBNET "Disconnected from IRC!"
@@ -545,6 +546,7 @@ Private Sub Form_Load()
 
         Set pBNET(i) = New clsPacket
         Set pBNLS(i) = New clsPacket
+        
         With BNET(i)
           .prodStr = ReadINI(i, "Product", "Config.ini")
           .CDKey = ReadINI(i, "CDKey", "Config.ini")
@@ -627,6 +629,7 @@ End Sub
 
 Private Sub sckBNET_DataArrival(index As Integer, ByVal bytesTotal As Long)
   Dim data As String, pLen As Long, pID As Byte
+  
   sckBNET(index).GetData data
   
   Do While Len(data) > 0
@@ -739,6 +742,7 @@ Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
     If Left(data, 5) = "PING " Then
       AddChat rtbChatIRCConsole, vbWhite, "PING has been PONG'D"
       sckIRC.SendData "PONG " & Mid(data, 6) & vbCrLf
+      
       Exit Sub
     End If
   End If
@@ -746,6 +750,7 @@ End Sub
 
 Private Sub tmrReleaseQueue_Timer()
   Dim qMsg As String
+  
   qMsg = dicQueue.Item(dicIdx)
   
   With pBNET(bIdx)
@@ -754,12 +759,12 @@ Private Sub tmrReleaseQueue_Timer()
   End With
   
   bIdx = bIdx + 1
+  dicIdx = dicIdx + 1
+  
   If bIdx = sckBNET.Count Then bIdx = 0
   
-  dicIdx = dicIdx + 1
   If dicIdx > dicQueue.Count Then
     dicIdx = 1
-    
     dicQueue.RemoveAll
     tmrReleaseQueue.Enabled = False
   End If

@@ -12,8 +12,10 @@ End Sub
 Public Sub Recv_BNLS_0x01(index As Integer)
   If pBNLS(index).GetDWORD = &H0 Then
     AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] Key hash failed!"
+    
     frmMain.sckBNET(index).Close
     frmMain.sckBNLS(index).Close
+    
     Exit Sub
   Else
     AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Key hashed successfully!"
