@@ -530,8 +530,10 @@ Private Sub Form_Load()
   cmbServer.text = ReadINI("Main", "Server", "Config.ini")
   bnlsServer = ReadINI("Main", "BNLSServer", "Config.ini")
 
-  If IsNumeric(ReadINI("Main", "BotCount", "Config.ini")) Then
-    botCount = ReadINI("Main", "BotCount", "Config.ini")
+  val = ReadINI("Main", "BotCount", "Config.ini")
+
+  If IsNumeric(val) Then
+    botCount = val
     
     If (botCount > 0) Then
       ReDim pBNET(botCount - 1)
