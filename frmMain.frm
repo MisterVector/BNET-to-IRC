@@ -148,6 +148,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
       End
@@ -162,6 +163,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
       End
@@ -310,6 +312,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0108
       End
@@ -386,6 +389,12 @@ Begin VB.Form frmMain
       Caption         =   "File"
       Begin VB.Menu mnuKeys 
          Caption         =   "Manage Keys"
+      End
+      Begin VB.Menu mnuSeparator1 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuQuit 
+         Caption         =   "Quit"
       End
    End
 End
@@ -602,15 +611,15 @@ Private Sub Form_Unload(Cancel As Integer)
   WriteINI "IRC", "Server", txtIRCServer.text, "Config.ini"
   WriteINI "IRC", "Channel", txtIRCChannel.text, "Config.ini"
 
-  Dim oFrm As Form
-
-  For Each oFrm In Forms
-    Unload oFrm
-  Next
+  quitProgram
 End Sub
 
 Private Sub mnuKeys_Click()
   frmKeys.Show
+End Sub
+
+Private Sub mnuQuit_Click()
+  quitProgram
 End Sub
 
 Private Sub rcChat_Click()

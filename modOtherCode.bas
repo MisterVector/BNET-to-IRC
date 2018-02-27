@@ -70,3 +70,10 @@ Public Sub ConnectOtherBots()
   End If
 End Sub
 
+Public Sub quitProgram()
+  Dim oFrm As Form
+
+  For Each oFrm In Forms
+    Unload oFrm
+  Next
+End Sub
