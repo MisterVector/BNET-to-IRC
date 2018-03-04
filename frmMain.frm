@@ -517,13 +517,13 @@ Private Sub Form_Load()
 
   Dim val As Variant, arrGateways() As Variant, gateway As String, IPs() As String
 
-  val = ReadINI("Main", "Top", "Config.ini")
+  val = ReadINI("Window", "Top", "Config.ini")
 
   If (IsNumeric(val)) Then
     Me.Top = val
   End If
 
-  val = ReadINI("Main", "Left", "Config.ini")
+  val = ReadINI("Window", "Left", "Config.ini")
 
   If (IsNumeric(val)) Then
     Me.Left = val
@@ -590,8 +590,8 @@ Private Sub Form_Unload(Cancel As Integer)
     Kill App.Path & "\Config.ini"
   End If
 
-  WriteINI "Main", "Top", Me.Top, "Config.ini"
-  WriteINI "Main", "Left", Me.Left, "Config.ini"
+  WriteINI "Window", "Top", Me.Top, "Config.ini"
+  WriteINI "Window", "Left", Me.Left, "Config.ini"
 
   WriteINI "Main", "BNETUsername", txtBNETUsername.text, "Config.ini"
   WriteINI "Main", "BNETPassword", txtBNETPassword.text, "Config.ini"
