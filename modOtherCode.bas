@@ -62,7 +62,7 @@ Public Sub ConnectOtherBots()
   If config.bnetKeyCount > 1 Then
     For i = 1 To frmMain.sckBNET.Count - 1
       If frmMain.sckBNET(i).State = sckClosed Then
-        frmMain.sckBNET(i).Connect frmMain.cmbServer.text, 6112
+        frmMain.sckBNET(i).Connect frmMain.cmbBNETServer.text, 6112
       End If
     Next i
   End If

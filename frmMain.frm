@@ -233,7 +233,7 @@ Begin VB.Form frmMain
       TabIndex        =   0
       Top             =   120
       Width           =   6975
-      Begin VB.TextBox txtChannel 
+      Begin VB.TextBox txtBNETChannel 
          Height          =   285
          Left            =   3840
          TabIndex        =   24
@@ -273,7 +273,7 @@ Begin VB.Form frmMain
          Top             =   5520
          Width           =   4815
       End
-      Begin VB.ComboBox cmbServer 
+      Begin VB.ComboBox cmbBNETServer 
          Height          =   315
          ItemData        =   "frmMain.frx":0104
          Left            =   3840
@@ -283,7 +283,7 @@ Begin VB.Form frmMain
          Top             =   360
          Width           =   1455
       End
-      Begin VB.TextBox txtPassword 
+      Begin VB.TextBox txtBNETPassword 
          Height          =   285
          IMEMode         =   3  'DISABLE
          Left            =   1200
@@ -292,7 +292,7 @@ Begin VB.Form frmMain
          Top             =   720
          Width           =   1455
       End
-      Begin VB.TextBox txtUsername 
+      Begin VB.TextBox txtBNETUsername 
          Height          =   285
          Left            =   1200
          TabIndex        =   8
@@ -420,14 +420,14 @@ Private Sub btnConnectBNET_Click()
     Exit Sub
   End If
   
-  config.bnetUsername = txtUsername.text
-  config.bnetPassword = txtPassword.text
-  config.bnetChannel = txtChannel.text
-  config.bnetServer = cmbServer.text
+  config.bnetUsername = txtBNETUsername.text
+  config.bnetPassword = txtBNETPassword.text
+  config.bnetChannel = txtBNETChannel.text
+  config.bnetServer = cmbBNETServer.text
   
   If btnConnectBNET.Caption = "Connect!" Then
     AddChat rtbChatBNET, vbYellow, "Bot #0: [BNET] Connecting..."
-    sckBNET(0).Connect cmbServer.text, 6112
+    sckBNET(0).Connect cmbBNETServer.text, 6112
     
     btnConnectBNET.Caption = "Disconnect!"
   Else
@@ -529,11 +529,11 @@ Private Sub Form_Load()
     Me.Left = val
   End If
 
-  txtUsername.text = ReadINI("Main", "Username", "Config.ini")
-  txtPassword.text = ReadINI("Main", "Password", "Config.ini")
-  txtChannel.text = ReadINI("Main", "Channel", "Config.ini")
+  txtBNETUsername.text = ReadINI("Main", "BNETUsername", "Config.ini")
+  txtBNETPassword.text = ReadINI("Main", "BNETPassword", "Config.ini")
+  txtBNETChannel.text = ReadINI("Main", "BNETChannel", "Config.ini")
   
-  cmbServer.text = ReadINI("Main", "Server", "Config.ini")
+  cmbBNETServer.text = ReadINI("Main", "BNETServer", "Config.ini")
   config.bnlsServer = ReadINI("Main", "BNLSServer", "Config.ini")
 
   val = ReadINI("Main", "BNETKeyCount", "Config.ini")
@@ -563,24 +563,24 @@ Private Sub Form_Load()
     End If
   End If
   
-  txtIRCUsername.text = ReadINI("IRC", "Username", "Config.ini")
-  txtIRCServer.text = ReadINI("IRC", "Server", "Config.ini")
-  txtIRCChannel.text = ReadINI("IRC", "Channel", "Config.ini")
+  txtIRCUsername.text = ReadINI("Main", "IRCUsername", "Config.ini")
+  txtIRCServer.text = ReadINI("Main", "IRCServer", "Config.ini")
+  txtIRCChannel.text = ReadINI("Main", "IRCChannel", "Config.ini")
   rcConsole.value = True
 
   arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net")
 
   For i = 0 To 3
     gateway = arrGateways(i)
-    cmbServer.AddItem gateway
+    cmbBNETServer.AddItem gateway
     IPs = Split(Resolve(gateway))
 
     For j = 0 To UBound(IPs)
-      cmbServer.AddItem IPs(j)
+      cmbBNETServer.AddItem IPs(j)
     Next j
 
     If (i < 3) Then
-      cmbServer.AddItem ""
+      cmbBNETServer.AddItem ""
     End If
   Next i
 End Sub
@@ -593,21 +593,20 @@ Private Sub Form_Unload(Cancel As Integer)
   WriteINI "Main", "Top", Me.Top, "Config.ini"
   WriteINI "Main", "Left", Me.Left, "Config.ini"
 
-  WriteINI "Main", "Username", txtUsername.text, "Config.ini"
-  WriteINI "Main", "Password", txtPassword.text, "Config.ini"
-  WriteINI "Main", "Channel", txtChannel.text, "Config.ini"
-  WriteINI "Main", "Server", cmbServer.text, "Config.ini"
+  WriteINI "Main", "BNETUsername", txtBNETUsername.text, "Config.ini"
+  WriteINI "Main", "BNETPassword", txtBNETPassword.text, "Config.ini"
+  WriteINI "Main", "BNETChannel", txtBNETChannel.text, "Config.ini"
+  WriteINI "Main", "BNETServer", cmbBNETServer.text, "Config.ini"
   WriteINI "Main", "BNETKeyCount", config.bnetKeyCount, "Config.ini"
+  WriteINI "Main", "IRCUsername", txtIRCUsername.text, "Config.ini"
+  WriteINI "Main", "IRCServer", txtIRCServer.text, "Config.ini"
+  WriteINI "Main", "IRCChannel", txtIRCChannel.text, "Config.ini"
 
   For i = 0 To config.bnetKeyCount - 1
     WriteINI i, "Product", bnetData(i).product, "Config.ini"
     WriteINI i, "CDKey", bnetData(i).cdKey, "Config.ini"
   Next i
   
-  WriteINI "IRC", "Username", txtIRCUsername.text, "Config.ini"
-  WriteINI "IRC", "Server", txtIRCServer.text, "Config.ini"
-  WriteINI "IRC", "Channel", txtIRCChannel.text, "Config.ini"
-
   quitProgram
 End Sub
 
