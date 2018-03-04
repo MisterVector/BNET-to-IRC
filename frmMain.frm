@@ -580,7 +580,7 @@ Private Sub Form_Load()
     Next j
 
     If (i < 3) Then
-      cmbBNETServer.AddItem ""
+      cmbBNETServer.AddItem vbNullString
     End If
   Next i
 End Sub
@@ -780,7 +780,7 @@ End Sub
 Private Sub txtBNETChat_KeyDown(KeyCode As Integer, Shift As Integer)
   If KeyCode = 13 Then
     If sckBNET(bnetSocketIndex).State = sckConnected Then
-      txtBNETChat.text = Replace(txtBNETChat.text, vbNewLine, "")
+      txtBNETChat.text = Replace(txtBNETChat.text, vbNewLine, vbNullString)
       AddChat rtbChatBNET, vbYellow, "Bot #" & bnetSocketIndex & ": <" & config.bnetUsername & "> ", vbWhite, txtBNETChat.text
       SendToBNET txtBNETChat.text
       txtBNETChat.text = vbNullString
