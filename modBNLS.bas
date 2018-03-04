@@ -2,15 +2,15 @@ Attribute VB_Name = "modBNLS"
 Public Sub Send_BNLS_0x01(index As Integer)
   AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Hashing Key..."
   
-  With pBNLS(index)
-    .InsertDWORD BNET(index).serverToken
-    .InsertNTString BNET(index).CDKey
+  With bnlsPacketBuffer(index)
+    .InsertDWORD bnetData(index).serverToken
+    .InsertNTString bnetData(index).cdKey
     .sendPacket &H1, True, index
   End With
 End Sub
 
 Public Sub Recv_BNLS_0x01(index As Integer)
-  If pBNLS(index).GetDWORD = &H0 Then
+  If bnlsPacketBuffer(index).GetDWORD = &H0 Then
     AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] Key hash failed!"
     
     frmMain.sckBNET(index).Close
@@ -21,13 +21,13 @@ Public Sub Recv_BNLS_0x01(index As Integer)
     AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Key hashed successfully!"
   End If
   
-  With pBNLS(index)
-    BNET(index).clientToken = .GetDWORD
-    BNET(index).CDKeyLength = .GetDWORD
-    BNET(index).CDKeyProductValue = .GetDWORD
-    BNET(index).CDKeyPublicValue = .GetDWORD
+  With bnlsPacketBuffer(index)
+    bnetData(index).clientToken = .GetDWORD
+    bnetData(index).cdKeyLength = .GetDWORD
+    bnetData(index).cdKeyProductValue = .GetDWORD
+    bnetData(index).cdKeyPublicValue = .GetDWORD
     .Skip 4
-    BNET(index).CDKeyHash = .GetNonNTString(20)
+    bnetData(index).cdKeyHash = .GetNonNTString(20)
   End With
   
   Send_BNLS_0x09 index
@@ -35,28 +35,28 @@ End Sub
 
 Public Sub Send_BNLS_0x09(index As Integer)
   Dim lockdownFile As String
-  lockdownFile = Mid(BNET(index).lockdownFile, InStr(BNET(index).lockdownFile, "mpq") - 3, 2)
+  lockdownFile = Mid(bnetData(index).lockdownFile, InStr(bnetData(index).lockdownFile, "mpq") - 3, 2)
   If Not IsNumeric(lockdownFile) Or Left(lockdownFile, 1) = "-" Then lockdownFile = Mid(lockdownFile, 2)
 
   AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Requesting version info..."
   
-  With pBNLS(index)
-    .InsertDWORD getProdID(BNET(index).prodStr)
+  With bnlsPacketBuffer(index)
+    .InsertDWORD getProdID(bnetData(index).product)
     .InsertDWORD lockdownFile
-    .InsertNTString BNET(index).valueString
+    .InsertNTString bnetData(index).valueString
     .sendPacket &H9, True, index
   End With
 End Sub
 
 Public Sub Recv_BNLS_0x09(index As Integer)
-  If pBNLS(index).GetDWORD = &H0 Then
+  If bnlsPacketBuffer(index).GetDWORD = &H0 Then
     AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] Failed to get version info!"
   Else
     AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Version info received!"
-    With pBNLS(index)
-      BNET(index).exeVersion = .GetDWORD
-      BNET(index).checksum = .GetDWORD
-      BNET(index).exeInfo = .getNTString
+    With bnlsPacketBuffer(index)
+      bnetData(index).exeVersion = .GetDWORD
+      bnetData(index).checksum = .GetDWORD
+      bnetData(index).exeInfo = .getNTString
     End With
     
     Send_BNLS_0x0B index
@@ -64,22 +64,22 @@ Public Sub Recv_BNLS_0x09(index As Integer)
 End Sub
 
 Public Sub Send_BNLS_0x0B(index As Integer)
-  With pBNLS(index)
-    .InsertDWORD Len(password)
+  With bnlsPacketBuffer(index)
+    .InsertDWORD Len(config.bnetPassword)
     .InsertDWORD &H2
-    .InsertNonNTString password
-    .InsertDWORD BNET(index).clientToken
-    .InsertDWORD BNET(index).serverToken
+    .InsertNonNTString config.bnetPassword
+    .InsertDWORD bnetData(index).clientToken
+    .InsertDWORD bnetData(index).serverToken
     .sendPacket &HB, True, index
   End With
 End Sub
 
 Public Sub Recv_BNLS_0x0B(index As Integer)
-  With pBNLS(index)
+  With bnlsPacketBuffer(index)
     If newAccFlag Then
-      BNET(index).newAccPasswordHash = .GetNonNTString(20)
+      bnetData(index).newAccPasswordHash = .GetNonNTString(20)
     Else
-      BNET(index).passwordHash = .GetNonNTString(20)
+      bnetData(index).passwordHash = .GetNonNTString(20)
     End If
   End With
 
@@ -88,9 +88,9 @@ Public Sub Recv_BNLS_0x0B(index As Integer)
   If newAccFlag Then
     newAccFlag = False
     
-    With pBNET(index)
-      .InsertNonNTString BNET(index).newAccPasswordHash
-      .InsertNTString username
+    With bnetPacketBuffer(index)
+      .InsertNonNTString bnetData(index).newAccPasswordHash
+      .InsertNTString config.bnetUsername
       .sendPacket &H3D, False, index
     End With
   Else

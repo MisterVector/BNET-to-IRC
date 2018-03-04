@@ -3,7 +3,7 @@ Private Sub AddQ(ByVal msg As String)
   dicQueue.Add dicQueue.Count + 1, msg
 
   If Not frmMain.tmrReleaseQueue.Enabled Then
-    dicIdx = 1
+    dicQueueIndex = 1
     frmMain.tmrReleaseQueue.Enabled = True
   End If
 End Sub
@@ -38,8 +38,6 @@ End Function
 Public Sub SendToBNET(ByVal msg As String)
   If (findFirstAliveBot() = -1) Then Exit Sub
 
-  Dim grabPartOfMessage As String
-
   If Len(msg) > 140 Then
     Do While Len(msg) > 140
       AddQ Mid(msg, 1, 140) & " [more]"
@@ -56,12 +54,12 @@ End Sub
 
 Public Sub SendToIRC(ByVal msg As String)
   If frmMain.sckIRC.State = sckConnected Then
-    frmMain.sckIRC.SendData "PRIVMSG " & IRC.channel & " :" & msg & vbCrLf
+    frmMain.sckIRC.SendData "PRIVMSG " & config.ircChannel & " :" & msg & vbCrLf
   End If
 End Sub
 
 Public Sub ConnectOtherBots()
-  If botCount > 1 Then
+  If config.bnetKeyCount > 1 Then
     For i = 1 To frmMain.sckBNET.Count - 1
       If frmMain.sckBNET(i).State = sckClosed Then
         frmMain.sckBNET(i).Connect frmMain.cmbServer.text, 6112

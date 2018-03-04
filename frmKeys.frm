@@ -111,17 +111,17 @@ Private Sub btnOk_Click()
     Kill App.Path & "\Config.ini"
   End If
   
-  botCount = lstKeys.ListCount
-  ReDim BNET(botCount - 1)
+  config.bnetKeyCount = lstKeys.ListCount
+  ReDim bnetData(config.bnetKeyCount - 1)
   
-  For i = 0 To botCount - 1
+  For i = 0 To config.bnetKeyCount - 1
     keyLine = lstKeys.List(i)
     key = Split(keyLine, " -> ")(0)
     product = Split(keyLine, " -> ")(1)
   
-    With BNET(i)
-      .CDKey = key
-      .prodStr = product
+    With bnetData(i)
+      .cdKey = key
+      .product = product
     End With
     
     WriteINI i, "Product", product, "Config.ini"
@@ -146,9 +146,9 @@ Public Function getProduct(ByVal prodIdx As Integer) As String
 End Function
 
 Private Sub Form_Load()
-  If botCount > 0 Then
-    For i = 0 To UBound(BNET)
-      lstKeys.AddItem BNET(i).CDKey & " -> " & BNET(i).prodStr
+  If config.bnetKeyCount > 0 Then
+    For i = 0 To UBound(bnetData)
+      lstKeys.AddItem bnetData(i).cdKey & " -> " & bnetData(i).product
     Next i
   End If
 End Sub

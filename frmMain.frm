@@ -413,17 +413,17 @@ Private Sub chkDisplayRTB_Click()
 End Sub
 
 Private Sub btnConnectBNET_Click()
-  Dim socketsStillAlive As Boolean, username As String, password As String, channel As String, bnetServer As String
+  Dim socketsStillAlive As Boolean
 
-  If botCount = 0 Then
+  If config.bnetKeyCount = 0 Then
     MsgBox "Your keys are not configured. Go to File -> Manage Keys first.", vbOKOnly, PROGRAM_VERSION
     Exit Sub
   End If
   
-  username = txtUsername.text
-  password = txtPassword.text
-  channel = txtChannel.text
-  bnetServer = cmbServer.text
+  config.bnetUsername = txtUsername.text
+  config.bnetPassword = txtPassword.text
+  config.bnetChannel = txtChannel.text
+  config.bnetServer = cmbServer.text
   
   If btnConnectBNET.Caption = "Connect!" Then
     AddChat rtbChatBNET, vbYellow, "Bot #0: [BNET] Connecting..."
@@ -467,26 +467,26 @@ Private Sub btnConnectIRC_Click()
       Exit Sub
     End If
   
-    IRC.username = txtIRCUsername.text
-    IRC.channel = txtIRCChannel.text
+    config.ircUsername = txtIRCUsername.text
+    config.ircChannel = txtIRCChannel.text
     
     If InStr(txtIRCServer.text, ":") Then
-      IRC.server = Split(txtIRCServer.text, ":")(0)
-      IRC.port = Split(txtIRCServer.text, ":")(1)
+      config.ircServer = Split(txtIRCServer.text, ":")(0)
+      config.ircPort = Split(txtIRCServer.text, ":")(1)
     Else
-      IRC.server = txtIRCServer.text
-      IRC.port = 6667
+      config.ircServer = txtIRCServer.text
+      config.ircPort = 6667
     End If
   
     btnConnectIRC.Caption = "Disconnect!"
-    AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & IRC.server & ":" & IRC.port & "..."
-    sckIRC.Connect IRC.server, IRC.port
+    AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & config.ircServer & ":" & config.ircPort & "..."
+    sckIRC.Connect config.ircServer, config.ircPort
   Else
     AddChat rtbChatIRCConsole, vbRed, "[IRC] All connectiosn closed."
     btnConnectIRC.Caption = "Connect!"
     
     If sckIRC.State = sckConnected Then
-      'SendToBNET "Disconnected from " & IRC.Server & "!"
+      'SendToBNET "Disconnected from " & config.ircServer & "!"
       SendToBNET "Disconnected from IRC!"
       sckIRC.SendData "QUIT"
       DoEvents: DoEvents: DoEvents: DoEvents
@@ -534,30 +534,30 @@ Private Sub Form_Load()
   txtChannel.text = ReadINI("Main", "Channel", "Config.ini")
   
   cmbServer.text = ReadINI("Main", "Server", "Config.ini")
-  bnlsServer = ReadINI("Main", "BNLSServer", "Config.ini")
+  config.bnlsServer = ReadINI("Main", "BNLSServer", "Config.ini")
 
-  val = ReadINI("Main", "BotCount", "Config.ini")
+  val = ReadINI("Main", "BNETKeyCount", "Config.ini")
 
   If IsNumeric(val) Then
-    botCount = val
+    config.bnetKeyCount = val
     
-    If (botCount > 0) Then
-      ReDim pBNET(botCount - 1)
-      ReDim pBNLS(botCount - 1)
-      ReDim BNET(botCount - 1)
+    If (config.bnetKeyCount > 0) Then
+      ReDim bnetPacketBuffer(config.bnetKeyCount - 1)
+      ReDim bnlsPacketBuffer(config.bnetKeyCount - 1)
+      ReDim bnetData(config.bnetKeyCount - 1)
       
-      For i = 0 To botCount - 1
+      For i = 0 To config.bnetKeyCount - 1
         If i > 0 Then
           Load sckBNET(i)
           Load sckBNLS(i)
         End If
 
-        Set pBNET(i) = New clsPacket
-        Set pBNLS(i) = New clsPacket
+        Set bnetPacketBuffer(i) = New clsPacketBuffer
+        Set bnlsPacketBuffer(i) = New clsPacketBuffer
         
-        With BNET(i)
-          .prodStr = ReadINI(i, "Product", "Config.ini")
-          .CDKey = ReadINI(i, "CDKey", "Config.ini")
+        With bnetData(i)
+          .product = ReadINI(i, "Product", "Config.ini")
+          .cdKey = ReadINI(i, "CDKey", "Config.ini")
         End With
       Next i
     End If
@@ -597,11 +597,11 @@ Private Sub Form_Unload(Cancel As Integer)
   WriteINI "Main", "Password", txtPassword.text, "Config.ini"
   WriteINI "Main", "Channel", txtChannel.text, "Config.ini"
   WriteINI "Main", "Server", cmbServer.text, "Config.ini"
-  WriteINI "Main", "BotCount", botCount, "Config.ini"
+  WriteINI "Main", "BNETKeyCount", config.bnetKeyCount, "Config.ini"
 
-  For i = 0 To botCount - 1
-    WriteINI i, "Product", BNET(i).prodStr, "Config.ini"
-    WriteINI i, "CDKey", BNET(i).CDKey, "Config.ini"
+  For i = 0 To config.bnetKeyCount - 1
+    WriteINI i, "Product", bnetData(i).product, "Config.ini"
+    WriteINI i, "CDKey", bnetData(i).cdKey, "Config.ini"
   Next i
   
   WriteINI "IRC", "Username", txtIRCUsername.text, "Config.ini"
@@ -643,7 +643,7 @@ Private Sub sckBNET_DataArrival(index As Integer, ByVal bytesTotal As Long)
   Do While Len(data) > 0
     pID = Asc(Mid(data, 2, 1))
     CopyMemory pLen, ByVal Mid$(data, 3, 2), 2
-    pBNET(index).SetData Mid(data, 5)
+    bnetPacketBuffer(index).SetData Mid(data, 5)
     
     Select Case pID
       Case &HA: Recv0x0A index
@@ -665,10 +665,10 @@ End Sub
 
 Private Sub sckBNLS_Connect(index As Integer)
   If newAccFlag Then
-    With pBNLS(index)
-      .InsertDWORD Len(password)
+    With bnlsPacketBuffer(index)
+      .InsertDWORD Len(config.bnetPassword)
       .InsertDWORD &H4
-      .InsertNonNTString password
+      .InsertNonNTString config.bnetPassword
       .InsertDWORD &H0
       .sendPacket &HB, True, index
     End With
@@ -689,7 +689,7 @@ Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)
   Do While Len(data) > 0
     CopyMemory pLen, ByVal Mid$(data, 1, 2), 2
     pID = Asc(Mid(data, 3, 1))
-    pBNLS(index).SetData Mid(data, 4)
+    bnlsPacketBuffer(index).SetData Mid(data, 4)
     
     Select Case pID
       Case &H1: Recv_BNLS_0x01 index
@@ -702,24 +702,24 @@ Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)
 End Sub
 
 Private Sub sckIRC_Close()
-  'SendToBNET "Disconnected from the IRC server at " & IRC.Server & "!"
+  'SendToBNET "Disconnected from the IRC server at " & config.ircServer & "!"
   SendToBNET "Disconnected from IRC!"
 End Sub
 
 Private Sub sckIRC_Connect()
   AddChat rtbChatIRCConsole, vbGreen, "[IRC] Connected!"
-  sckIRC.SendData "NICK " & IRC.username & vbCrLf
-  sckIRC.SendData "USER " & IRC.username & " 0 0 " & IRC.username & vbCrLf
-  'SendToBNET "Connected to the IRC server at " & IRC.Server & "!"
+  sckIRC.SendData "NICK " & config.ircUsername & vbCrLf
+  sckIRC.SendData "USER " & config.ircUsername & " 0 0 " & config.ircUsername & vbCrLf
+  'SendToBNET "Connected to the IRC server at " & config.ircServer & "!"
   SendToBNET "Connected to IRC!"
 End Sub
 
 Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
-  Dim data As String, arrData() As String, name As String, text As String, channel As String
+  Dim data As String, arrData() As String, name As String, text As String, specifiedChannel As String
   sckIRC.GetData data
   
-  If InStr(data, IRC.username) Then
-    data = Mid(data, InStr(data, IRC.username) + Len(IRC.username) + 1)
+  If InStr(data, config.ircUsername) Then
+    data = Mid(data, InStr(data, config.ircUsername) + Len(config.ircUsername) + 1)
   End If
     
   If UBound(Split(data)) > 1 Then
@@ -731,15 +731,15 @@ Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
         text = Split(data, arrData(1))(1)
         text = Replace(Mid(text, InStr(text, ":") + 1), vbCrLf, vbNullString)
         'text = Replace(Split(Split(data, arrData(1))(1), ":")(1), vbCrLf, vbNullString)
-        channel = Split(arrData(2), ":")(0)
+        specifiedChannel = Split(arrData(2), ":")(0)
   
         If isBroadcastToBNET Then
-          'SendToBNET "(" & IRC.Channel & " @ " & IRC.Server & ") " & getName & ": " & getText
+          'SendToBNET "(" & config.ircChannel & " @ " & config.ircServer & ") " & name & ": " & getText
           SendToBNET name & ": " & text
         End If
       Case Else
         If (InStr(data, "End of /MOTD command.")) Then
-          sckIRC.SendData "JOIN " & IRC.channel & vbCrLf
+          sckIRC.SendData "JOIN " & config.ircChannel & vbCrLf
         End If
 
         AddChat rtbChatIRCConsole, vbYellow, data
@@ -757,22 +757,22 @@ Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
 End Sub
 
 Private Sub tmrReleaseQueue_Timer()
-  Dim qMsg As String
+  Dim queuedMessage As String
   
-  qMsg = dicQueue.Item(dicIdx)
+  queuedMessage = dicQueue.Item(dicQueueIndex)
   
-  With pBNET(bIdx)
-    .InsertNTString qMsg
-    .sendPacket &HE, False, bIdx
+  With bnetPacketBuffer(bnetQueueIndex)
+    .InsertNTString queuedMessage
+    .sendPacket &HE, False, bnetQueueIndex
   End With
   
-  bIdx = bIdx + 1
-  dicIdx = dicIdx + 1
+  bnetQueueIndex = bnetQueueIndex + 1
+  dicQueueIndex = dicQueueIndex + 1
   
-  If bIdx = sckBNET.Count Then bIdx = 0
+  If bnetQueueIndex = sckBNET.Count Then bnetQueueIndex = 0
   
-  If dicIdx > dicQueue.Count Then
-    dicIdx = 1
+  If dicQueueIndex > dicQueue.Count Then
+    dicQueueIndex = 1
     dicQueue.RemoveAll
     tmrReleaseQueue.Enabled = False
   End If
@@ -780,16 +780,16 @@ End Sub
 
 Private Sub txtBNETChat_KeyDown(KeyCode As Integer, Shift As Integer)
   If KeyCode = 13 Then
-    If sckBNET(cIdx).State = sckConnected Then
+    If sckBNET(bnetSocketIndex).State = sckConnected Then
       txtBNETChat.text = Replace(txtBNETChat.text, vbNewLine, "")
-      AddChat rtbChatBNET, vbYellow, "Bot #" & cIdx & ": <" & username & "> ", vbWhite, txtBNETChat.text
+      AddChat rtbChatBNET, vbYellow, "Bot #" & bnetSocketIndex & ": <" & config.bnetUsername & "> ", vbWhite, txtBNETChat.text
       SendToBNET txtBNETChat.text
       txtBNETChat.text = vbNullString
     End If
     
-    cIdx = cIdx + 1
+    bnetSocketIndex = bnetSocketIndex + 1
     
-    If cIdx = sckBNET.Count Then cIdx = 0
+    If bnetSocketIndex = sckBNET.Count Then bnetSocketIndex = 0
   End If
 End Sub
 
@@ -807,14 +807,14 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
       Select Case LCase(cmd(0))
         Case "join"
           cmdEx = Split(text, " ", 2)
-          IRC.channel = cmdEx(1)
+          config.ircChannel = cmdEx(1)
           sckIRC.SendData "JOIN " & cmdEx(1) & vbCrLf
       End Select
     Else
       If sckIRC.State <> sckConnected Then Exit Sub
 
-      sckIRC.SendData "PRIVMSG " & IRC.channel & " :" & text & vbCrLf
-      AddChat rtbChatIRCChat, vbWhite, IRC.server & " (", vbYellow, IRC.channel, vbWhite, ") " & text
+      sckIRC.SendData "PRIVMSG " & config.ircChannel & " :" & text & vbCrLf
+      AddChat rtbChatIRCChat, vbWhite, config.ircServer & " (", vbYellow, config.ircChannel, vbWhite, ") " & text
     End If
   End If
 End Sub

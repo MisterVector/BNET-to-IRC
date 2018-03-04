@@ -2,63 +2,56 @@ Attribute VB_Name = "modVars"
 Public Const PROGRAM_VERSION As String = "0.0.0"
 Public Const PROGRAM_TITLE As String = "BNET to IRC v" & PROGRAM_VERSION & " by Vector"
 
-Public Const joinTillFlood = 5
-Public Const timeToWait = 3
-
-Public bnlsServer As String
-Public bnetServer As String
-
+'// BNET SIDE
 Public dicQueue As New Dictionary
-Public dicIdx As Integer
-
-Public isFlood As Boolean
+Public dicQueueIndex As Integer
 
 Public isBroadcastToIRC As Boolean
 Public isBroadcastToBNET As Boolean
-
-Public username As String
-Public password As String
-Public channel As String
 Public newAccFlag As Boolean
-Public myChannel As String
+  
+Public bnetSocketIndex As Integer
+Public bnetQueueIndex As Integer
 
-Public cIdx As Integer
-Public bIdx As Integer
+Public bnetPacketBuffer() As clsPacketBuffer
+Public bnlsPacketBuffer() As clsPacketBuffer
 
-Public pBNET() As clsPacket
-Public pBNLS() As clsPacket
-Public botCount As Integer
+Public Type ConfigStructure
+  bnlsServer As String
+  bnetServer As String
+  bnetUsername As String
+  bnetPassword As String
+  bnetChannel As String
+  bnetKeyCount As Integer
 
-Public Type BNETData
+  ircUsername As String
+  ircPassword As String
+  ircServer As String
+  ircPort As Long
+  ircChannel As String
+End Type
+Public config As ConfigStructure
+
+Public Type bnetDataStructure
   accountName As String
   uniqueName As String
 
-  prodStr As String
+  product As String
   passwordHash As String
   newAccPasswordHash As String
   verByte As Long
   clientToken As Long
-  valueString As String
   serverToken As Long
+  valueString As String
   lockdownFile As String
   checksumFormula As String
   exeInfo As String
   exeVersion As String
   checksum As String
-  CDKey As String
-  CDKeyLength As Long
-  CDKeyProductValue As Long
-  CDKeyPublicValue As Long
-  CDKeyHash As String
+  cdKey As String
+  cdKeyLength As Long
+  cdKeyProductValue As Long
+  cdKeyPublicValue As Long
+  cdKeyHash As String
 End Type
-Public BNET() As BNETData
-
-'// IRC SIDE
-Public Type IRCData
-  username As String
-  password As String
-  server As String
-  port As Long
-  channel As String
-End Type
-Public IRC As IRCData
+Public bnetData() As bnetDataStructure
