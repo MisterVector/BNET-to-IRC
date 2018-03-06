@@ -630,7 +630,7 @@ Private Sub rcConsole_Click()
 End Sub
 
 Private Sub sckBNET_Connect(index As Integer)
-  AddChat rtbChatBNET, vbGreen, "Socket #" & index & ": [BNET] Connected!"
+  AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNET] Connected!"
   sckBNET(index).SendData Chr$(1)
   Send0x50 index
 End Sub
