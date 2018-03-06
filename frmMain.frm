@@ -653,6 +653,9 @@ Private Sub sckBNET_DataArrival(index As Integer, ByVal bytesTotal As Long)
       Case &H3D: Recv0x3D index
       Case &H50: Recv0x50 index
       Case &H51: Recv0x51 index
+      Case &H52: Recv0x52 index
+      Case &H53: Recv0x53 index
+      Case &H54: Recv0x54 index
     End Select
     
     data = Mid(data, pLen + 1)
@@ -674,7 +677,7 @@ Private Sub sckBNLS_Connect(index As Integer)
     End With
   Else
     AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Connected!"
-    Send_BNLS_0x01 index
+    Send_BNLS_0x09 index
   End If
 End Sub
 
@@ -692,9 +695,7 @@ Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)
     bnlsPacketBuffer(index).SetData Mid(data, 4)
     
     Select Case pID
-      Case &H1: Recv_BNLS_0x01 index
       Case &H9: Recv_BNLS_0x09 index
-      Case &HB: Recv_BNLS_0x0B index
     End Select
     
     data = Mid(data, pLen + 1)

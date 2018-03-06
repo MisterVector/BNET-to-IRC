@@ -47,11 +47,13 @@ Public Type bnetDataStructure
   checksumFormula As String
   exeInfo As String
   exeVersion As String
-  checksum As String
+  Checksum As String
   cdKey As String
   cdKeyLength As Long
   cdKeyProductValue As Long
   cdKeyPublicValue As Long
   cdKeyHash As String
+  
+  nls_P As Long
 End Type
 Public bnetData() As bnetDataStructure

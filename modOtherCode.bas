@@ -75,3 +75,35 @@ Public Sub quitProgram()
     Unload oFrm
   Next
 End Sub
+
+Public Function accountIdToReason(ByVal ID As Long, ByVal isWar3 As Boolean) As String
+  Dim reason As String
+
+  If isWar3 Then
+    Select Case ID
+      Case &H4: reason = "username already exists."
+      Case &H7: reason = "username is too short or blank."
+      Case &H8: reason = "username contains an illegal character."
+      Case &H9: reason = "username contains an illegal word."
+      Case &HA: reason = "username contains too few alphanumeric characters."
+      Case &HB: reason = "username contains adjacent punctuation characters."
+      Case &HC: reason = "username contains too many punctuation characters."
+      Case Else: reason = "username already exists."
+    End Select
+  Else
+    Select Case ID
+      Case &H1: reason = "username is too short"
+      Case &H2: reason = "username contains invalid characters"
+      Case &H3: reason = "username contained a banned word"
+      Case &H4: reason = "username already exists"
+      Case &H5: reason = "username is still being created"
+      Case &H6: reason = "username does not contain enough alphanumeric characters"
+      Case &H7: reason = "username contained adjacent punctuation characters"
+      Case &H8: reason = "username contained too many punctuation characters"
+    End Select
+  End If
+
+  accountIdToReason = reason
+End Function
+
+

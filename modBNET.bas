@@ -42,17 +42,30 @@ Public Sub Recv0x50(index As Integer)
 End Sub
 
 Public Sub Send0x51(index As Integer)
+  Dim cdKeyLength As Long, cdKeyHash As String * 20, cdKeyProductValue As Long, cdKeyPublicValue As Long
+  Dim result As Long
+
+  cdKeyLength = Len(bnetData(index).cdKey)
+  result = decode_hash_cdkey(bnetData(index).cdKey, bnetData(index).clientToken, bnetData(index).serverToken, cdKeyPublicValue, cdKeyProductValue, cdKeyHash)
+
+  If (result = 0) Then
+    AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Could not decode CD-Key!"
+  
+    frmMain.Click_start
+    Exit Sub
+  End If
+  
   With bnetPacketBuffer(index)
     .InsertDWORD bnetData(index).clientToken
     .InsertDWORD bnetData(index).exeVersion
-    .InsertDWORD bnetData(index).checksum
+    .InsertDWORD bnetData(index).Checksum
     .InsertDWORD &H1
     .InsertDWORD &H0
-    .InsertDWORD bnetData(index).cdKeyLength
-    .InsertDWORD bnetData(index).cdKeyProductValue
-    .InsertDWORD bnetData(index).cdKeyPublicValue
+    .InsertDWORD cdKeyLength
+    .InsertDWORD cdKeyProductValue
+    .InsertDWORD cdKeyPublicValue
     .InsertDWORD &H0
-    .InsertNonNTString bnetData(index).cdKeyHash
+    .InsertNonNTString cdKeyHash
     .InsertNTString bnetData(index).exeInfo
     .InsertNTString "BNET to IRC"
     .sendPacket &H51, False, index
@@ -81,18 +94,135 @@ Public Sub Recv0x51(index As Integer)
   End Select
   
   If results = &H0 Then
-    Send0x3A index
+    If (bnetData(index).product = "WAR3") Then
+      Send0x53 index
+    Else
+      Send0x3A index
+    End If
   End If
 End Sub
 
-Public Sub Send0x3A(index As Integer)
-  AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNET] Logging in..."
+Public Sub Send0x52(index As Integer)
+  Dim saltHash As String: saltHash = Space(Len(config.bnetUsername) + 65)
   
+  nls_account_create bnetData(index).nls_P, saltHash
+
+  With bnetPacketBuffer(index)
+    .InsertNonNTString saltHash
+    .sendPacket &H52, False, index
+  End With
+End Sub
+
+Public Sub Recv0x52(index As Integer)
+  Dim result As Long
+
+  With bnetPacketBuffer(index)
+    result = .GetDWORD
+  End With
+  
+  If result = &H0 Then
+    AddChat frmMain.rtbChatBNET, vbGreen, "Created the Warcraft III account " & config.bnetUsername & "!"
+    Send0x53 index
+  Else
+    Dim reason As String
+    reason = accountIdToReason(result, True)
+  
+    AddChat frmMain.rtbChatBNET, vbRed, "Could not create the account " & config.bnetUsername & "!"
+    AddChat frmMain.rtbChatBNET, vbRed, "Reason: " & reason & "."
+  
+    frmMain.Click_start
+  End If
+End Sub
+
+Public Sub Send0x53(index As Integer)
+  Dim nls_A As String
+
+  bnetData(index).nls_P = nls_init(config.bnetUsername, config.bnetPassword)
+
+  If bnetData(index).nls_P = 0 Then
+    MsgBox "NLS made a bad call.", vbOKOnly, PROGRAM_NAME
+    
+    frmMain.Click_start
+    Exit Sub
+  End If
+
+  nls_A = Space(Len(config.bnetUsername) + 33)
+  
+  If (nls_account_logon(bnetData(index).nls_P, nls_A) = 0) Then
+    MsgBox "Unable to create NLS key.", vbOKOnly, PROGRAM_NAME
+    
+    frmMain.Click_start
+    Exit Sub
+  End If
+
+  bnetPacketBuffer(index).InsertNonNTString Left$(nls_A, Len(nls_A) - Len(config.bnetUsername) - 1)
+  bnetPacketBuffer(index).InsertNTString config.bnetUsername
+  bnetPacketBuffer(index).sendPacket &H53, False, index
+End Sub
+
+Public Sub Recv0x53(index As Integer)
+  Select Case bnetPacketBuffer(index).GetDWORD
+    Case &H0: Send0x54 index   'Passed
+    Case &H1: 'Account Not made
+              AddChat frmMain.rtbChatBNET, vbYellow, config.bnetUsername & " does not exist. It will be created."
+              Send0x52 index
+    Case &H5                   'Upgrade...
+    Case Else
+      frmMain.Click_start
+  End Select
+End Sub
+
+Public Sub Send0x54(index As Integer)
+  Dim proofHash As String * 20
+  Dim salt      As String: salt = bnetPacketBuffer(index).GetNonNTString(32)
+  Dim serverKey As String: serverKey = bnetPacketBuffer(index).GetNonNTString(32)
+
+  nls_account_logon_proof bnetData(index).nls_P, proofHash, serverKey, salt
+
+  bnetPacketBuffer(index).InsertNonNTString proofHash
+  bnetPacketBuffer(index).sendPacket &H54, False, index
+End Sub
+
+Public Sub Recv0x54(index As Integer)
+  Select Case bnetPacketBuffer(index).GetDWORD
+    Case &H0: GoTo Continue
+    Case &H1:
+    Case &H2:
+    Case &HF:
+    Case &HE:
+              GoTo Continue
+  End Select
+    
+  frmMain.Click_start
+    
+  Exit Sub
+Continue:
+
+  nls_free (bnetData(index).nls_P)        'Unloads the NLS object to avoid overhead
+
+  Send0x14 index
+  Send0x0A index
+  Send0x0C index
+End Sub
+
+Public Sub Send0x14(index As Integer)
+  bnetPacketBuffer(index).InsertNonNTString "tenb"
+  bnetPacketBuffer(index).sendPacket &H14, False, index
+End Sub
+
+Public Sub Send0x3A(index As Integer)
+  Dim hashCode As String * 20
+  
+  AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNET] Logging in..."
+
+  double_hash_password config.bnetPassword, bnetData(index).clientToken, _
+                       bnetData(index).serverToken, hashCode
+
   With bnetPacketBuffer(index)
     .InsertDWORD bnetData(index).clientToken
     .InsertDWORD bnetData(index).serverToken
-    .InsertNonNTString bnetData(index).passwordHash
-    .InsertNTString frmMain.txtUsername.text
+    .InsertNonNTString hashCode
+    .InsertNTString config.bnetUsername
     .sendPacket &H3A, False, index
   End With
 End Sub
@@ -106,23 +236,36 @@ Public Sub Recv0x3A(index As Integer)
               Send0x0C index
     Case &H1: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account does not exist!"
               AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": Creating account..."
-              newAccFlag = True
-              frmMain.sckBNLS(index).Connect config.bnlsServer, 9367
-              
+              Send0x3D index
     Case &H2: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Password is invalid!"
     Case &H6: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account is closed: " & bnetPacketBuffer(index).getNTString
   End Select
+End Sub
+
+Public Sub Send0x3D(index As Integer)
+  Dim passwordHash As String * 20
+  
+  hash_password config.bnetPassword, passwordHash
+  
+  With bnetPacketBuffer(index)
+    .InsertNonNTString passwordHash
+    .InsertNTString config.bnetUsername
+    .sendPacket &H3D, False, index
+  End With
 End Sub
 
 Public Sub Recv0x3D(index As Integer)
   Select Case bnetPacketBuffer(index).GetDWORD
     Case &H0: AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": Account created!"
               Send0x3A index
+              Exit Sub
     Case &H2: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account contained invalid characters"
     Case &H3: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account contained a banned words."
     Case &H4: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account already exists!"
     Case &H6: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Not enough characters!"
   End Select
+  
+  frmMain.Click_start
 End Sub
 
 Public Sub Send0x0A(index As Integer)
