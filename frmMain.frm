@@ -596,6 +596,7 @@ Private Sub Form_Unload(Cancel As Integer)
   WriteINI "Main", "BNETUsername", txtBNETUsername.text, "Config.ini"
   WriteINI "Main", "BNETPassword", txtBNETPassword.text, "Config.ini"
   WriteINI "Main", "BNETChannel", txtBNETChannel.text, "Config.ini"
+  WriteINI "Main", "BNLSServer", config.bnlsServer, "Config.ini"
   WriteINI "Main", "BNETServer", cmbBNETServer.text, "Config.ini"
   WriteINI "Main", "BNETKeyCount", config.bnetKeyCount, "Config.ini"
   WriteINI "Main", "IRCUsername", txtIRCUsername.text, "Config.ini"
