@@ -49,7 +49,7 @@ Public Sub Send0x51(index As Integer)
   result = decode_hash_cdkey(bnetData(index).cdKey, bnetData(index).clientToken, bnetData(index).serverToken, cdKeyPublicValue, cdKeyProductValue, cdKeyHash)
 
   If (result = 0) Then
-    AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Could not decode CD-Key!"
+    AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Could not decode CD-Key!"
   
     frmMain.Click_start
     Exit Sub
@@ -78,19 +78,19 @@ Public Sub Recv0x51(index As Integer)
   results = bnetPacketBuffer(index).GetDWORD
   
   Select Case results
-    Case &H0:    AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & " [BNET] CDKey is accepted."
-    Case &H100:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & " [BNET] Your game is out of date."
-    Case &H101:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & " [BNET] Invalid game version."
-    Case &H102:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & " [BNET] Downgrade game version."
-    Case &H200:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & " [BNET] CDKey is invalid."
-    Case &H201:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & " [BNET] CDKey in use by " & bnetPacketBuffer(index).getNTString & "."
+    Case &H0:    AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNET] CDKey is accepted."
+    Case &H100:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Your game is out of date."
+    Case &H101:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Invalid game version."
+    Case &H102:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Downgrade game version."
+    Case &H200:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] CDKey is invalid."
+    Case &H201:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] CDKey in use by " & bnetPacketBuffer(index).getNTString & "."
                  frmMain.sckBNET(index).Close
                  frmMain.sckBNLS(index).Close
-    Case &H202:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & " [BNET] Key is banned."
-    Case &H203:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & " [BNET] Key is for nother product."
-    Case &H210:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & " [BNET] Expansion key is invalid."
-    Case &H211:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & " [BNET] Expansion key is in use by" & bnetPacketBuffer(index).getNTString & "."
-    Case &H212:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & " [BNET] Expansion key is banned."
+    Case &H202:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Key is banned."
+    Case &H203:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Key is for nother product."
+    Case &H210:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Expansion key is invalid."
+    Case &H211:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Expansion key is in use by" & bnetPacketBuffer(index).getNTString & "."
+    Case &H212:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Expansion key is banned."
   End Select
   
   If results = &H0 Then
@@ -121,14 +121,14 @@ Public Sub Recv0x52(index As Integer)
   End With
   
   If result = &H0 Then
-    AddChat frmMain.rtbChatBNET, vbGreen, "Created the Warcraft III account " & config.bnetUsername & "!"
+    AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNET] Created the Warcraft III account " & config.bnetUsername & "!"
     Send0x53 index
   Else
     Dim reason As String
     reason = accountIdToReason(result, True)
   
-    AddChat frmMain.rtbChatBNET, vbRed, "Could not create the account " & config.bnetUsername & "!"
-    AddChat frmMain.rtbChatBNET, vbRed, "Reason: " & reason & "."
+    AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Could not create the account " & config.bnetUsername & "!"
+    AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Reason: " & reason & "."
   
     frmMain.Click_start
   End If
@@ -164,7 +164,7 @@ Public Sub Recv0x53(index As Integer)
   Select Case bnetPacketBuffer(index).GetDWORD
     Case &H0: Send0x54 index   'Passed
     Case &H1: 'Account Not made
-              AddChat frmMain.rtbChatBNET, vbYellow, config.bnetUsername & " does not exist. It will be created."
+              AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNET] " & config.bnetUsername & " does not exist. It will be created."
               Send0x52 index
     Case &H5                   'Upgrade...
     Case Else
@@ -229,16 +229,16 @@ End Sub
 
 Public Sub Recv0x3A(index As Integer)
   Select Case bnetPacketBuffer(index).GetDWORD
-    Case &H0: AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": Password accepted!"
+    Case &H0: AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNET] Password accepted!"
               ConnectOtherBots
               Send0x0A index
               Send0x0B index
               Send0x0C index
-    Case &H1: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account does not exist!"
-              AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": Creating account..."
+    Case &H1: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Account does not exist!"
+              AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNET] Creating account..."
               Send0x3D index
-    Case &H2: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Password is invalid!"
-    Case &H6: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account is closed: " & bnetPacketBuffer(index).getNTString
+    Case &H2: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Password is invalid!"
+    Case &H6: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Account is closed: " & bnetPacketBuffer(index).getNTString
   End Select
 End Sub
 
@@ -256,13 +256,13 @@ End Sub
 
 Public Sub Recv0x3D(index As Integer)
   Select Case bnetPacketBuffer(index).GetDWORD
-    Case &H0: AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": Account created!"
+    Case &H0: AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNET] Account created!"
               Send0x3A index
               Exit Sub
-    Case &H2: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account contained invalid characters"
-    Case &H3: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account contained a banned words."
-    Case &H4: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Account already exists!"
-    Case &H6: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Not enough characters!"
+    Case &H2: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Account contained invalid characters"
+    Case &H3: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Account contained a banned words."
+    Case &H4: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Account already exists!"
+    Case &H6: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Not enough characters!"
   End Select
   
   frmMain.Click_start
@@ -281,7 +281,7 @@ Public Sub Recv0x0A(index As Integer)
   bnetPacketBuffer(index).getNTString 'skip statstring
   bnetData(index).accountName = bnetPacketBuffer(index).getNTString
   
-  AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": Logged in as " & bnetData(index).uniqueName
+  AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNET] Logged in as " & bnetData(index).uniqueName
 End Sub
 
 Public Sub Send0x0B(index As Integer)
