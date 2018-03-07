@@ -48,6 +48,8 @@ Public Type bnetDataStructure
   Checksum As String
   cdKey As String
   
+  bnlsServerCode As Long
+  
   nls_P As Long
 End Type
 Public bnetData() As bnetDataStructure

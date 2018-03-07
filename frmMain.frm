@@ -668,7 +668,7 @@ End Sub
 
 Private Sub sckBNLS_Connect(index As Integer)
   AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Connected!"
-  Send_BNLS_0x09 index
+  Send_BNLS_0x0E index
 End Sub
 
 Public Sub Click_start()
@@ -686,6 +686,8 @@ Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)
     
     Select Case pID
       Case &H9: Recv_BNLS_0x09 index
+      Case &HE: Recv_BNLS_0x0E index
+      Case &HF: Recv_BNLS_0x0F index
     End Select
     
     data = Mid(data, pLen + 1)

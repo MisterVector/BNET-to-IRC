@@ -33,3 +33,40 @@ Public Sub Recv_BNLS_0x09(index As Integer)
   End If
 End Sub
 
+Public Sub Send_BNLS_0x0E(index As Integer)
+  AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": Authorizing..."
+  
+  With bnlsPacketBuffer(index)
+    .InsertNTString "BNET to IRC"
+    .sendPacket &HE, True, index
+  End With
+End Sub
+
+Public Sub Recv_BNLS_0x0E(index As Integer)
+  With bnlsPacketBuffer(index)
+    bnetData(index).bnlsServerCode = .GetDWORD
+  End With
+  
+  Send_BNLS_0x0F index
+End Sub
+
+Public Sub Send_BNLS_0x0F(index As Integer)
+  With bnlsPacketBuffer(index)
+    .InsertDWORD BNLSChecksum("password", bnetData(index).bnlsServerCode)
+    .sendPacket &HF, True, index
+  End With
+End Sub
+
+Public Sub Recv_BNLS_0x0F(index As Integer)
+  Dim statusCode As Long
+  
+  statusCode = bnlsPacketBuffer(index).GetDWORD
+  
+  If (statusCode = &H0) Then
+    AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": Authorized!"
+    Send_BNLS_0x09 index
+  Else
+    AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": Failed to authorize!"
+    frmMain.Click_start
+  End If
+End Sub
