@@ -667,18 +667,8 @@ Private Sub sckBNET_Error(index As Integer, ByVal Number As Integer, Description
 End Sub
 
 Private Sub sckBNLS_Connect(index As Integer)
-  If newAccFlag Then
-    With bnlsPacketBuffer(index)
-      .InsertDWORD Len(config.bnetPassword)
-      .InsertDWORD &H4
-      .InsertNonNTString config.bnetPassword
-      .InsertDWORD &H0
-      .sendPacket &HB, True, index
-    End With
-  Else
-    AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Connected!"
-    Send_BNLS_0x09 index
-  End If
+  AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Connected!"
+  Send_BNLS_0x09 index
 End Sub
 
 Public Sub Click_start()

@@ -8,7 +8,6 @@ Public dicQueueIndex As Integer
 
 Public isBroadcastToIRC As Boolean
 Public isBroadcastToBNET As Boolean
-Public newAccFlag As Boolean
   
 Public bnetSocketIndex As Integer
 Public bnetQueueIndex As Integer
@@ -38,7 +37,6 @@ Public Type bnetDataStructure
 
   product As String
   passwordHash As String
-  newAccPasswordHash As String
   verByte As Long
   clientToken As Long
   serverToken As Long
@@ -49,10 +47,6 @@ Public Type bnetDataStructure
   exeVersion As String
   Checksum As String
   cdKey As String
-  cdKeyLength As Long
-  cdKeyProductValue As Long
-  cdKeyPublicValue As Long
-  cdKeyHash As String
   
   nls_P As Long
 End Type
