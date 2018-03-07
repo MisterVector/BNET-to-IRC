@@ -335,7 +335,7 @@ Public Sub Recv0x0F(index As Integer)
                   
                   If isBroadcastToIRC Then
                     'SendToIRC "(" & text & " @ " & config.bnetServer & ") " & User & ": " & Text
-                    SendToIRC IIf(ID = &H17, "/me ", "") & user & ": " & text
+                    SendToIRC IIf(ID = &H17, "/me ", vbNullString) & user & ": " & text
                   End If
                 End If
       Case &H7: AddChat frmMain.rtbChatBNET, vbYellow, "You joined the channel ", vbWhite, text
