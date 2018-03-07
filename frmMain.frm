@@ -427,7 +427,7 @@ Private Sub btnConnectBNET_Click()
   
   If btnConnectBNET.Caption = "Connect!" Then
     AddChat rtbChatBNET, vbYellow, "Bot #0: [BNET] Connecting..."
-    sckBNET(0).Connect cmbBNETServer.text, 6112
+    sckBNET(0).Connect config.bnetServer, 6112
     
     btnConnectBNET.Caption = "Disconnect!"
   Else
