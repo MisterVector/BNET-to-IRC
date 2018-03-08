@@ -2,6 +2,10 @@ Attribute VB_Name = "modVars"
 Public Const PROGRAM_VERSION As String = "0.0.0"
 Public Const PROGRAM_TITLE As String = "BNET to IRC v" & PROGRAM_VERSION & " by Vector"
 
+Public Const VERBYTE_W2BN As Long = &H4F
+Public Const VERBYTE_D2DV As Long = &HE
+Public Const VERBYTE_WAR3 As Long = &H1C
+
 '// BNET SIDE
 Public dicQueue As New Dictionary
 Public dicQueueIndex As Integer

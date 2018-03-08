@@ -10,9 +10,9 @@ End Sub
 
 Public Function getVerByte(ByVal product As String) As Long
   Select Case product
-    Case "W2BN": getVerByte = &H4F
-    Case "D2DV": getVerByte = &HE
-    Case "WAR3": getVerByte = &H1C
+    Case "W2BN": getVerByte = VERBYTE_W2BN
+    Case "D2DV": getVerByte = VERBYTE_D2DV
+    Case "WAR3": getVerByte = VERBYTE_WAR3
   End Select
 End Function
 
