@@ -105,13 +105,17 @@ Private Sub btnCancel_Click()
 End Sub
 
 Private Sub btnOk_Click()
-  Dim keyLine As String, key As String, product As String
+  Dim keyLine As String, key As String, product As String, previousKeyCount As Integer
 
   If Dir$(App.Path & "\Config.ini") = vbNullString Then
     Kill App.Path & "\Config.ini"
   End If
   
+  previousKeyCount = config.bnetKeyCount
   config.bnetKeyCount = lstKeys.ListCount
+  
+  setupSockets previousKeyCount, config.bnetKeyCount
+  
   ReDim bnetData(config.bnetKeyCount - 1)
   
   For i = 0 To config.bnetKeyCount - 1

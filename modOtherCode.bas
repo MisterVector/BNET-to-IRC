@@ -106,4 +106,29 @@ Public Function accountIdToReason(ByVal ID As Long, ByVal isWar3 As Boolean) As 
   accountIdToReason = reason
 End Function
 
+Public Sub setupSockets(previousConnectionCount As Integer, connectionCount As Integer)
+  If (previousConnectionCount > 0) Then
+    For i = 0 To previousConnectionCount - 1
+      If (i > 0) Then
+        Unload frmMain.sckBNLS(i)
+        Unload frmMain.sckBNET(i)
+      End If
+    Next i
+  End If
+  
+  ReDim bnlsPacketHandler(connectionCount - 1)
+  ReDim bnetPacketHandler(connectionCount - 1)
+  
+  For i = 0 To connectionCount - 1
+    If (i > 0) Then
+      Load frmMain.sckBNLS(i)
+      Load frmMain.sckBNET(i)
+    End If
+    
+    Set bnlsPacketHandler(i) = New clsPacketHandler
+    Set bnetPacketHandler(i) = New clsPacketHandler
 
+    bnlsPacketHandler(i).setSocket frmMain.sckBNLS(i), packetType.BNLS
+    bnetPacketHandler(i).setSocket frmMain.sckBNET(i), packetType.BNCS
+  Next i
+End Sub

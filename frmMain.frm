@@ -545,22 +545,11 @@ Private Sub Form_Load()
     config.bnetKeyCount = val
     
     If (config.bnetKeyCount > 0) Then
-      ReDim bnetPacketHandler(config.bnetKeyCount - 1)
-      ReDim bnlsPacketHandler(config.bnetKeyCount - 1)
+      setupSockets 0, config.bnetKeyCount
+      
       ReDim bnetData(config.bnetKeyCount - 1)
       
       For i = 0 To config.bnetKeyCount - 1
-        If i > 0 Then
-          Load sckBNET(i)
-          Load sckBNLS(i)
-        End If
-
-        Set bnetPacketHandler(i) = New clsPacketHandler
-        Set bnlsPacketHandler(i) = New clsPacketHandler
-        
-        bnetPacketHandler(i).setSocket sckBNET(i), packetType.BNCS
-        bnlsPacketHandler(i).setSocket sckBNLS(i), packetType.BNLS
-        
         With bnetData(i)
           .product = ReadINI(i, "Product", "Config.ini")
           .cdKey = ReadINI(i, "CDKey", "Config.ini")
