@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form frmKeys 
    BorderStyle     =   1  'Fixed Single
-   Caption         =   "frmConnections"
+   Caption         =   "Key Manager"
    ClientHeight    =   4380
    ClientLeft      =   60
    ClientTop       =   450
@@ -46,7 +46,7 @@ Begin VB.Form frmKeys
    End
    Begin VB.CommandButton btnCancel 
       Caption         =   "Cancel"
-      Height          =   300
+      Height          =   285
       Left            =   4080
       TabIndex        =   3
       Top             =   3135
@@ -97,6 +97,7 @@ Private Sub btnAdd_Click()
   End If
 
   lstKeys.AddItem txtKey.text & " -> " & getProduct(cmbProduct.ListIndex)
+  txtKey.text = vbNullString
   cmbProduct.text = "Choose product for this key"
 End Sub
 
