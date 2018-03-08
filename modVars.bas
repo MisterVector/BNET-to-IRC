@@ -16,8 +16,8 @@ Public isBroadcastToBNET As Boolean
 Public bnetSocketIndex As Integer
 Public bnetQueueIndex As Integer
 
-Public bnetPacketBuffer() As clsPacketBuffer
-Public bnlsPacketBuffer() As clsPacketBuffer
+Public bnetPacketHandler() As clsPacketHandler
+Public bnlsPacketHandler() As clsPacketHandler
 
 Public Enum packetType
   BNCS

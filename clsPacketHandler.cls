@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 1  'vbDataSource
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "clsPacketBuffer"
+Attribute VB_Name = "clsPacketHandler"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False

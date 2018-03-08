@@ -545,8 +545,8 @@ Private Sub Form_Load()
     config.bnetKeyCount = val
     
     If (config.bnetKeyCount > 0) Then
-      ReDim bnetPacketBuffer(config.bnetKeyCount - 1)
-      ReDim bnlsPacketBuffer(config.bnetKeyCount - 1)
+      ReDim bnetPacketHandler(config.bnetKeyCount - 1)
+      ReDim bnlsPacketHandler(config.bnetKeyCount - 1)
       ReDim bnetData(config.bnetKeyCount - 1)
       
       For i = 0 To config.bnetKeyCount - 1
@@ -555,11 +555,11 @@ Private Sub Form_Load()
           Load sckBNLS(i)
         End If
 
-        Set bnetPacketBuffer(i) = New clsPacketBuffer
-        Set bnlsPacketBuffer(i) = New clsPacketBuffer
+        Set bnetPacketHandler(i) = New clsPacketHandler
+        Set bnlsPacketHandler(i) = New clsPacketHandler
         
-        bnetPacketBuffer(i).setSocket sckBNET(i), packetType.BNCS
-        bnlsPacketBuffer(i).setSocket sckBNLS(i), packetType.BNLS
+        bnetPacketHandler(i).setSocket sckBNET(i), packetType.BNCS
+        bnlsPacketHandler(i).setSocket sckBNLS(i), packetType.BNLS
         
         With bnetData(i)
           .product = ReadINI(i, "Product", "Config.ini")
@@ -649,7 +649,7 @@ Private Sub sckBNET_DataArrival(index As Integer, ByVal bytesTotal As Long)
   Do While Len(data) > 0
     pID = Asc(Mid(data, 2, 1))
     CopyMemory pLen, ByVal Mid$(data, 3, 2), 2
-    bnetPacketBuffer(index).SetData Mid(data, 5)
+    bnetPacketHandler(index).SetData Mid(data, 5)
     
     Select Case pID
       Case &HA: Recv0x0A index
@@ -688,7 +688,7 @@ Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)
   Do While Len(data) > 0
     CopyMemory pLen, ByVal Mid$(data, 1, 2), 2
     pID = Asc(Mid(data, 3, 1))
-    bnlsPacketBuffer(index).SetData Mid(data, 4)
+    bnlsPacketHandler(index).SetData Mid(data, 4)
     
     Select Case pID
       Case &H9: Recv_BNLS_0x09 index
@@ -760,7 +760,7 @@ Private Sub tmrReleaseQueue_Timer()
   
   queuedMessage = dicQueue.Item(dicQueueIndex)
   
-  With bnetPacketBuffer(bnetQueueIndex)
+  With bnetPacketHandler(bnetQueueIndex)
     .InsertNTString queuedMessage
     .sendPacket &HE
   End With
