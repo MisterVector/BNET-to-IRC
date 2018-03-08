@@ -532,14 +532,14 @@ Private Sub Form_Load()
     Me.Left = val
   End If
 
-  txtBNETUsername.text = ReadINI("Main", "BNETUsername", "Config.ini")
-  txtBNETPassword.text = ReadINI("Main", "BNETPassword", "Config.ini")
-  txtBNETChannel.text = ReadINI("Main", "BNETChannel", "Config.ini")
+  txtBNETUsername.text = ReadINI("BNET", "Username", "Config.ini")
+  txtBNETPassword.text = ReadINI("BNET", "Password", "Config.ini")
+  txtBNETChannel.text = ReadINI("BNET", "Channel", "Config.ini")
   
-  cmbBNETServer.text = ReadINI("Main", "BNETServer", "Config.ini")
-  config.bnlsServer = ReadINI("Main", "BNLSServer", "Config.ini")
+  cmbBNETServer.text = ReadINI("BNET", "Server", "Config.ini")
+  config.bnlsServer = ReadINI("BNET", "BNLSServer", "Config.ini")
 
-  val = ReadINI("Main", "BNETKeyCount", "Config.ini")
+  val = ReadINI("BNET", "KeyCount", "Config.ini")
 
   If IsNumeric(val) Then
     config.bnetKeyCount = val
@@ -558,9 +558,9 @@ Private Sub Form_Load()
     End If
   End If
   
-  txtIRCUsername.text = ReadINI("Main", "IRCUsername", "Config.ini")
-  txtIRCServer.text = ReadINI("Main", "IRCServer", "Config.ini")
-  txtIRCChannel.text = ReadINI("Main", "IRCChannel", "Config.ini")
+  txtIRCUsername.text = ReadINI("IRC", "Username", "Config.ini")
+  txtIRCServer.text = ReadINI("IRC", "Server", "Config.ini")
+  txtIRCChannel.text = ReadINI("IRC", "Channel", "Config.ini")
   rcConsole.value = True
 
   arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net")
@@ -588,15 +588,15 @@ Private Sub Form_Unload(Cancel As Integer)
   WriteINI "Window", "Top", Me.Top, "Config.ini"
   WriteINI "Window", "Left", Me.Left, "Config.ini"
 
-  WriteINI "Main", "BNETUsername", txtBNETUsername.text, "Config.ini"
-  WriteINI "Main", "BNETPassword", txtBNETPassword.text, "Config.ini"
-  WriteINI "Main", "BNETChannel", txtBNETChannel.text, "Config.ini"
-  WriteINI "Main", "BNLSServer", config.bnlsServer, "Config.ini"
-  WriteINI "Main", "BNETServer", cmbBNETServer.text, "Config.ini"
-  WriteINI "Main", "BNETKeyCount", config.bnetKeyCount, "Config.ini"
-  WriteINI "Main", "IRCUsername", txtIRCUsername.text, "Config.ini"
-  WriteINI "Main", "IRCServer", txtIRCServer.text, "Config.ini"
-  WriteINI "Main", "IRCChannel", txtIRCChannel.text, "Config.ini"
+  WriteINI "BNET", "Username", txtBNETUsername.text, "Config.ini"
+  WriteINI "BNET", "Password", txtBNETPassword.text, "Config.ini"
+  WriteINI "BNET", "Channel", txtBNETChannel.text, "Config.ini"
+  WriteINI "BNET", "BNLSServer", config.bnlsServer, "Config.ini"
+  WriteINI "BNET", "Server", cmbBNETServer.text, "Config.ini"
+  WriteINI "BNET", "KeyCount", config.bnetKeyCount, "Config.ini"
+  WriteINI "IRC", "Username", txtIRCUsername.text, "Config.ini"
+  WriteINI "IRC", "Server", txtIRCServer.text, "Config.ini"
+  WriteINI "IRC", "Channel", txtIRCChannel.text, "Config.ini"
 
   For i = 0 To config.bnetKeyCount - 1
     WriteINI i, "Product", bnetData(i).product, "Config.ini"
