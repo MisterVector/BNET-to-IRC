@@ -11,7 +11,7 @@ Public Sub Send_BNLS_0x09(index As Integer)
     .InsertDWORD getProdID(bnetData(index).product)
     .InsertDWORD lockdownFile
     .InsertNTString bnetData(index).valueString
-    .sendPacket &H9, True, index
+    .sendPacket &H9
   End With
 End Sub
 
@@ -38,7 +38,7 @@ Public Sub Send_BNLS_0x0E(index As Integer)
   
   With bnlsPacketBuffer(index)
     .InsertNTString "BNET to IRC"
-    .sendPacket &HE, True, index
+    .sendPacket &HE
   End With
 End Sub
 
@@ -53,7 +53,7 @@ End Sub
 Public Sub Send_BNLS_0x0F(index As Integer)
   With bnlsPacketBuffer(index)
     .InsertDWORD BNLSChecksum("password", bnetData(index).bnlsServerCode)
-    .sendPacket &HF, True, index
+    .sendPacket &HF
   End With
 End Sub
 

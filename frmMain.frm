@@ -148,6 +148,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
       End
@@ -162,6 +163,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
       End
@@ -310,6 +312,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0108
       End
@@ -555,6 +558,9 @@ Private Sub Form_Load()
         Set bnetPacketBuffer(i) = New clsPacketBuffer
         Set bnlsPacketBuffer(i) = New clsPacketBuffer
         
+        bnetPacketBuffer(i).setSocket sckBNET(i), packetType.BNCS
+        bnlsPacketBuffer(i).setSocket sckBNLS(i), packetType.BNLS
+        
         With bnetData(i)
           .product = ReadINI(i, "Product", "Config.ini")
           .cdKey = ReadINI(i, "CDKey", "Config.ini")
@@ -756,7 +762,7 @@ Private Sub tmrReleaseQueue_Timer()
   
   With bnetPacketBuffer(bnetQueueIndex)
     .InsertNTString queuedMessage
-    .sendPacket &HE, False, bnetQueueIndex
+    .sendPacket &HE
   End With
   
   bnetQueueIndex = bnetQueueIndex + 1

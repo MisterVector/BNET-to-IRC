@@ -15,6 +15,11 @@ Public bnetQueueIndex As Integer
 Public bnetPacketBuffer() As clsPacketBuffer
 Public bnlsPacketBuffer() As clsPacketBuffer
 
+Public Enum packetType
+  BNCS
+  BNLS
+End Enum
+
 Public Type ConfigStructure
   bnlsServer As String
   bnetServer As String

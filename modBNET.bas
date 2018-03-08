@@ -6,7 +6,7 @@ End Sub
 Public Sub Send0x25(index As Integer)
   With bnetPacketBuffer(index)
     .InsertDWORD .GetDWORD
-    .sendPacket &H25, False, index
+    .sendPacket &H25
   End With
 End Sub
 
@@ -22,7 +22,7 @@ Public Sub Send0x50(index As Integer)
     .InsertDWORD &H0
     .InsertNTString "USA"
     .InsertNTString "United States"
-    .sendPacket &H50, False, index
+    .sendPacket &H50
   End With
 End Sub
 
@@ -68,7 +68,7 @@ Public Sub Send0x51(index As Integer)
     .InsertNonNTString cdKeyHash
     .InsertNTString bnetData(index).exeInfo
     .InsertNTString "BNET to IRC"
-    .sendPacket &H51, False, index
+    .sendPacket &H51
   End With
 End Sub
 
@@ -109,7 +109,7 @@ Public Sub Send0x52(index As Integer)
 
   With bnetPacketBuffer(index)
     .InsertNonNTString saltHash
-    .sendPacket &H52, False, index
+    .sendPacket &H52
   End With
 End Sub
 
@@ -157,7 +157,7 @@ Public Sub Send0x53(index As Integer)
 
   bnetPacketBuffer(index).InsertNonNTString Left$(nls_A, Len(nls_A) - Len(config.bnetUsername) - 1)
   bnetPacketBuffer(index).InsertNTString config.bnetUsername
-  bnetPacketBuffer(index).sendPacket &H53, False, index
+  bnetPacketBuffer(index).sendPacket &H53
 End Sub
 
 Public Sub Recv0x53(index As Integer)
@@ -180,7 +180,7 @@ Public Sub Send0x54(index As Integer)
   nls_account_logon_proof bnetData(index).nls_P, proofHash, serverKey, salt
 
   bnetPacketBuffer(index).InsertNonNTString proofHash
-  bnetPacketBuffer(index).sendPacket &H54, False, index
+  bnetPacketBuffer(index).sendPacket &H54
 End Sub
 
 Public Sub Recv0x54(index As Integer)
@@ -207,7 +207,7 @@ End Sub
 
 Public Sub Send0x14(index As Integer)
   bnetPacketBuffer(index).InsertNonNTString "tenb"
-  bnetPacketBuffer(index).sendPacket &H14, False, index
+  bnetPacketBuffer(index).sendPacket &H14
 End Sub
 
 Public Sub Send0x3A(index As Integer)
@@ -223,7 +223,7 @@ Public Sub Send0x3A(index As Integer)
     .InsertDWORD bnetData(index).serverToken
     .InsertNonNTString hashCode
     .InsertNTString config.bnetUsername
-    .sendPacket &H3A, False, index
+    .sendPacket &H3A
   End With
 End Sub
 
@@ -250,7 +250,7 @@ Public Sub Send0x3D(index As Integer)
   With bnetPacketBuffer(index)
     .InsertNonNTString passwordHash
     .InsertNTString config.bnetUsername
-    .sendPacket &H3D, False, index
+    .sendPacket &H3D
   End With
 End Sub
 
@@ -272,7 +272,7 @@ Public Sub Send0x0A(index As Integer)
   With bnetPacketBuffer(index)
     .InsertNTString vbNullString
     .InsertNTString vbNullString
-    .sendPacket &HA, False, index
+    .sendPacket &HA
   End With
 End Sub
 
@@ -287,7 +287,7 @@ End Sub
 Public Sub Send0x0B(index As Integer)
   With bnetPacketBuffer(index)
     .InsertDWORD &H0
-    .sendPacket &HB, False, index
+    .sendPacket &HB
   End With
 End Sub
 
@@ -295,7 +295,7 @@ Public Sub Send0x0C(index As Integer)
   With bnetPacketBuffer(index)
     .InsertDWORD &H2 'IIf(bnetData(index).product = "D2DV", &H5, &H1)
     .InsertNTString config.bnetChannel
-    .sendPacket &HC, False, index
+    .sendPacket &HC
   End With
 End Sub
 

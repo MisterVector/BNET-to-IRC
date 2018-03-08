@@ -11,15 +11,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'---------------------------------
-'-                               -
-'-      clsPacket.cls            -
-'-                               -
-'-  VectorBot Packet Class   -
-'-                               -
-'---------------------------------
-
 Private sIn As String, sOut As String, sLen As Long
+Private sck As Winsock, pt As packetType
+
+Public Sub setSocket(sock As Winsock, packetType As packetType)
+  Set sck = sock
+  pt = packetType
+End Sub
 
 Public Sub SetData(ByVal sData As String)
   sIn = sData
@@ -72,20 +70,23 @@ Public Function getPacket() As String
   getPacket = sIn
 End Function
 
-Public Sub sendPacket(ByVal ID As Byte, ByVal isBNLS As Boolean, index As Integer)
-  Dim NewValue As String * 2
+Public Sub sendPacket(ByVal ID As Byte)
+  Dim finalString As String, NewValue As String * 2
   
-  If isBNLS Then
-    CopyMemory ByVal NewValue, (Len(sOut) + 3), 2
-    If frmMain.sckBNLS(index).State = sckConnected Then
-      frmMain.sckBNLS(index).SendData NewValue & Chr$(ID) & sOut
-    End If
-  Else
-    If frmMain.sckBNET(index).State = sckConnected Then
+  CopyMemory ByVal NewValue, (Len(sOut) + IIf(pt = packetType.BNLS, 3, 4)), 2
+  
+  If (sck.State = sckConnected) Then
+    If (pt = packetType.BNLS) Then
+      CopyMemory ByVal NewValue, (Len(sOut) + 3), 2
+      finalString = NewValue & Chr$(ID) & sOut
+    Else
       CopyMemory ByVal NewValue, (Len(sOut) + 4), 2
-      frmMain.sckBNET(index).SendData Chr$(&HFF) & Chr$(ID) & NewValue & sOut
+      finalString = Chr$(&HFF) & Chr$(ID) & NewValue & sOut
     End If
+  
+    sck.SendData finalString
   End If
+  
   sOut = vbNullString
 End Sub
 
