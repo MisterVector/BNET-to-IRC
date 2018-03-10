@@ -136,6 +136,18 @@ End Sub
 Public Sub loadConfig()
   Dim val As Variant
 
+  val = ReadINI("Window", "Top", "Config.ini")
+  
+  If (IsNumeric(val) And val > 0) Then
+    config.formTop = val
+  End If
+  
+  val = ReadINI("Window", "Left", "Config.ini")
+  
+  If (IsNumeric(val) And val > 0) Then
+    config.formLeft = val
+  End If
+
   config.bnetUsername = ReadINI("BNET", "Username", "Config.ini")
   config.bnetPassword = ReadINI("BNET", "Password", "Config.ini")
   config.bnetChannel = ReadINI("BNET", "Channel", "Config.ini")

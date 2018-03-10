@@ -148,7 +148,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
       End
@@ -163,7 +162,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
       End
@@ -312,7 +310,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0108
       End
@@ -518,21 +515,17 @@ End Sub
 Private Sub Form_Load()
   Me.Caption = Replace(Me.Caption, "%v", "v" & PROGRAM_VERSION)
 
-  Dim val As Variant, arrGateways() As Variant, gateway As String, IPs() As String
-
-  val = ReadINI("Window", "Top", "Config.ini")
-
-  If (IsNumeric(val)) Then
-    Me.Top = val
-  End If
-
-  val = ReadINI("Window", "Left", "Config.ini")
-
-  If (IsNumeric(val)) Then
-    Me.Left = val
-  End If
+  Dim arrGateways() As Variant, gateway As String, IPs() As String
 
   loadConfig
+
+  If (config.formTop > 0) Then
+    Me.Top = config.formTop
+  End If
+
+  If (config.formLeft > 0) Then
+    Me.Left = config.formLeft
+  End If
 
   txtBNETUsername.text = config.bnetUsername
   txtBNETPassword.text = config.bnetPassword

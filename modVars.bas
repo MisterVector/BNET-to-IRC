@@ -25,6 +25,9 @@ Public Enum packetType
 End Enum
 
 Public Type ConfigStructure
+  formTop As Integer
+  formLeft As Integer
+
   bnlsServer As String
   bnetServer As String
   bnetUsername As String
