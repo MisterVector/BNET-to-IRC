@@ -132,3 +132,60 @@ Public Sub setupSockets(previousConnectionCount As Integer, connectionCount As I
     bnetPacketHandler(i).setSocket frmMain.sckBNET(i), packetType.BNCS
   Next i
 End Sub
+
+Public Sub loadConfig()
+  Dim val As Variant
+
+  config.bnetUsername = ReadINI("BNET", "Username", "Config.ini")
+  config.bnetPassword = ReadINI("BNET", "Password", "Config.ini")
+  config.bnetChannel = ReadINI("BNET", "Channel", "Config.ini")
+  config.bnetServer = ReadINI("BNET", "Server", "Config.ini")
+  config.bnlsServer = ReadINI("BNET", "BNLSServer", "Config.ini")
+  
+  val = ReadINI("BNET", "KeyCount", "Config.ini")
+  
+  If (IsNumeric(val)) Then
+    config.bnetKeyCount = val
+    
+    If (config.bnetKeyCount > 0) Then
+      setupSockets 0, config.bnetKeyCount
+      
+      ReDim bnetData(config.bnetKeyCount - 1)
+    
+      For i = 0 To config.bnetKeyCount - 1
+        With bnetData(i)
+          .product = ReadINI(i, "Product", "Config.ini")
+          .cdKey = ReadINI(i, "CDKey", "Config.ini")
+        End With
+      Next i
+    End If
+  End If
+  
+  config.ircUsername = ReadINI("IRC", "Username", "Config.ini")
+  config.ircChannel = ReadINI("IRC", "Channel", "Config.ini")
+  config.ircServer = ReadINI("IRC", "Server", "Config.ini")
+End Sub
+
+Public Sub saveConfig()
+  WriteINI "Window", "Top", frmMain.Top, "Config.ini"
+  WriteINI "Window", "Left", frmMain.Left, "Config.ini"
+  
+  WriteINI "BNET", "Username", config.bnetUsername, "Config.ini"
+  WriteINI "BNET", "Password", config.bnetPassword, "Config.ini"
+  WriteINI "BNET", "Channel", config.bnetChannel, "Config.ini"
+  WriteINI "BNET", "Server", config.bnetServer, "Config.ini"
+  WriteINI "BNET", "BNLSServer", config.bnlsServer, "Config.ini"
+  WriteINI "BNET", "KeyCount", config.bnetKeyCount, "Config.ini"
+  WriteINI "IRC", "Username", config.ircUsername, "Config.ini"
+  WriteINI "IRC", "Channel", config.ircChannel, "Config.ini"
+  WriteINI "IRC", "Server", config.ircServer, "Config.ini"
+  
+  If (config.bnetKeyCount > 0) Then
+    For i = 0 To config.bnetKeyCount - 1
+      With bnetData(i)
+        WriteINI i, "Product", .product, "Config.ini"
+        WriteINI i, "CDKey", .cdKey, "Config.ini"
+      End With
+    Next i
+  End If
+End Sub
