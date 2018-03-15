@@ -59,25 +59,18 @@ Begin VB.Form frmMain
       TabIndex        =   1
       Top             =   120
       Width           =   6975
-      Begin VB.TextBox txtIRCChannel 
-         Height          =   285
-         Left            =   1680
-         TabIndex        =   27
-         Top             =   720
-         Width           =   1575
-      End
       Begin VB.Frame Frame3 
          Caption         =   "Display Mode"
          Height          =   555
          Left            =   3360
-         TabIndex        =   20
+         TabIndex        =   10
          Top             =   240
          Width           =   2415
          Begin VB.OptionButton rcChat 
             Caption         =   "Chat"
             Height          =   255
             Left            =   1320
-            TabIndex        =   22
+            TabIndex        =   12
             Top             =   240
             Width           =   735
          End
@@ -85,7 +78,7 @@ Begin VB.Form frmMain
             Caption         =   "Console"
             Height          =   255
             Left            =   120
-            TabIndex        =   21
+            TabIndex        =   11
             Top             =   240
             Width           =   975
          End
@@ -93,10 +86,10 @@ Begin VB.Form frmMain
       Begin VB.CommandButton btnConnectIRC 
          Caption         =   "Connect!"
          Height          =   255
-         Left            =   3360
-         TabIndex        =   18
+         Left            =   120
+         TabIndex        =   8
          Top             =   840
-         Width           =   2415
+         Width           =   6735
       End
       Begin VB.CheckBox chkBtoBNET 
          Caption         =   "Broadcast to BNET"
@@ -111,7 +104,7 @@ Begin VB.Form frmMain
          EndProperty
          Height          =   255
          Left            =   4800
-         TabIndex        =   15
+         TabIndex        =   6
          Top             =   5520
          Width           =   2055
       End
@@ -119,102 +112,39 @@ Begin VB.Form frmMain
          Height          =   285
          Left            =   120
          MultiLine       =   -1  'True
-         TabIndex        =   12
+         TabIndex        =   3
          Top             =   5520
          Width           =   4575
       End
-      Begin VB.TextBox txtIRCUsername 
-         Height          =   285
-         Left            =   1680
-         TabIndex        =   5
-         Top             =   360
-         Width           =   1575
-      End
-      Begin VB.TextBox txtIRCServer 
-         Height          =   285
-         Left            =   1680
-         TabIndex        =   3
-         Top             =   1080
-         Width           =   1575
-      End
       Begin RichTextLib.RichTextBox rtbChatIRCConsole 
-         Height          =   3855
+         Height          =   4215
          Left            =   120
-         TabIndex        =   11
-         Top             =   1560
+         TabIndex        =   2
+         Top             =   1200
          Width           =   6735
          _ExtentX        =   11880
-         _ExtentY        =   6800
+         _ExtentY        =   7435
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
       End
       Begin RichTextLib.RichTextBox rtbChatIRCChat 
-         Height          =   3855
+         Height          =   4215
          Left            =   120
-         TabIndex        =   25
-         Top             =   1560
+         TabIndex        =   13
+         Top             =   1200
          Width           =   6735
          _ExtentX        =   11880
-         _ExtentY        =   6800
+         _ExtentY        =   7435
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
-      End
-      Begin VB.Label Label5 
-         Caption         =   "Channel:"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   240
-         TabIndex        =   26
-         Top             =   720
-         Width           =   855
-      End
-      Begin VB.Label Label6 
-         Caption         =   "IRC Username:"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   240
-         TabIndex        =   4
-         Top             =   360
-         Width           =   1455
-      End
-      Begin VB.Label Label4 
-         Caption         =   "Server: "
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   240
-         TabIndex        =   2
-         Top             =   1080
-         Width           =   975
       End
    End
    Begin VB.Frame Frame1 
@@ -233,20 +163,13 @@ Begin VB.Form frmMain
       TabIndex        =   0
       Top             =   120
       Width           =   6975
-      Begin VB.TextBox txtBNETChannel 
-         Height          =   285
-         Left            =   3840
-         TabIndex        =   24
-         Top             =   720
-         Width           =   1455
-      End
       Begin VB.CommandButton btnConnectBNET 
          Caption         =   "Connect!"
          Height          =   300
-         Left            =   1200
-         TabIndex        =   19
-         Top             =   1080
-         Width           =   1455
+         Left            =   240
+         TabIndex        =   9
+         Top             =   360
+         Width           =   6495
       End
       Begin VB.CheckBox chkBtoIRC 
          Caption         =   "Broadcast to IRC"
@@ -261,7 +184,7 @@ Begin VB.Form frmMain
          EndProperty
          Height          =   255
          Left            =   5040
-         TabIndex        =   16
+         TabIndex        =   7
          Top             =   5520
          Width           =   1815
       End
@@ -269,123 +192,30 @@ Begin VB.Form frmMain
          Height          =   285
          Left            =   120
          MultiLine       =   -1  'True
-         TabIndex        =   14
+         TabIndex        =   5
          Top             =   5520
          Width           =   4815
       End
-      Begin VB.ComboBox cmbBNETServer 
-         Height          =   315
-         ItemData        =   "frmMain.frx":0104
-         Left            =   3840
-         List            =   "frmMain.frx":0106
-         TabIndex        =   10
-         Text            =   "Select Server"
-         Top             =   360
-         Width           =   1455
-      End
-      Begin VB.TextBox txtBNETPassword 
-         Height          =   285
-         IMEMode         =   3  'DISABLE
-         Left            =   1200
-         PasswordChar    =   "*"
-         TabIndex        =   9
-         Top             =   720
-         Width           =   1455
-      End
-      Begin VB.TextBox txtBNETUsername 
-         Height          =   285
-         Left            =   1200
-         TabIndex        =   8
-         Top             =   360
-         Width           =   1455
-      End
       Begin RichTextLib.RichTextBox rtbChatBNET 
-         Height          =   3855
+         Height          =   4695
          Left            =   120
-         TabIndex        =   13
-         Top             =   1560
+         TabIndex        =   4
+         Top             =   720
          Width           =   6765
          _ExtentX        =   11933
-         _ExtentY        =   6800
+         _ExtentY        =   8281
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ScrollBars      =   2
-         TextRTF         =   $"frmMain.frx":0108
-      End
-      Begin VB.Label Label1 
-         Caption         =   "Channel:"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   2760
-         TabIndex        =   23
-         Top             =   720
-         Width           =   855
-      End
-      Begin VB.Label Label7 
-         Caption         =   "Server:"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   2760
-         TabIndex        =   17
-         Top             =   360
-         Width           =   735
-      End
-      Begin VB.Label Label3 
-         Caption         =   "Username: "
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   120
-         TabIndex        =   7
-         Top             =   360
-         Width           =   1095
-      End
-      Begin VB.Label Label2 
-         Caption         =   "Password:"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   120
-         TabIndex        =   6
-         Top             =   720
-         Width           =   1095
+         TextRTF         =   $"frmMain.frx":0104
       End
    End
    Begin VB.Menu mnuFile 
       Caption         =   "File"
-      Begin VB.Menu mnuKeys 
-         Caption         =   "Manage Keys"
+      Begin VB.Menu mnuConfiguration 
+         Caption         =   "Configuration"
       End
       Begin VB.Menu mnuSeparator1 
          Caption         =   "-"
@@ -416,14 +246,9 @@ Private Sub btnConnectBNET_Click()
   Dim socketsStillAlive As Boolean
 
   If config.bnetKeyCount = 0 Then
-    MsgBox "Your keys are not configured. Go to File -> Manage Keys first.", vbOKOnly, PROGRAM_VERSION
+    MsgBox "Your keys are not configured. Go to File -> Configuration -> Manage Keys first.", vbOKOnly, PROGRAM_VERSION
     Exit Sub
   End If
-  
-  config.bnetUsername = txtBNETUsername.text
-  config.bnetPassword = txtBNETPassword.text
-  config.bnetChannel = txtBNETChannel.text
-  config.bnetServer = cmbBNETServer.text
   
   If btnConnectBNET.Caption = "Connect!" Then
     AddChat rtbChatBNET, vbYellow, "Bot #0: [BNET] Connecting..."
@@ -452,32 +277,6 @@ End Sub
 
 Private Sub btnConnectIRC_Click()
   If btnConnectIRC.Caption = "Connect!" Then
-    If txtIRCServer.text = vbNullString Then
-      MsgBox "You have not entered a server name!", vbOKOnly, PROGRAM_VERSION
-      Exit Sub
-    End If
-  
-    If txtIRCUsername.text = vbNullString Then
-      MsgBox "No username was entered!", vbOKOnly, PROGRAM_VERSION
-      Exit Sub
-    End If
-    
-    If txtIRCChannel.text = vbNullString Then
-      MsgBox "No IRC channel specified!", vbOKOnly, PROGRAM_VERSION
-      Exit Sub
-    End If
-  
-    config.ircUsername = txtIRCUsername.text
-    config.ircChannel = txtIRCChannel.text
-    
-    If InStr(txtIRCServer.text, ":") Then
-      config.ircServer = Split(txtIRCServer.text, ":")(0)
-      config.ircPort = Split(txtIRCServer.text, ":")(1)
-    Else
-      config.ircServer = txtIRCServer.text
-      config.ircPort = 6667
-    End If
-  
     btnConnectIRC.Caption = "Disconnect!"
     AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & config.ircServer & ":" & config.ircPort & "..."
     sckIRC.Connect config.ircServer, config.ircPort
@@ -527,33 +326,7 @@ Private Sub Form_Load()
     Me.Left = config.formLeft
   End If
 
-  txtBNETUsername.text = config.bnetUsername
-  txtBNETPassword.text = config.bnetPassword
-  txtBNETChannel.text = config.bnetChannel
-  
-  cmbBNETServer.text = config.bnetServer
-  config.bnlsServer = config.bnlsServer
-
-  txtIRCUsername.text = config.ircUsername
-  txtIRCServer.text = config.ircServer
-  txtIRCChannel.text = config.ircChannel
   rcConsole.value = True
-
-  arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net")
-
-  For i = 0 To 3
-    gateway = arrGateways(i)
-    cmbBNETServer.AddItem gateway
-    IPs = Split(Resolve(gateway))
-
-    For j = 0 To UBound(IPs)
-      cmbBNETServer.AddItem IPs(j)
-    Next j
-
-    If (i < 3) Then
-      cmbBNETServer.AddItem vbNullString
-    End If
-  Next i
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
@@ -565,8 +338,8 @@ Private Sub Form_Unload(Cancel As Integer)
   quitProgram
 End Sub
 
-Private Sub mnuKeys_Click()
-  frmKeys.Show
+Private Sub mnuConfiguration_Click()
+  frmConfig.Show
 End Sub
 
 Private Sub mnuQuit_Click()

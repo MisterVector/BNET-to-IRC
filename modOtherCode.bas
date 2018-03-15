@@ -134,7 +134,7 @@ Public Sub setupSockets(previousConnectionCount As Integer, connectionCount As I
 End Sub
 
 Public Sub loadConfig()
-  Dim val As Variant
+  Dim val As Variant, parts() As String
 
   val = ReadINI("Window", "Top", "Config.ini")
   
@@ -175,7 +175,18 @@ Public Sub loadConfig()
   
   config.ircUsername = ReadINI("IRC", "Username", "Config.ini")
   config.ircChannel = ReadINI("IRC", "Channel", "Config.ini")
-  config.ircServer = ReadINI("IRC", "Server", "Config.ini")
+  
+  val = ReadINI("IRC", "Server", "Config.ini")
+  
+  If (InStr(val, ":") > 0) Then
+    parts = Split(val, ":")
+  
+    config.ircServer = parts(0)
+    config.ircPort = parts(1)
+  Else
+    config.ircServer = val
+    config.ircPort = 6667
+  End If
 End Sub
 
 Public Sub saveConfig()

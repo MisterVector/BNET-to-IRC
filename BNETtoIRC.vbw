@@ -1,13 +1,14 @@
 frmMain = 132, 174, 820, 542, , -31, 38, 568, 464, C
-modVars = 44, 58, 679, 412, Z
+modVars = 44, 58, 679, 412, 
 modOtherCode = 88, 116, 723, 470, 
 modFileHandling = 22, 29, 659, 318, 
-clsPacketBuffer = 25, 25, 1466, 584, 
+clsPacketHandler = 25, 25, 1466, 584, 
 modBNLS = 66, 87, 653, 394, 
 modBNET = 44, 58, 631, 365, 
 modDeclares = 22, 29, 683, 318, 
 modText = 0, 0, 725, 252, 
-frmKeys = 88, 116, 687, 542, , 66, 87, 665, 513, C
+frmKeys = 88, 116, 687, 542, Z, 66, 87, 665, 513, C
 modDNS = 0, 0, 1349, 621, 
 modLibBNET = 275, 275, 1624, 896, 
 modBNLSChecksum = 250, 250, 1599, 871, 
+frmConfig = 0, 0, 1349, 621, , 300, 300, 1649, 921, C
