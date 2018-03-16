@@ -49,11 +49,10 @@ Begin VB.Form frmConfig
       _ExtentX        =   9551
       _ExtentY        =   8916
       _Version        =   393216
-      Tab             =   1
       TabHeight       =   520
       TabCaption(0)   =   "Battle.Net"
       TabPicture(0)   =   "frmConfig.frx":0EBE
-      Tab(0).ControlEnabled=   0   'False
+      Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "Label6"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Label5"
@@ -79,7 +78,7 @@ Begin VB.Form frmConfig
       Tab(0).ControlCount=   11
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmConfig.frx":0EDA
-      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Label2"
       Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "lvKeyList"
@@ -101,24 +100,17 @@ Begin VB.Form frmConfig
       TabPicture(2)   =   "frmConfig.frx":0EF6
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "Label9"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "Label8"
-      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "Label7"
-      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Label10"
-      Tab(2).Control(3).Enabled=   0   'False
       Tab(2).Control(4)=   "txtIRCUsername"
-      Tab(2).Control(4).Enabled=   0   'False
       Tab(2).Control(5)=   "txtIRCChannel"
-      Tab(2).Control(5).Enabled=   0   'False
       Tab(2).Control(6)=   "txtIRCServer"
-      Tab(2).Control(6).Enabled=   0   'False
       Tab(2).ControlCount=   7
       Begin VB.OptionButton opWAR3 
          Caption         =   "Warcraft III"
          Height          =   255
-         Left            =   2400
+         Left            =   -72600
          TabIndex        =   28
          Top             =   3720
          Width           =   1215
@@ -126,7 +118,7 @@ Begin VB.Form frmConfig
       Begin VB.OptionButton opD2DV 
          Caption         =   "Diablo II"
          Height          =   255
-         Left            =   1440
+         Left            =   -73560
          TabIndex        =   27
          Top             =   3720
          Width           =   975
@@ -134,7 +126,7 @@ Begin VB.Form frmConfig
       Begin VB.OptionButton opW2BN 
          Caption         =   "Warcraft II"
          Height          =   255
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   26
          Top             =   3720
          Width           =   1095
@@ -162,7 +154,7 @@ Begin VB.Form frmConfig
       End
       Begin VB.TextBox txtBNETKey 
          Height          =   345
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   15
          Top             =   4080
          Width           =   4935
@@ -170,7 +162,7 @@ Begin VB.Form frmConfig
       Begin VB.CommandButton btnRemove 
          Caption         =   "Remove"
          Height          =   255
-         Left            =   3000
+         Left            =   -72000
          TabIndex        =   14
          Top             =   4560
          Width           =   2175
@@ -178,7 +170,7 @@ Begin VB.Form frmConfig
       Begin VB.CommandButton btnAdd 
          Caption         =   "Add"
          Height          =   255
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   13
          Top             =   4560
          Width           =   2175
@@ -195,7 +187,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   360
          IMEMode         =   3  'DISABLE
-         Left            =   -73320
+         Left            =   1680
          PasswordChar    =   "*"
          TabIndex        =   7
          Top             =   1680
@@ -212,14 +204,14 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   360
-         Left            =   -73320
+         Left            =   1680
          TabIndex        =   6
          Top             =   1200
          Width           =   2535
       End
       Begin VB.ComboBox cmbBNETServer 
          Height          =   315
-         Left            =   -73320
+         Left            =   1680
          TabIndex        =   5
          Top             =   3120
          Width           =   2535
@@ -235,7 +227,7 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   360
-         Left            =   -73320
+         Left            =   1680
          TabIndex        =   4
          Top             =   2640
          Width           =   2535
@@ -251,14 +243,14 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   360
-         Left            =   -73320
+         Left            =   1680
          TabIndex        =   3
          Top             =   2160
          Width           =   2535
       End
       Begin MSComctlLib.ListView lvKeyList 
          Height          =   2415
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   16
          Top             =   1200
          Width           =   4935
@@ -293,7 +285,7 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   25
          Top             =   600
          Width           =   3975
@@ -380,7 +372,7 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   17
          Top             =   600
          Width           =   4935
@@ -397,7 +389,7 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   12
          Top             =   3120
          Width           =   735
@@ -414,7 +406,7 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   11
          Top             =   1680
          Width           =   975
@@ -431,7 +423,7 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   10
          Top             =   1200
          Width           =   1215
@@ -448,7 +440,7 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   9
          Top             =   2640
          Width           =   1335
@@ -465,7 +457,7 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   8
          Top             =   2160
          Width           =   855
