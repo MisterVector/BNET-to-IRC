@@ -185,12 +185,11 @@ End Sub
 
 Public Sub Recv0x54(index As Integer)
   Select Case bnetPacketHandler(index).GetDWORD
-    Case &H0: GoTo Continue
+    Case &H0, &HE: AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNET] Password accepted!"
+              GoTo Continue
     Case &H1:
     Case &H2:
     Case &HF:
-    Case &HE:
-              GoTo Continue
   End Select
     
   frmMain.Click_start
@@ -200,6 +199,7 @@ Continue:
 
   nls_free (bnetData(index).nls_P)        'Unloads the NLS object to avoid overhead
 
+  ConnectOtherBots
   Send0x14 index
   Send0x0A index
   Send0x0C index
