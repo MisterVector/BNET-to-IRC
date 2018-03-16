@@ -492,6 +492,8 @@ Private Sub tmrReleaseQueue_Timer()
   
   queuedMessage = dicQueue.Item(dicQueueIndex)
   
+  AddChat rtbChatBNET, vbYellow, "Bot #" & bnetQueueIndex & ": <" & config.bnetUsername & "> ", vbWhite, queuedMessage
+  
   With bnetPacketHandler(bnetQueueIndex)
     .InsertNTString queuedMessage
     .sendPacket &HE
@@ -513,7 +515,6 @@ Private Sub txtBNETChat_KeyDown(KeyCode As Integer, Shift As Integer)
   If KeyCode = 13 Then
     If sckBNET(bnetSocketIndex).State = sckConnected Then
       txtBNETChat.text = Replace(txtBNETChat.text, vbNewLine, vbNullString)
-      AddChat rtbChatBNET, vbYellow, "Bot #" & bnetSocketIndex & ": <" & config.bnetUsername & "> ", vbWhite, txtBNETChat.text
       SendToBNET txtBNETChat.text
       txtBNETChat.text = vbNullString
     End If
