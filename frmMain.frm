@@ -120,6 +120,7 @@ Begin VB.Form frmMain
          BackColor       =   0
          BorderStyle     =   0
          Enabled         =   -1  'True
+         ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
       End
@@ -135,6 +136,7 @@ Begin VB.Form frmMain
          BackColor       =   0
          BorderStyle     =   0
          Enabled         =   -1  'True
+         ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
       End
@@ -192,6 +194,7 @@ Begin VB.Form frmMain
          BackColor       =   0
          BorderStyle     =   0
          Enabled         =   -1  'True
+         ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0104
       End
