@@ -241,11 +241,9 @@ Private Sub chkDisplayRTB_Click()
   If chkDisplayRTB.value = 1 Then
     rtbChatIRCConsole.Visible = False
     rtbChatIRCChat.Visible = True
-    chkDisplayRTB.value = 0
   Else
     rtbChatIRCConsole.Visible = True
     rtbChatIRCChat.Visible = False
-    chkDisplayRTB.value = 1
   End If
 End Sub
 
