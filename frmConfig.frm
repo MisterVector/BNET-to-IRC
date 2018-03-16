@@ -517,17 +517,17 @@ Private Sub btnAdd_Click()
   Dim li As ListItem
 
   If (txtBNETKey.text = vbNullString) Then
-    MsgBox "You must enter a CD-Key."
+    MsgBox "You must enter a CD-Key.", vbOKOnly, PROGRAM_TITLE
     Exit Sub
   End If
   
   If (productChosen = vbNullString) Then
-    MsgBox "You must select a product first."
+    MsgBox "You must select a product first.", vbOKOnly, PROGRAM_TITLE
     Exit Sub
   End If
   
   If (Not isValidKey(txtBNETKey.text)) Then
-    MsgBox "You did not enter a valid " & productChosen & " key."
+    MsgBox "You did not enter a valid " & productChosen & " key.", vbOKOnly, PROGRAM_TITLE
     Exit Sub
   End If
   

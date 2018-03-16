@@ -246,7 +246,7 @@ Private Sub btnConnectBNET_Click()
   Dim socketsStillAlive As Boolean
 
   If config.bnetKeyCount = 0 Then
-    MsgBox "Your keys are not configured. Go to File -> Configuration -> Manage Keys first.", vbOKOnly, PROGRAM_VERSION
+    MsgBox "Your keys are not configured. Go to File -> Configuration -> Manage Keys first.", vbOKOnly, PROGRAM_TITLE
     Exit Sub
   End If
   

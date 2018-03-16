@@ -140,7 +140,7 @@ Public Sub Send0x53(index As Integer)
   bnetData(index).nls_P = nls_init(config.bnetUsername, config.bnetPassword)
 
   If bnetData(index).nls_P = 0 Then
-    MsgBox "NLS made a bad call.", vbOKOnly, PROGRAM_NAME
+    MsgBox "NLS made a bad call.", vbOKOnly, PROGRAM_TITLE
     
     frmMain.Click_start
     Exit Sub
@@ -149,7 +149,7 @@ Public Sub Send0x53(index As Integer)
   nls_A = Space(Len(config.bnetUsername) + 33)
   
   If (nls_account_logon(bnetData(index).nls_P, nls_A) = 0) Then
-    MsgBox "Unable to create NLS key.", vbOKOnly, PROGRAM_NAME
+    MsgBox "Unable to create NLS key.", vbOKOnly, PROGRAM_TITLE
     
     frmMain.Click_start
     Exit Sub
