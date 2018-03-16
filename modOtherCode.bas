@@ -116,21 +116,23 @@ Public Sub setupSockets(previousConnectionCount As Integer, connectionCount As I
     Next i
   End If
   
-  ReDim bnlsPacketHandler(connectionCount - 1)
-  ReDim bnetPacketHandler(connectionCount - 1)
-  
-  For i = 0 To connectionCount - 1
-    If (i > 0) Then
-      Load frmMain.sckBNLS(i)
-      Load frmMain.sckBNET(i)
-    End If
+  If (connectionCount > 0) Then
+    ReDim bnlsPacketHandler(connectionCount - 1)
+    ReDim bnetPacketHandler(connectionCount - 1)
     
-    Set bnlsPacketHandler(i) = New clsPacketHandler
-    Set bnetPacketHandler(i) = New clsPacketHandler
-
-    bnlsPacketHandler(i).setSocket frmMain.sckBNLS(i), packetType.BNLS
-    bnetPacketHandler(i).setSocket frmMain.sckBNET(i), packetType.BNCS
-  Next i
+    For i = 0 To connectionCount - 1
+      If (i > 0) Then
+        Load frmMain.sckBNLS(i)
+        Load frmMain.sckBNET(i)
+      End If
+      
+      Set bnlsPacketHandler(i) = New clsPacketHandler
+      Set bnetPacketHandler(i) = New clsPacketHandler
+  
+      bnlsPacketHandler(i).setSocket frmMain.sckBNLS(i), packetType.BNLS
+      bnetPacketHandler(i).setSocket frmMain.sckBNET(i), packetType.BNCS
+    Next i
+  End If
 End Sub
 
 Public Sub loadConfig()
