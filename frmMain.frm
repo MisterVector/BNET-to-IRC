@@ -17,28 +17,28 @@ Begin VB.Form frmMain
    Begin VB.Timer tmrReleaseQueue 
       Enabled         =   0   'False
       Interval        =   1250
-      Left            =   2160
-      Top             =   0
+      Left            =   2280
+      Top             =   1440
    End
    Begin MSWinsockLib.Winsock sckBNLS 
       Index           =   0
-      Left            =   3120
-      Top             =   0
+      Left            =   3240
+      Top             =   1440
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
    End
    Begin MSWinsockLib.Winsock sckBNET 
       Index           =   0
-      Left            =   3600
-      Top             =   0
+      Left            =   3720
+      Top             =   1440
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
    End
    Begin MSWinsockLib.Winsock sckIRC 
-      Left            =   2640
-      Top             =   0
+      Left            =   2760
+      Top             =   1440
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
@@ -62,15 +62,15 @@ Begin VB.Form frmMain
       Begin VB.Frame Frame3 
          Caption         =   "Display Mode"
          Height          =   555
-         Left            =   3360
-         TabIndex        =   10
+         Left            =   240
+         TabIndex        =   8
          Top             =   240
          Width           =   2415
          Begin VB.OptionButton rcChat 
             Caption         =   "Chat"
             Height          =   255
             Left            =   1320
-            TabIndex        =   12
+            TabIndex        =   10
             Top             =   240
             Width           =   735
          End
@@ -78,18 +78,10 @@ Begin VB.Form frmMain
             Caption         =   "Console"
             Height          =   255
             Left            =   120
-            TabIndex        =   11
+            TabIndex        =   9
             Top             =   240
             Width           =   975
          End
-      End
-      Begin VB.CommandButton btnConnectIRC 
-         Caption         =   "Connect!"
-         Height          =   255
-         Left            =   120
-         TabIndex        =   8
-         Top             =   840
-         Width           =   6735
       End
       Begin VB.CheckBox chkBtoBNET 
          Caption         =   "Broadcast to BNET"
@@ -117,13 +109,13 @@ Begin VB.Form frmMain
          Width           =   4575
       End
       Begin RichTextLib.RichTextBox rtbChatIRCConsole 
-         Height          =   4215
+         Height          =   4575
          Left            =   120
          TabIndex        =   2
-         Top             =   1200
+         Top             =   840
          Width           =   6735
          _ExtentX        =   11880
-         _ExtentY        =   7435
+         _ExtentY        =   8070
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
@@ -134,7 +126,7 @@ Begin VB.Form frmMain
       Begin RichTextLib.RichTextBox rtbChatIRCChat 
          Height          =   4215
          Left            =   120
-         TabIndex        =   13
+         TabIndex        =   11
          Top             =   1200
          Width           =   6735
          _ExtentX        =   11880
@@ -163,14 +155,6 @@ Begin VB.Form frmMain
       TabIndex        =   0
       Top             =   120
       Width           =   6975
-      Begin VB.CommandButton btnConnectBNET 
-         Caption         =   "Connect!"
-         Height          =   300
-         Left            =   240
-         TabIndex        =   9
-         Top             =   360
-         Width           =   6495
-      End
       Begin VB.CheckBox chkBtoIRC 
          Caption         =   "Broadcast to IRC"
          BeginProperty Font 
@@ -197,13 +181,13 @@ Begin VB.Form frmMain
          Width           =   4815
       End
       Begin RichTextLib.RichTextBox rtbChatBNET 
-         Height          =   4695
+         Height          =   5055
          Left            =   120
          TabIndex        =   4
-         Top             =   720
+         Top             =   360
          Width           =   6765
          _ExtentX        =   11933
-         _ExtentY        =   8281
+         _ExtentY        =   8916
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
@@ -224,6 +208,26 @@ Begin VB.Form frmMain
          Caption         =   "Quit"
       End
    End
+   Begin VB.Menu mnuConnection 
+      Caption         =   "Connection"
+      Begin VB.Menu mnuConnectBNET 
+         Caption         =   "Connect to Battle.Net"
+      End
+      Begin VB.Menu mnuDisconnectBNET 
+         Caption         =   "Disconnect from Battle.Net"
+         Enabled         =   0   'False
+      End
+      Begin VB.Menu mnuSeparator2 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuConnectIRC 
+         Caption         =   "Connect to IRC"
+      End
+      Begin VB.Menu mnuDisconnectIRC 
+         Caption         =   "Disconnect from IRC"
+         Enabled         =   0   'False
+      End
+   End
 End
 Attribute VB_Name = "frmMain"
 Attribute VB_GlobalNameSpace = False
@@ -239,59 +243,6 @@ Private Sub chkDisplayRTB_Click()
     rtbChatIRCConsole.Visible = True
     rtbChatIRCChat.Visible = False
     chkDisplayRTB.value = 1
-  End If
-End Sub
-
-Private Sub btnConnectBNET_Click()
-  Dim socketsStillAlive As Boolean
-
-  If config.bnetKeyCount = 0 Then
-    MsgBox "Your keys are not configured. Go to File -> Configuration -> Manage Keys first.", vbOKOnly, PROGRAM_TITLE
-    Exit Sub
-  End If
-  
-  If btnConnectBNET.Caption = "Connect!" Then
-    AddChat rtbChatBNET, vbYellow, "Bot #0: [BNET] Connecting..."
-    sckBNET(0).Connect config.bnetServer, 6112
-    
-    btnConnectBNET.Caption = "Disconnect!"
-  Else
-    btnConnectBNET.Caption = "Connect!"
-    
-    For i = 0 To sckBNET.Count - 1
-      sckBNET(i).Close
-      
-      If sckBNLS(i).State <> sckClosed Then
-        If Not socketsStillAlive Then socketsStillAlive = True
-        sckBNLS(i).Close
-      End If
-    Next i
-    
-    If socketsStillAlive Then
-      AddChat rtbChatBNET, vbRed, "[BNLS] All connections closed."
-    End If
-    
-    AddChat rtbChatBNET, vbRed, "[BNET] All connections closed."
-  End If
-End Sub
-
-Private Sub btnConnectIRC_Click()
-  If btnConnectIRC.Caption = "Connect!" Then
-    btnConnectIRC.Caption = "Disconnect!"
-    AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & config.ircServer & ":" & config.ircPort & "..."
-    sckIRC.Connect config.ircServer, config.ircPort
-  Else
-    AddChat rtbChatIRCConsole, vbRed, "[IRC] All connections closed."
-    btnConnectIRC.Caption = "Connect!"
-    
-    If sckIRC.State = sckConnected Then
-      'SendToBNET "Disconnected from " & config.ircServer & "!"
-      SendToBNET "Disconnected from IRC!"
-      sckIRC.SendData "QUIT"
-      DoEvents: DoEvents: DoEvents: DoEvents
-    End If
-
-    sckIRC.Close
   End If
 End Sub
 
@@ -340,6 +291,65 @@ End Sub
 
 Private Sub mnuConfiguration_Click()
   frmConfig.Show
+End Sub
+
+Private Sub mnuConnectBNET_Click()
+  If config.bnetKeyCount = 0 Then
+    MsgBox "Your keys are not configured. Go to File -> Configuration -> Manage Keys first.", vbOKOnly, PROGRAM_TITLE
+    Exit Sub
+  End If
+  
+  AddChat rtbChatBNET, vbYellow, "Bot #0: [BNET] Connecting..."
+  sckBNET(0).Connect config.bnetServer, 6112
+  
+  mnuConnectBNET.Enabled = False
+  mnuDisconnectBNET.Enabled = True
+End Sub
+
+Private Sub mnuConnectIRC_Click()
+  AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & config.ircServer & ":" & config.ircPort & "..."
+  sckIRC.Connect config.ircServer, config.ircPort
+  
+  mnuConnectIRC.Enabled = False
+  mnuDisconnectIRC.Enabled = True
+End Sub
+
+Private Sub mnuDisconnectBNET_Click()
+  Dim socketsStillAlive As Boolean
+  
+  For i = 0 To sckBNET.Count - 1
+    sckBNET(i).Close
+    
+    If sckBNLS(i).State <> sckClosed Then
+      If Not socketsStillAlive Then socketsStillAlive = True
+      sckBNLS(i).Close
+    End If
+  Next i
+  
+  If socketsStillAlive Then
+    AddChat rtbChatBNET, vbRed, "[BNLS] All connections closed."
+  End If
+  
+  AddChat rtbChatBNET, vbRed, "[BNET] All connections closed."
+
+  mnuDisconnectBNET.Enabled = False
+  mnuConnectBNET.Enabled = True
+End Sub
+
+Private Sub mnuDisconnectIRC_Click()
+  AddChat rtbChatIRCConsole, vbRed, "[IRC] All connections closed."
+  
+  If sckIRC.State = sckConnected Then
+    'SendToBNET "Disconnected from " & config.ircServer & "!"
+    SendToBNET "Disconnected from IRC!"
+    sckIRC.SendData "QUIT"
+    DoEvents: DoEvents: DoEvents: DoEvents
+  End If
+
+  sckIRC.Close
+
+  mnuDisconnectIRC.Enabled = False
+  mnuConnectIRC.Enabled = True
 End Sub
 
 Private Sub mnuQuit_Click()
