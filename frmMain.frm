@@ -281,7 +281,7 @@ Private Sub btnConnectIRC_Click()
     AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & config.ircServer & ":" & config.ircPort & "..."
     sckIRC.Connect config.ircServer, config.ircPort
   Else
-    AddChat rtbChatIRCConsole, vbRed, "[IRC] All connectiosn closed."
+    AddChat rtbChatIRCConsole, vbRed, "[IRC] All connections closed."
     btnConnectIRC.Caption = "Connect!"
     
     If sckIRC.State = sckConnected Then

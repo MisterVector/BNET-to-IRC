@@ -87,9 +87,9 @@ Public Sub Recv0x51(index As Integer)
                  frmMain.sckBNET(index).Close
                  frmMain.sckBNLS(index).Close
     Case &H202:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Key is banned."
-    Case &H203:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Key is for nother product."
+    Case &H203:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Key is for another product."
     Case &H210:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Expansion key is invalid."
-    Case &H211:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Expansion key is in use by" & bnetPacketHandler(index).getNTString & "."
+    Case &H211:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Expansion key is in use by " & bnetPacketHandler(index).getNTString & "."
     Case &H212:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Expansion key is banned."
   End Select
   
@@ -259,8 +259,8 @@ Public Sub Recv0x3D(index As Integer)
     Case &H0: AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNET] Account created!"
               Send0x3A index
               Exit Sub
-    Case &H2: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Account contained invalid characters"
-    Case &H3: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Account contained a banned words."
+    Case &H2: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Account contained invalid characters."
+    Case &H3: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Account contained a banned word."
     Case &H4: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Account already exists!"
     Case &H6: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Not enough characters!"
   End Select
