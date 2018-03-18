@@ -4,15 +4,15 @@ Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "Mswinsck.ocx"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Battle.Net To IRC %v by Vector"
-   ClientHeight    =   6075
+   ClientHeight    =   6600
    ClientLeft      =   150
    ClientTop       =   780
-   ClientWidth     =   14265
+   ClientWidth     =   16200
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6075
-   ScaleWidth      =   14265
+   ScaleHeight     =   6600
+   ScaleWidth      =   16200
    StartUpPosition =   3  'Windows Default
    Begin VB.Timer tmrReleaseQueue 
       Enabled         =   0   'False
@@ -54,11 +54,11 @@ Begin VB.Form frmMain
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   5895
-      Left            =   7200
+      Height          =   6375
+      Left            =   8160
       TabIndex        =   1
       Top             =   120
-      Width           =   6975
+      Width           =   7935
       Begin VB.Frame Frame3 
          Caption         =   "Display Mode"
          Height          =   555
@@ -95,9 +95,9 @@ Begin VB.Form frmMain
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   4800
+         Left            =   5760
          TabIndex        =   6
-         Top             =   5520
+         Top             =   6000
          Width           =   2055
       End
       Begin VB.TextBox txtIRCChat 
@@ -105,38 +105,58 @@ Begin VB.Form frmMain
          Left            =   120
          MultiLine       =   -1  'True
          TabIndex        =   3
-         Top             =   5520
-         Width           =   4575
+         Top             =   6000
+         Width           =   5415
       End
       Begin RichTextLib.RichTextBox rtbChatIRCConsole 
-         Height          =   4575
+         Height          =   5055
          Left            =   120
          TabIndex        =   2
          Top             =   840
-         Width           =   6735
-         _ExtentX        =   11880
-         _ExtentY        =   8070
+         Width           =   7695
+         _ExtentX        =   13573
+         _ExtentY        =   8916
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
       End
       Begin RichTextLib.RichTextBox rtbChatIRCChat 
-         Height          =   4575
+         Height          =   5055
          Left            =   120
          TabIndex        =   11
          Top             =   840
-         Width           =   6735
-         _ExtentX        =   11880
-         _ExtentY        =   8070
+         Width           =   7695
+         _ExtentX        =   13573
+         _ExtentY        =   8916
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
       End
    End
    Begin VB.Frame Frame1 
@@ -150,11 +170,11 @@ Begin VB.Form frmMain
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   5895
+      Height          =   6375
       Left            =   120
       TabIndex        =   0
       Top             =   120
-      Width           =   6975
+      Width           =   7935
       Begin VB.CheckBox chkBtoIRC 
          Caption         =   "Broadcast to IRC"
          BeginProperty Font 
@@ -167,9 +187,9 @@ Begin VB.Form frmMain
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   5040
+         Left            =   6000
          TabIndex        =   7
-         Top             =   5520
+         Top             =   6000
          Width           =   1815
       End
       Begin VB.TextBox txtBNETChat 
@@ -177,23 +197,33 @@ Begin VB.Form frmMain
          Left            =   120
          MultiLine       =   -1  'True
          TabIndex        =   5
-         Top             =   5520
-         Width           =   4815
+         Top             =   6000
+         Width           =   5655
       End
       Begin RichTextLib.RichTextBox rtbChatBNET 
-         Height          =   5055
+         Height          =   5535
          Left            =   120
          TabIndex        =   4
          Top             =   360
-         Width           =   6765
-         _ExtentX        =   11933
-         _ExtentY        =   8916
+         Width           =   7725
+         _ExtentX        =   13626
+         _ExtentY        =   9763
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0104
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
       End
    End
    Begin VB.Menu mnuFile 
