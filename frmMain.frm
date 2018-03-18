@@ -231,6 +231,12 @@ Begin VB.Form frmMain
          Enabled         =   0   'False
       End
    End
+   Begin VB.Menu mnuHelp 
+      Caption         =   "Help"
+      Begin VB.Menu mnuAbout 
+         Caption         =   "About"
+      End
+   End
 End
 Attribute VB_Name = "frmMain"
 Attribute VB_GlobalNameSpace = False
@@ -288,6 +294,10 @@ Private Sub Form_Unload(Cancel As Integer)
 
   saveConfig
   quitProgram
+End Sub
+
+Private Sub mnuAbout_Click()
+  frmAbout.Show
 End Sub
 
 Private Sub mnuConfiguration_Click()
