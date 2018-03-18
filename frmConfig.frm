@@ -4,19 +4,19 @@ Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "tabctl32.ocx"
 Begin VB.Form frmConfig 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Battle.Net to IRC Configuration"
-   ClientHeight    =   5910
+   ClientHeight    =   6075
    ClientLeft      =   1875
    ClientTop       =   1995
    ClientWidth     =   5715
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5910
+   ScaleHeight     =   6075
    ScaleWidth      =   5715
    ShowInTaskbar   =   0   'False
    Begin MSComctlLib.ImageList ilIcons 
       Left            =   2400
-      Top             =   5160
+      Top             =   5280
       _ExtentX        =   1005
       _ExtentY        =   1005
       BackColor       =   -2147483643
@@ -41,13 +41,13 @@ Begin VB.Form frmConfig
       EndProperty
    End
    Begin TabDlg.SSTab SSTab2 
-      Height          =   5055
+      Height          =   5175
       Left            =   0
       TabIndex        =   2
       Top             =   0
       Width           =   5775
       _ExtentX        =   10186
-      _ExtentY        =   8916
+      _ExtentY        =   9128
       _Version        =   393216
       Tabs            =   4
       TabsPerRow      =   4
@@ -67,46 +67,80 @@ Begin VB.Form frmConfig
       Tab(0).Control(4).Enabled=   0   'False
       Tab(0).Control(5)=   "Label11"
       Tab(0).Control(5).Enabled=   0   'False
-      Tab(0).Control(6)=   "txtBNETChannel"
+      Tab(0).Control(6)=   "Label12"
       Tab(0).Control(6).Enabled=   0   'False
-      Tab(0).Control(7)=   "txtBNLSServer"
+      Tab(0).Control(7)=   "Label13"
       Tab(0).Control(7).Enabled=   0   'False
-      Tab(0).Control(8)=   "cmbBNETServer"
+      Tab(0).Control(8)=   "Label14"
       Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "txtBNETUsername"
+      Tab(0).Control(9)=   "Label15"
       Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "txtBNETPassword"
+      Tab(0).Control(10)=   "txtBNETChannel"
       Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).ControlCount=   11
+      Tab(0).Control(11)=   "txtBNLSServer"
+      Tab(0).Control(11).Enabled=   0   'False
+      Tab(0).Control(12)=   "cmbBNETServer"
+      Tab(0).Control(12).Enabled=   0   'False
+      Tab(0).Control(13)=   "txtBNETUsername"
+      Tab(0).Control(13).Enabled=   0   'False
+      Tab(0).Control(14)=   "txtBNETPassword"
+      Tab(0).Control(14).Enabled=   0   'False
+      Tab(0).Control(15)=   "txtW2BNVerByte"
+      Tab(0).Control(15).Enabled=   0   'False
+      Tab(0).Control(16)=   "txtD2DVVerByte"
+      Tab(0).Control(16).Enabled=   0   'False
+      Tab(0).Control(17)=   "txtWAR3VerByte"
+      Tab(0).Control(17).Enabled=   0   'False
+      Tab(0).ControlCount=   18
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmConfig.frx":0EDA
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label2"
-      Tab(1).Control(1)=   "lvKeyList"
-      Tab(1).Control(2)=   "btnAdd"
-      Tab(1).Control(3)=   "btnRemove"
-      Tab(1).Control(4)=   "txtBNETKey"
-      Tab(1).Control(5)=   "opW2BN"
-      Tab(1).Control(6)=   "opD2DV"
-      Tab(1).Control(7)=   "opWAR3"
+      Tab(1).Control(0)=   "opWAR3"
+      Tab(1).Control(1)=   "opD2DV"
+      Tab(1).Control(2)=   "opW2BN"
+      Tab(1).Control(3)=   "txtBNETKey"
+      Tab(1).Control(4)=   "btnRemove"
+      Tab(1).Control(5)=   "btnAdd"
+      Tab(1).Control(6)=   "lvKeyList"
+      Tab(1).Control(7)=   "Label2"
       Tab(1).ControlCount=   8
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0EF6
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Label9"
-      Tab(2).Control(1)=   "Label8"
-      Tab(2).Control(2)=   "Label7"
+      Tab(2).Control(0)=   "txtIRCServer"
+      Tab(2).Control(1)=   "txtIRCChannel"
+      Tab(2).Control(2)=   "txtIRCUsername"
       Tab(2).Control(3)=   "Label10"
-      Tab(2).Control(4)=   "txtIRCUsername"
-      Tab(2).Control(5)=   "txtIRCChannel"
-      Tab(2).Control(6)=   "txtIRCServer"
+      Tab(2).Control(4)=   "Label7"
+      Tab(2).Control(5)=   "Label8"
+      Tab(2).Control(6)=   "Label9"
       Tab(2).ControlCount=   7
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0F12
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "chkRememberWindowPosition"
-      Tab(3).Control(0).Enabled=   0   'False
       Tab(3).ControlCount=   1
+      Begin VB.TextBox txtWAR3VerByte 
+         Height          =   375
+         Left            =   1320
+         TabIndex        =   36
+         Top             =   4440
+         Width           =   735
+      End
+      Begin VB.TextBox txtD2DVVerByte 
+         Height          =   405
+         Left            =   3240
+         TabIndex        =   35
+         Top             =   3960
+         Width           =   735
+      End
+      Begin VB.TextBox txtW2BNVerByte 
+         Height          =   375
+         Left            =   1320
+         TabIndex        =   34
+         Top             =   3960
+         Width           =   735
+      End
       Begin VB.CheckBox chkRememberWindowPosition 
          Caption         =   "Remember Window Position"
          Height          =   375
@@ -279,6 +313,74 @@ Begin VB.Form frmConfig
             Key             =   "key"
             Object.Width           =   3528
          EndProperty
+      End
+      Begin VB.Label Label15 
+         Caption         =   "Warcraft III"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   240
+         TabIndex        =   33
+         Top             =   4440
+         Width           =   1095
+      End
+      Begin VB.Label Label14 
+         Caption         =   "Diablo II"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   2280
+         TabIndex        =   32
+         Top             =   3960
+         Width           =   855
+      End
+      Begin VB.Label Label13 
+         Caption         =   "Warcraft II"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   240
+         TabIndex        =   31
+         Top             =   3960
+         Width           =   975
+      End
+      Begin VB.Label Label12 
+         Caption         =   "Version Bytes"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   495
+         Left            =   1080
+         TabIndex        =   30
+         Top             =   3480
+         Width           =   3615
       End
       Begin VB.Label Label11 
          Alignment       =   2  'Center
@@ -485,7 +587,7 @@ Begin VB.Form frmConfig
       Height          =   495
       Left            =   3360
       TabIndex        =   1
-      Top             =   5280
+      Top             =   5400
       Width           =   1695
    End
    Begin VB.CommandButton btnOk 
@@ -502,7 +604,7 @@ Begin VB.Form frmConfig
       Height          =   495
       Left            =   360
       TabIndex        =   0
-      Top             =   5280
+      Top             =   5400
       Width           =   1695
    End
 End
@@ -553,6 +655,10 @@ Private Sub btnOk_Click()
   config.bnetServer = cmbBNETServer.text
   config.bnetKeyCount = lvKeyList.ListItems.Count
   
+  config.bnetW2BNVerByte = "&H" & txtW2BNVerByte.text
+  config.bnetD2DVVerByte = "&H" & txtD2DVVerByte.text
+  config.bnetWAR3VerByte = "&H" & txtWAR3VerByte.text
+  
   setupSockets oldKeyCount, config.bnetKeyCount
   
   If (config.bnetKeyCount > 0) Then
@@ -601,6 +707,10 @@ Private Sub Form_Load()
   txtBNETChannel.text = config.bnetChannel
   txtBNLSServer.text = config.bnlsServer
   cmbBNETServer.text = config.bnetServer
+  
+  txtW2BNVerByte.text = Right("0" & Hex(config.bnetW2BNVerByte), 2)
+  txtD2DVVerByte.text = Right("0" & Hex(config.bnetD2DVVerByte), 2)
+  txtWAR3VerByte.text = Right("0" & Hex(config.bnetWAR3VerByte), 2)
   
   If (config.bnetKeyCount > 0) Then
     For i = 0 To config.bnetKeyCount - 1

@@ -10,9 +10,9 @@ End Sub
 
 Public Function getVerByte(ByVal product As String) As Long
   Select Case product
-    Case "W2BN": getVerByte = VERBYTE_W2BN
-    Case "D2DV": getVerByte = VERBYTE_D2DV
-    Case "WAR3": getVerByte = VERBYTE_WAR3
+    Case "W2BN": getVerByte = config.bnetW2BNVerByte
+    Case "D2DV": getVerByte = config.bnetD2DVVerByte
+    Case "WAR3": getVerByte = config.bnetWAR3VerByte
   End Select
 End Function
 
@@ -138,6 +138,9 @@ End Sub
 Public Sub setDefaultValues()
   config.bnlsServer = DEFAULT_BNLS_SERVER
   config.rememberWindowPosition = DEFAULT_REMEMBER_WINDOW_POSITION
+  config.bnetW2BNVerByte = VERBYTE_W2BN
+  config.bnetD2DVVerByte = VERBYTE_D2DV
+  config.bnetWAR3VerByte = VERBYTE_WAR3
 End Sub
 
 Public Sub loadConfig()
@@ -181,6 +184,15 @@ Public Sub loadConfig()
     End If
   End If
   
+  val = "&H" & ReadINI("BNET", "W2BNVerByte", "Config.ini")
+  config.bnetW2BNVerByte = IIf(IsNumeric(val), val, VERBYTE_W2BN)
+  
+  val = "&H" & ReadINI("BNET", "D2DVVerByte", "Config.ini")
+  config.bnetD2DVVerByte = IIf(IsNumeric(val), val, VERBYTE_D2DV)
+  
+  val = "&H" & ReadINI("BNET", "WAR3VerByte", "Config.ini")
+  config.bnetWAR3VerByte = IIf(IsNumeric(val), val, VERBYTE_WAR3)
+  
   config.ircUsername = ReadINI("IRC", "Username", "Config.ini")
   config.ircChannel = ReadINI("IRC", "Channel", "Config.ini")
   
@@ -208,6 +220,11 @@ Public Sub saveConfig()
   WriteINI "BNET", "Server", config.bnetServer, "Config.ini"
   WriteINI "BNET", "BNLSServer", config.bnlsServer, "Config.ini"
   WriteINI "BNET", "KeyCount", config.bnetKeyCount, "Config.ini"
+  
+  WriteINI "BNET", "W2BNVerByte", Right("0" & Hex(config.bnetW2BNVerByte), 2), "Config.ini"
+  WriteINI "BNET", "D2DVBerByte", Right("0" & Hex(config.bnetD2DVVerByte), 2), "Config.ini"
+  WriteINI "BNET", "WAR3VerByte", Right("0" & Hex(config.bnetWAR3VerByte), 2), "Config.ini"
+  
   WriteINI "IRC", "Username", config.ircUsername, "Config.ini"
   WriteINI "IRC", "Channel", config.ircChannel, "Config.ini"
   WriteINI "IRC", "Server", config.ircServer, "Config.ini"

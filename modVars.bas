@@ -39,6 +39,10 @@ Public Type ConfigStructure
   bnetChannel As String
   bnetKeyCount As Integer
 
+  bnetW2BNVerByte As Long
+  bnetD2DVVerByte As Long
+  bnetWAR3VerByte As Long
+
   ircUsername As String
   ircPassword As String
   ircServer As String
