@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form frmAbout 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Form1"
+   Caption         =   "About"
    ClientHeight    =   1755
    ClientLeft      =   45
    ClientTop       =   375
