@@ -7,6 +7,7 @@ Public Const VERBYTE_D2DV As Long = &HE
 Public Const VERBYTE_WAR3 As Long = &H1C
 
 Public Const DEFAULT_BNLS_SERVER As String = "bnls.bnetdocs.org"
+Public Const DEFAULT_REMEMBER_WINDOW_POSITION As Boolean = False
 
 '// BNET SIDE
 Public dicQueue As New Dictionary
@@ -29,6 +30,7 @@ End Enum
 Public Type ConfigStructure
   formTop As Integer
   formLeft As Integer
+  rememberWindowPosition As Boolean
 
   bnlsServer As String
   bnetServer As String

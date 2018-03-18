@@ -274,12 +274,14 @@ Private Sub Form_Load()
   If (Dir$(App.Path & "\Config.ini") <> vbNullString) Then
     loadConfig
   
-    If (config.formTop > 0) Then
-      Me.Top = config.formTop
-    End If
-  
-    If (config.formLeft > 0) Then
-      Me.Left = config.formLeft
+    If (config.rememberWindowPosition) Then
+      If (config.formTop > 0) Then
+        Me.Top = config.formTop
+      End If
+    
+      If (config.formLeft > 0) Then
+        Me.Left = config.formLeft
+      End If
     End If
   Else
     setDefaultValues

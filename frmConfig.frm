@@ -7,12 +7,12 @@ Begin VB.Form frmConfig
    ClientHeight    =   5910
    ClientLeft      =   1875
    ClientTop       =   1995
-   ClientWidth     =   5385
+   ClientWidth     =   5715
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   5910
-   ScaleWidth      =   5385
+   ScaleWidth      =   5715
    ShowInTaskbar   =   0   'False
    Begin MSComctlLib.ImageList ilIcons 
       Left            =   2400
@@ -45,10 +45,12 @@ Begin VB.Form frmConfig
       Left            =   0
       TabIndex        =   2
       Top             =   0
-      Width           =   5415
-      _ExtentX        =   9551
+      Width           =   5775
+      _ExtentX        =   10186
       _ExtentY        =   8916
       _Version        =   393216
+      Tabs            =   4
+      TabsPerRow      =   4
       TabHeight       =   520
       TabCaption(0)   =   "Battle.Net"
       TabPicture(0)   =   "frmConfig.frx":0EBE
@@ -80,21 +82,13 @@ Begin VB.Form frmConfig
       TabPicture(1)   =   "frmConfig.frx":0EDA
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Label2"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "lvKeyList"
-      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "btnAdd"
-      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "btnRemove"
-      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "txtBNETKey"
-      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).Control(5)=   "opW2BN"
-      Tab(1).Control(5).Enabled=   0   'False
       Tab(1).Control(6)=   "opD2DV"
-      Tab(1).Control(6).Enabled=   0   'False
       Tab(1).Control(7)=   "opWAR3"
-      Tab(1).Control(7).Enabled=   0   'False
       Tab(1).ControlCount=   8
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0EF6
@@ -107,6 +101,20 @@ Begin VB.Form frmConfig
       Tab(2).Control(5)=   "txtIRCChannel"
       Tab(2).Control(6)=   "txtIRCServer"
       Tab(2).ControlCount=   7
+      TabCaption(3)   =   "Miscellaneous"
+      TabPicture(3)   =   "frmConfig.frx":0F12
+      Tab(3).ControlEnabled=   0   'False
+      Tab(3).Control(0)=   "chkRememberWindowPosition"
+      Tab(3).Control(0).Enabled=   0   'False
+      Tab(3).ControlCount=   1
+      Begin VB.CheckBox chkRememberWindowPosition 
+         Caption         =   "Remember Window Position"
+         Height          =   375
+         Left            =   -74760
+         TabIndex        =   29
+         Top             =   600
+         Width           =   3615
+      End
       Begin VB.OptionButton opWAR3 
          Caption         =   "Warcraft III"
          Height          =   255
@@ -157,12 +165,12 @@ Begin VB.Form frmConfig
          Left            =   -74760
          TabIndex        =   15
          Top             =   4080
-         Width           =   4935
+         Width           =   5295
       End
       Begin VB.CommandButton btnRemove 
          Caption         =   "Remove"
          Height          =   255
-         Left            =   -72000
+         Left            =   -71640
          TabIndex        =   14
          Top             =   4560
          Width           =   2175
@@ -253,8 +261,8 @@ Begin VB.Form frmConfig
          Left            =   -74760
          TabIndex        =   16
          Top             =   1200
-         Width           =   4935
-         _ExtentX        =   8705
+         Width           =   5295
+         _ExtentX        =   9340
          _ExtentY        =   4260
          View            =   2
          LabelEdit       =   1
@@ -574,6 +582,8 @@ Private Sub btnOk_Click()
     config.ircPort = 6667
   End If
   
+  config.rememberWindowPosition = IIf(chkRememberWindowPosition.value = 1, True, False)
+  
   saveConfig
   
   Unload Me
@@ -604,6 +614,8 @@ Private Sub Form_Load()
   txtIRCUsername.text = config.ircUsername
   txtIRCChannel.text = config.ircChannel
   txtIRCServer.text = config.ircServer
+  
+  chkRememberWindowPosition.value = IIf(config.rememberWindowPosition = True, 1, 0)
   
   arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net")
 

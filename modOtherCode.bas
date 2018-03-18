@@ -137,11 +137,13 @@ End Sub
 
 Public Sub setDefaultValues()
   config.bnlsServer = DEFAULT_BNLS_SERVER
+  config.rememberWindowPosition = DEFAULT_REMEMBER_WINDOW_POSITION
 End Sub
 
 Public Sub loadConfig()
   Dim val As Variant, parts() As String
-
+  
+  config.rememberWindowPosition = IIf(ReadINI("Window", "RememberWindowPosition", "Config.ini") = "Y", True, False)
   val = ReadINI("Window", "Top", "Config.ini")
   
   If (IsNumeric(val) And val > 0) Then
@@ -153,7 +155,7 @@ Public Sub loadConfig()
   If (IsNumeric(val) And val > 0) Then
     config.formLeft = val
   End If
-
+  
   config.bnetUsername = ReadINI("BNET", "Username", "Config.ini")
   config.bnetPassword = ReadINI("BNET", "Password", "Config.ini")
   config.bnetChannel = ReadINI("BNET", "Channel", "Config.ini")
@@ -196,6 +198,7 @@ Public Sub loadConfig()
 End Sub
 
 Public Sub saveConfig()
+  WriteINI "Window", "RememberWindowPosition", IIf(config.rememberWindowPosition, "Y", "N"), "Config.ini"
   WriteINI "Window", "Top", frmMain.Top, "Config.ini"
   WriteINI "Window", "Left", frmMain.Left, "Config.ini"
   
