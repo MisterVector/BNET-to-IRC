@@ -1,4 +1,3 @@
-frmMain = 132, 174, 820, 542, , -31, 38, 568, 464, C
 modVars = 44, 58, 679, 412, 
 modOtherCode = 88, 116, 723, 470, 
 modFileHandling = 22, 29, 659, 318, 
@@ -10,5 +9,4 @@ modText = 0, 0, 725, 252,
 modDNS = 0, 0, 1349, 621, 
 modLibBNET = 275, 275, 1624, 896, 
 modBNLSChecksum = 250, 250, 1599, 871, 
-frmConfig = 0, 0, 1349, 621, Z, 300, 300, 1649, 921, C
-frmAbout = 0, 0, 1349, 621, , 300, 300, 1649, 921, C
+frmConfig = 0, 0, 0, 0, C, 0, 0, 0, 0, C
