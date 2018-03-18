@@ -119,7 +119,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
@@ -135,7 +134,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
@@ -193,7 +191,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0104
@@ -274,16 +271,20 @@ Private Sub Form_Load()
 
   Dim arrGateways() As Variant, gateway As String, IPs() As String
 
-  loadConfig
-
-  If (config.formTop > 0) Then
-    Me.Top = config.formTop
+  If (Dir$(App.Path & "\Config.ini") <> vbNullString) Then
+    loadConfig
+  
+    If (config.formTop > 0) Then
+      Me.Top = config.formTop
+    End If
+  
+    If (config.formLeft > 0) Then
+      Me.Left = config.formLeft
+    End If
+  Else
+    setDefaultValues
   End If
-
-  If (config.formLeft > 0) Then
-    Me.Left = config.formLeft
-  End If
-
+  
   rcConsole.value = True
 End Sub
 

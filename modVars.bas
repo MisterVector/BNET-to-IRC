@@ -6,6 +6,8 @@ Public Const VERBYTE_W2BN As Long = &H4F
 Public Const VERBYTE_D2DV As Long = &HE
 Public Const VERBYTE_WAR3 As Long = &H1C
 
+Public Const DEFAULT_BNLS_SERVER As String = "bnls.bnetdocs.org"
+
 '// BNET SIDE
 Public dicQueue As New Dictionary
 Public dicQueueIndex As Integer

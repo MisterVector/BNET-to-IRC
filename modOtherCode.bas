@@ -135,6 +135,10 @@ Public Sub setupSockets(previousConnectionCount As Integer, connectionCount As I
   End If
 End Sub
 
+Public Sub setDefaultValues()
+  config.bnlsServer = DEFAULT_BNLS_SERVER
+End Sub
+
 Public Sub loadConfig()
   Dim val As Variant, parts() As String
 
