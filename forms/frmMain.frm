@@ -119,6 +119,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
@@ -143,6 +144,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
@@ -209,6 +211,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0104
@@ -357,9 +360,6 @@ End Sub
 
 Private Sub mnuDisconnectBNET_Click()
   disconnectAll
-  
-  mnuDisconnectBNET.Enabled = False
-  mnuConnectBNET.Enabled = True
 End Sub
 
 Private Sub mnuDisconnectIRC_Click()

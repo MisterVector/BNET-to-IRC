@@ -249,6 +249,9 @@ Public Sub disconnectAll()
     End If
   Next i
   
+  frmMain.mnuDisconnectBNET.Enabled = False
+  frmMain.mnuConnectBNET.Enabled = True
+  
   If socketsStillAlive Then
     AddChat frmMain.rtbChatBNET, vbRed, "[BNLS] All connections closed."
   End If
