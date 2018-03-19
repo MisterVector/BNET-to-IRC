@@ -318,11 +318,11 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-  If Dir$(App.Path & "\Config.ini") <> vbNullString Then
-    Kill App.Path & "\Config.ini"
+  If (config.rememberWindowPosition) Then
+    WriteINI "Window", "Top", Me.Top, "Config.ini"
+    WriteINI "Window", "Left", Me.Left, "Config.ini"
   End If
 
-  saveConfig
   quitProgram
 End Sub
 

@@ -211,8 +211,6 @@ End Sub
 
 Public Sub saveConfig()
   WriteINI "Window", "RememberWindowPosition", IIf(config.rememberWindowPosition, "Y", "N"), "Config.ini"
-  WriteINI "Window", "Top", frmMain.Top, "Config.ini"
-  WriteINI "Window", "Left", frmMain.Left, "Config.ini"
   
   WriteINI "BNET", "Username", config.bnetUsername, "Config.ini"
   WriteINI "BNET", "Password", config.bnetPassword, "Config.ini"
