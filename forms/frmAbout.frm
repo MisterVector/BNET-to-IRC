@@ -75,6 +75,9 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub Form_Load()
   lblVersion.Caption = Replace(lblVersion.Caption, "%v", PROGRAM_VERSION)
+
+  Me.top = Screen.Height / 4
+  Me.left = Screen.Width / 4
 End Sub
 
 Private Sub lblLink_Click()

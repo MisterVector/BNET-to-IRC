@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "tabctl32.ocx"
 Begin VB.Form frmConfig 
    BorderStyle     =   3  'Fixed Dialog
@@ -742,6 +742,9 @@ Private Sub Form_Load()
       cmbBNETServer.AddItem vbNullString
     End If
   Next i
+  
+  Me.top = Screen.Height / 4
+  Me.left = Screen.Width / 4
 End Sub
 
 Public Function isValidKey(key As String) As Boolean
