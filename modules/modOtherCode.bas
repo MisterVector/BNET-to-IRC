@@ -238,3 +238,22 @@ Public Sub saveConfig()
     Next i
   End If
 End Sub
+
+Public Sub disconnectAll()
+  Dim socketsStillAlive As Boolean
+  
+  For i = 0 To frmMain.sckBNET.Count - 1
+    frmMain.sckBNET(i).Close
+    
+    If frmMain.sckBNLS(i).State <> sckClosed Then
+      If Not socketsStillAlive Then socketsStillAlive = True
+      frmMain.sckBNLS(i).Close
+    End If
+  Next i
+  
+  If socketsStillAlive Then
+    AddChat frmMain.rtbChatBNET, vbRed, "[BNLS] All connections closed."
+  End If
+  
+  AddChat frmMain.rtbChatBNET, vbRed, "[BNET] All connections closed."
+End Sub

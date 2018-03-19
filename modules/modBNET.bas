@@ -51,7 +51,7 @@ Public Sub Send0x51(index As Integer)
   If (result = 0) Then
     AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Could not decode CD-Key!"
   
-    frmMain.Click_start
+    disconnectAll
     Exit Sub
   End If
   
@@ -130,7 +130,7 @@ Public Sub Recv0x52(index As Integer)
     AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Could not create the account " & config.bnetUsername & "!"
     AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Reason: " & reason & "."
   
-    frmMain.Click_start
+    disconnectAll
   End If
 End Sub
 
@@ -142,7 +142,7 @@ Public Sub Send0x53(index As Integer)
   If bnetData(index).nls_P = 0 Then
     MsgBox "NLS made a bad call.", vbOKOnly, PROGRAM_TITLE
     
-    frmMain.Click_start
+    disconnectAll
     Exit Sub
   End If
 
@@ -151,7 +151,7 @@ Public Sub Send0x53(index As Integer)
   If (nls_account_logon(bnetData(index).nls_P, nls_A) = 0) Then
     MsgBox "Unable to create NLS key.", vbOKOnly, PROGRAM_TITLE
     
-    frmMain.Click_start
+    disconnectAll
     Exit Sub
   End If
 
@@ -168,7 +168,7 @@ Public Sub Recv0x53(index As Integer)
               Send0x52 index
     Case &H5                   'Upgrade...
     Case Else
-      frmMain.Click_start
+      disconnectAll
   End Select
 End Sub
 
@@ -192,7 +192,7 @@ Public Sub Recv0x54(index As Integer)
     Case &HF:
   End Select
     
-  frmMain.Click_start
+  disconnectAll
     
   Exit Sub
 Continue:
@@ -265,7 +265,7 @@ Public Sub Recv0x3D(index As Integer)
     Case &H6: AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Not enough characters!"
   End Select
   
-  frmMain.Click_start
+  disconnectAll
 End Sub
 
 Public Sub Send0x0A(index As Integer)

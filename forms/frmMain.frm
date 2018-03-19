@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
-Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "Mswinsck.ocx"
+Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "mswinsck.ocx"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Battle.Net To IRC %v by Vector"
@@ -119,7 +119,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
@@ -144,7 +143,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
@@ -211,7 +209,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0104
@@ -359,23 +356,8 @@ Private Sub mnuConnectIRC_Click()
 End Sub
 
 Private Sub mnuDisconnectBNET_Click()
-  Dim socketsStillAlive As Boolean
+  disconnectAll
   
-  For i = 0 To sckBNET.Count - 1
-    sckBNET(i).Close
-    
-    If sckBNLS(i).State <> sckClosed Then
-      If Not socketsStillAlive Then socketsStillAlive = True
-      sckBNLS(i).Close
-    End If
-  Next i
-  
-  If socketsStillAlive Then
-    AddChat rtbChatBNET, vbRed, "[BNLS] All connections closed."
-  End If
-  
-  AddChat rtbChatBNET, vbRed, "[BNET] All connections closed."
-
   mnuDisconnectBNET.Enabled = False
   mnuConnectBNET.Enabled = True
 End Sub
@@ -450,10 +432,6 @@ End Sub
 Private Sub sckBNLS_Connect(index As Integer)
   AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Connected!"
   Send_BNLS_0x0E index
-End Sub
-
-Public Sub Click_start()
-  btnConnectBNET_Click
 End Sub
 
 Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)

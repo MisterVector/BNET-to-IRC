@@ -19,7 +19,7 @@ Public Sub Recv_BNLS_0x09(index As Integer)
   If bnlsPacketHandler(index).GetDWORD = &H0 Then
     AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] Failed to get version info!"
     
-    frmMain.Click_start
+    disconnectAll
   Else
     AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Version info received!"
     
@@ -67,6 +67,6 @@ Public Sub Recv_BNLS_0x0F(index As Integer)
     Send_BNLS_0x09 index
   Else
     AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] Failed to authorize!"
-    frmMain.Click_start
+    disconnectAll
   End If
 End Sub
