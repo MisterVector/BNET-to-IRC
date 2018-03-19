@@ -128,7 +128,7 @@ Begin VB.Form frmConfig
          Width           =   735
       End
       Begin VB.TextBox txtD2DVVerByte 
-         Height          =   405
+         Height          =   360
          Left            =   3240
          TabIndex        =   35
          Top             =   3960
@@ -376,11 +376,11 @@ Begin VB.Form frmConfig
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   495
+         Height          =   375
          Left            =   1080
          TabIndex        =   30
          Top             =   3480
-         Width           =   3615
+         Width           =   1815
       End
       Begin VB.Label Label11 
          Alignment       =   2  'Center
@@ -585,7 +585,7 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
-      Left            =   3360
+      Left            =   3720
       TabIndex        =   1
       Top             =   5400
       Width           =   1695
