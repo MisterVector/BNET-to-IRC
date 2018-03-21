@@ -1,10 +1,10 @@
-frmMain = 50, 50, 1399, 671, Z, 300, 300, 1649, 921, C
+frmMain = 50, 50, 1399, 671, , 300, 300, 1649, 921, C
 modVars = 44, 58, 679, 412, 
 modOtherCode = 88, 116, 723, 470, 
 modFileHandling = 22, 29, 659, 318, 
 clsPacketHandler = 25, 25, 1466, 584, 
 modBNLS = 66, 87, 653, 394, 
-modBNET = 44, 58, 631, 365, 
+modBNET = 44, 58, 631, 365, Z
 modDeclares = 22, 29, 683, 318, 
 modText = 0, 0, 725, 252, 
 modDNS = 0, 0, 1349, 621, 

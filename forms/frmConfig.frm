@@ -43,7 +43,7 @@ Begin VB.Form frmConfig
    Begin TabDlg.SSTab SSTab2 
       Height          =   5175
       Left            =   0
-      TabIndex        =   2
+      TabIndex        =   21
       Top             =   0
       Width           =   5775
       _ExtentX        =   10186
@@ -95,25 +95,25 @@ Begin VB.Form frmConfig
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmConfig.frx":0EDA
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "opWAR3"
-      Tab(1).Control(1)=   "opD2DV"
-      Tab(1).Control(2)=   "opW2BN"
-      Tab(1).Control(3)=   "txtBNETKey"
-      Tab(1).Control(4)=   "btnRemove"
-      Tab(1).Control(5)=   "btnAdd"
-      Tab(1).Control(6)=   "lvKeyList"
-      Tab(1).Control(7)=   "Label2"
+      Tab(1).Control(0)=   "Label2"
+      Tab(1).Control(1)=   "lvKeyList"
+      Tab(1).Control(2)=   "btnAdd"
+      Tab(1).Control(3)=   "btnRemove"
+      Tab(1).Control(4)=   "txtBNETKey"
+      Tab(1).Control(5)=   "opW2BN"
+      Tab(1).Control(6)=   "opD2DV"
+      Tab(1).Control(7)=   "opWAR3"
       Tab(1).ControlCount=   8
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0EF6
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "txtIRCServer"
-      Tab(2).Control(1)=   "txtIRCChannel"
-      Tab(2).Control(2)=   "txtIRCUsername"
+      Tab(2).Control(0)=   "Label9"
+      Tab(2).Control(1)=   "Label8"
+      Tab(2).Control(2)=   "Label7"
       Tab(2).Control(3)=   "Label10"
-      Tab(2).Control(4)=   "Label7"
-      Tab(2).Control(5)=   "Label8"
-      Tab(2).Control(6)=   "Label9"
+      Tab(2).Control(4)=   "txtIRCUsername"
+      Tab(2).Control(5)=   "txtIRCChannel"
+      Tab(2).Control(6)=   "txtIRCServer"
       Tab(2).ControlCount=   7
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0F12
@@ -123,21 +123,21 @@ Begin VB.Form frmConfig
       Begin VB.TextBox txtWAR3VerByte 
          Height          =   375
          Left            =   1320
-         TabIndex        =   36
+         TabIndex        =   7
          Top             =   4440
          Width           =   735
       End
       Begin VB.TextBox txtD2DVVerByte 
          Height          =   360
          Left            =   3240
-         TabIndex        =   35
+         TabIndex        =   6
          Top             =   3960
          Width           =   735
       End
       Begin VB.TextBox txtW2BNVerByte 
          Height          =   375
          Left            =   1320
-         TabIndex        =   34
+         TabIndex        =   5
          Top             =   3960
          Width           =   735
       End
@@ -145,7 +145,7 @@ Begin VB.Form frmConfig
          Caption         =   "Remember Window Position"
          Height          =   375
          Left            =   -74760
-         TabIndex        =   29
+         TabIndex        =   18
          Top             =   600
          Width           =   3615
       End
@@ -153,7 +153,7 @@ Begin VB.Form frmConfig
          Caption         =   "Warcraft III"
          Height          =   255
          Left            =   -72600
-         TabIndex        =   28
+         TabIndex        =   11
          Top             =   3720
          Width           =   1215
       End
@@ -161,7 +161,7 @@ Begin VB.Form frmConfig
          Caption         =   "Diablo II"
          Height          =   255
          Left            =   -73560
-         TabIndex        =   27
+         TabIndex        =   10
          Top             =   3720
          Width           =   975
       End
@@ -169,35 +169,35 @@ Begin VB.Form frmConfig
          Caption         =   "Warcraft II"
          Height          =   255
          Left            =   -74640
-         TabIndex        =   26
+         TabIndex        =   9
          Top             =   3720
          Width           =   1095
       End
       Begin VB.TextBox txtIRCServer 
          Height          =   345
          Left            =   -73320
-         TabIndex        =   20
+         TabIndex        =   17
          Top             =   2160
          Width           =   2535
       End
       Begin VB.TextBox txtIRCChannel 
          Height          =   345
          Left            =   -73320
-         TabIndex        =   19
+         TabIndex        =   16
          Top             =   1680
          Width           =   2535
       End
       Begin VB.TextBox txtIRCUsername 
          Height          =   345
          Left            =   -73320
-         TabIndex        =   18
+         TabIndex        =   15
          Top             =   1200
          Width           =   2535
       End
       Begin VB.TextBox txtBNETKey 
          Height          =   345
          Left            =   -74760
-         TabIndex        =   15
+         TabIndex        =   12
          Top             =   4080
          Width           =   5295
       End
@@ -231,7 +231,7 @@ Begin VB.Form frmConfig
          IMEMode         =   3  'DISABLE
          Left            =   1680
          PasswordChar    =   "*"
-         TabIndex        =   7
+         TabIndex        =   1
          Top             =   1680
          Width           =   2535
       End
@@ -247,14 +247,14 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   360
          Left            =   1680
-         TabIndex        =   6
+         TabIndex        =   0
          Top             =   1200
          Width           =   2535
       End
       Begin VB.ComboBox cmbBNETServer 
          Height          =   315
          Left            =   1680
-         TabIndex        =   5
+         TabIndex        =   4
          Top             =   3120
          Width           =   2535
       End
@@ -270,7 +270,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   360
          Left            =   1680
-         TabIndex        =   4
+         TabIndex        =   3
          Top             =   2640
          Width           =   2535
       End
@@ -286,14 +286,14 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   360
          Left            =   1680
-         TabIndex        =   3
+         TabIndex        =   2
          Top             =   2160
          Width           =   2535
       End
       Begin MSComctlLib.ListView lvKeyList 
          Height          =   2415
          Left            =   -74760
-         TabIndex        =   16
+         TabIndex        =   8
          Top             =   1200
          Width           =   5295
          _ExtentX        =   9340
@@ -327,7 +327,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   255
          Left            =   240
-         TabIndex        =   33
+         TabIndex        =   36
          Top             =   4440
          Width           =   1095
       End
@@ -344,7 +344,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   255
          Left            =   2280
-         TabIndex        =   32
+         TabIndex        =   35
          Top             =   3960
          Width           =   855
       End
@@ -361,7 +361,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   255
          Left            =   240
-         TabIndex        =   31
+         TabIndex        =   34
          Top             =   3960
          Width           =   975
       End
@@ -378,7 +378,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   375
          Left            =   1080
-         TabIndex        =   30
+         TabIndex        =   33
          Top             =   3480
          Width           =   1815
       End
@@ -396,7 +396,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   375
          Left            =   240
-         TabIndex        =   25
+         TabIndex        =   32
          Top             =   600
          Width           =   3975
       End
@@ -414,7 +414,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   375
          Left            =   -74760
-         TabIndex        =   24
+         TabIndex        =   31
          Top             =   600
          Width           =   3975
       End
@@ -431,7 +431,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   255
          Left            =   -74760
-         TabIndex        =   23
+         TabIndex        =   30
          Top             =   1200
          Width           =   975
       End
@@ -448,7 +448,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   255
          Left            =   -74760
-         TabIndex        =   22
+         TabIndex        =   29
          Top             =   1680
          Width           =   855
       End
@@ -465,7 +465,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   255
          Left            =   -74760
-         TabIndex        =   21
+         TabIndex        =   28
          Top             =   2160
          Width           =   615
       End
@@ -483,7 +483,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   375
          Left            =   -74760
-         TabIndex        =   17
+         TabIndex        =   27
          Top             =   600
          Width           =   4935
       End
@@ -500,7 +500,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   255
          Left            =   240
-         TabIndex        =   12
+         TabIndex        =   26
          Top             =   3120
          Width           =   735
       End
@@ -517,7 +517,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   255
          Left            =   240
-         TabIndex        =   11
+         TabIndex        =   25
          Top             =   1680
          Width           =   975
       End
@@ -534,7 +534,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   255
          Left            =   240
-         TabIndex        =   10
+         TabIndex        =   24
          Top             =   1200
          Width           =   1215
       End
@@ -551,7 +551,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   255
          Left            =   240
-         TabIndex        =   9
+         TabIndex        =   23
          Top             =   2640
          Width           =   1335
       End
@@ -568,7 +568,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   255
          Left            =   240
-         TabIndex        =   8
+         TabIndex        =   22
          Top             =   2160
          Width           =   855
       End
@@ -586,7 +586,7 @@ Begin VB.Form frmConfig
       EndProperty
       Height          =   495
       Left            =   3720
-      TabIndex        =   1
+      TabIndex        =   20
       Top             =   5400
       Width           =   1695
    End
@@ -603,7 +603,7 @@ Begin VB.Form frmConfig
       EndProperty
       Height          =   495
       Left            =   360
-      TabIndex        =   0
+      TabIndex        =   19
       Top             =   5400
       Width           =   1695
    End
@@ -743,8 +743,8 @@ Private Sub Form_Load()
     End If
   Next i
   
-  Me.top = Screen.Height / 4
-  Me.left = Screen.Width / 4
+  Me.Top = Screen.Height / 4
+  Me.Left = Screen.Width / 4
 End Sub
 
 Public Function isValidKey(key As String) As Boolean
