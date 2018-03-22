@@ -119,7 +119,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
@@ -144,7 +143,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
@@ -211,7 +209,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0104
@@ -404,9 +401,9 @@ Private Sub sckBNET_DataArrival(index As Integer, ByVal bytesTotal As Long)
   sckBNET(index).GetData data
   
   Do While Len(data) > 0
-    pID = Asc(Mid(data, 2, 1))
+    pID = Asc(Mid$(data, 2, 1))
     CopyMemory pLen, ByVal Mid$(data, 3, 2), 2
-    bnetPacketHandler(index).SetData Mid(data, 5)
+    bnetPacketHandler(index).SetData Mid$(data, 5)
     
     Select Case pID
       Case &HA: Recv0x0A index
@@ -421,7 +418,7 @@ Private Sub sckBNET_DataArrival(index As Integer, ByVal bytesTotal As Long)
       Case &H54: Recv0x54 index
     End Select
     
-    data = Mid(data, pLen + 1)
+    data = Mid$(data, pLen + 1)
   Loop
 End Sub
 
@@ -440,8 +437,8 @@ Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)
   
   Do While Len(data) > 0
     CopyMemory pLen, ByVal Mid$(data, 1, 2), 2
-    pID = Asc(Mid(data, 3, 1))
-    bnlsPacketHandler(index).SetData Mid(data, 4)
+    pID = Asc(Mid$(data, 3, 1))
+    bnlsPacketHandler(index).SetData Mid$(data, 4)
     
     Select Case pID
       Case &H9: Recv_BNLS_0x09 index
@@ -449,7 +446,7 @@ Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)
       Case &HF: Recv_BNLS_0x0F index
     End Select
     
-    data = Mid(data, pLen + 1)
+    data = Mid$(data, pLen + 1)
   Loop
 End Sub
 
@@ -471,7 +468,7 @@ Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
   sckIRC.GetData data
   
   If InStr(data, config.ircUsername) Then
-    data = Mid(data, InStr(data, config.ircUsername) + Len(config.ircUsername) + 1)
+    data = Mid$(data, InStr(data, config.ircUsername) + Len(config.ircUsername) + 1)
   End If
     
   If UBound(Split(data)) > 1 Then
@@ -479,9 +476,9 @@ Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
     
     Select Case UCase(arrData(1))
       Case "PRIVMSG"
-        name = Mid(Split(arrData(0), "!")(0), 2)
+        name = Mid$(Split(arrData(0), "!")(0), 2)
         text = Split(data, arrData(1))(1)
-        text = Replace(Mid(text, InStr(text, ":") + 1), vbCrLf, vbNullString)
+        text = Replace(Mid$(text, InStr(text, ":") + 1), vbCrLf, vbNullString)
         'text = Replace(Split(Split(data, arrData(1))(1), ":")(1), vbCrLf, vbNullString)
         specifiedChannel = Split(arrData(2), ":")(0)
   
@@ -501,7 +498,7 @@ Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
   
     If Left(data, 5) = "PING " Then
       AddChat rtbChatIRCConsole, vbWhite, "PING has been PONG'D"
-      sckIRC.SendData "PONG " & Mid(data, 6) & vbCrLf
+      sckIRC.SendData "PONG " & Mid$(data, 6) & vbCrLf
       
       Exit Sub
     End If
@@ -555,7 +552,7 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
     txtIRCChat.text = vbNullString
     
     If Left(text, 1) = "/" Then
-      cmd = Split(Mid(text, 2))
+      cmd = Split(Mid$(text, 2))
       
       Select Case LCase(cmd(0))
         Case "join"

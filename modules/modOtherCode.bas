@@ -40,8 +40,8 @@ Public Sub SendToBNET(ByVal msg As String)
 
   If Len(msg) > 140 Then
     Do While Len(msg) > 140
-      AddQ Mid(msg, 1, 140) & " [more]"
-      msg = Mid(msg, 141)
+      AddQ Mid$(msg, 1, 140) & " [more]"
+      msg = Mid$(msg, 141)
     Loop
   
     If Len(msg) > 0 Then

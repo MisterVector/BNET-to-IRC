@@ -122,6 +122,6 @@ Public Function getNTString() As String
 End Function
 
 Public Function getULONG() As String
-  getULONG = Mid(sIn, sLen, 8)
+  getULONG = Mid$(sIn, sLen, 8)
   sLen = sLen + 8
 End Function

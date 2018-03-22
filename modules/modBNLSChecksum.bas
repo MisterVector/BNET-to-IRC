@@ -32,7 +32,7 @@ Private Function CRC32(ByVal data As String) As Long
     CRC32 = &HFFFFFFFF
     
     For i = 1 To Len(data)
-        j = CByte(Asc(Mid(data, i, 1))) Xor (CRC32 And &HFF&)
+        j = CByte(Asc(Mid$(data, i, 1))) Xor (CRC32 And &HFF&)
         If CRC32 < 0 Then CRC32 = ((CRC32 And &H7FFFFFFF) \ &H100&) Or &H800000 Else CRC32 = CRC32 \ &H100&
         CRC32 = CRC32 Xor CRC32Table(j)
     Next

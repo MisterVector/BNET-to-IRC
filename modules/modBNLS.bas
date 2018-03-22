@@ -1,9 +1,9 @@
 Attribute VB_Name = "modBNLS"
 Public Sub Send_BNLS_0x09(index As Integer)
   Dim lockdownFile As String
-  lockdownFile = Mid(bnetData(index).lockdownFile, InStr(bnetData(index).lockdownFile, "mpq") - 3, 2)
+  lockdownFile = Mid$(bnetData(index).lockdownFile, InStr(bnetData(index).lockdownFile, "mpq") - 3, 2)
   
-  If Not IsNumeric(lockdownFile) Or Left(lockdownFile, 1) = "-" Then lockdownFile = Mid(lockdownFile, 2)
+  If Not IsNumeric(lockdownFile) Or Left(lockdownFile, 1) = "-" Then lockdownFile = Mid$(lockdownFile, 2)
 
   AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Requesting version info..."
   
