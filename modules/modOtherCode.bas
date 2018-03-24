@@ -167,21 +167,19 @@ Public Sub loadConfig()
   
   val = ReadINI("BNET", "KeyCount", "Config.ini")
   
-  If (IsNumeric(val)) Then
+  If (IsNumeric(val) And val > 0) Then
     config.bnetKeyCount = val
     
-    If (config.bnetKeyCount > 0) Then
-      setupSockets 0, config.bnetKeyCount
-      
-      ReDim bnetData(config.bnetKeyCount - 1)
+    setupSockets 0, config.bnetKeyCount
     
-      For i = 0 To config.bnetKeyCount - 1
-        With bnetData(i)
-          .product = ReadINI(i, "Product", "Config.ini")
-          .cdKey = ReadINI(i, "CDKey", "Config.ini")
-        End With
-      Next i
-    End If
+    ReDim bnetData(config.bnetKeyCount - 1)
+  
+    For i = 0 To config.bnetKeyCount - 1
+      With bnetData(i)
+        .product = ReadINI(i, "Product", "Config.ini")
+        .cdKey = ReadINI(i, "CDKey", "Config.ini")
+      End With
+    Next i
   End If
   
   val = "&H" & ReadINI("BNET", "W2BNVerByte", "Config.ini")
