@@ -27,7 +27,7 @@ Public Enum BNLSRequestType
 End Enum
 Public bnlsType As BNLSRequestType
 
-Public Enum packetType
+Public Enum PacketType
   BNCS
   BNLS
 End Enum
@@ -56,7 +56,7 @@ Public Type ConfigStructure
 End Type
 Public config As ConfigStructure
 
-Public Type bnetDataStructure
+Public Type BNETDataStructure
   accountName As String
   uniqueName As String
 
@@ -77,4 +77,4 @@ Public Type bnetDataStructure
   
   nls_P As Long
 End Type
-Public bnetData() As bnetDataStructure
+Public bnetData() As BNETDataStructure
