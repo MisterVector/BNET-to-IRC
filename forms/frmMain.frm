@@ -119,6 +119,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0000
@@ -143,6 +144,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0082
@@ -209,6 +211,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0104
@@ -428,7 +431,11 @@ End Sub
 
 Private Sub sckBNLS_Connect(index As Integer)
   AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Connected!"
-  Send_BNLS_0x0E index
+  
+  Select Case bnlsType
+    Case REQUEST_FILE_INFO
+      Send_BNLS_0x0E index
+  End Select
 End Sub
 
 Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)

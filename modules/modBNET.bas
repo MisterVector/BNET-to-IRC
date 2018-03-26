@@ -38,6 +38,8 @@ Public Sub Recv0x50(index As Integer)
 
   AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Connecting to " & config.bnlsServer & "..."
 
+  bnlsType = BNLSRequestType.REQUEST_FILE_INFO
+
   frmMain.sckBNLS(index).Connect config.bnlsServer, 9367
 End Sub
 

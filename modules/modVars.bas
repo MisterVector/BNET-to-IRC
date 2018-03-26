@@ -22,6 +22,11 @@ Public bnetQueueIndex As Integer
 Public bnetPacketHandler() As clsPacketHandler
 Public bnlsPacketHandler() As clsPacketHandler
 
+Public Enum BNLSRequestType
+  REQUEST_FILE_INFO
+End Enum
+Public bnlsType As BNLSRequestType
+
 Public Enum packetType
   BNCS
   BNLS
