@@ -29,6 +29,8 @@ Public Sub Recv_BNLS_0x09(index As Integer)
       bnetData(index).exeInfo = .getNTString
     End With
     
+    frmMain.sckBNLS(index).Close
+    
     Send0x51 index
   End If
 End Sub
