@@ -82,6 +82,15 @@ Public Sub Recv0x51(index As Integer)
   Select Case results
     Case &H0:    AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNET] CDKey is accepted."
     Case &H100:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Your game is out of date."
+                 AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Attempting to update version byte..."
+                  
+                 badClientProduct = bnetData(index).product
+                 bnlsType = BNLSRequestType.UPDATE_VERSION_BYTE
+                 
+                 frmMain.sckBNET(index).Close
+                 frmMain.sckBNLS(index).Connect config.bnlsServer, 9367
+                 
+                 Exit Sub
     Case &H101:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Invalid game version."
     Case &H102:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Downgrade game version."
     Case &H200:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] CDKey is invalid."

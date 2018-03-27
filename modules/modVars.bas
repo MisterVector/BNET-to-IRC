@@ -22,8 +22,11 @@ Public bnetQueueIndex As Integer
 Public bnetPacketHandler() As clsPacketHandler
 Public bnlsPacketHandler() As clsPacketHandler
 
+Public badClientProduct As String
+
 Public Enum BNLSRequestType
   REQUEST_FILE_INFO
+  UPDATE_VERSION_BYTE
 End Enum
 Public bnlsType As BNLSRequestType
 

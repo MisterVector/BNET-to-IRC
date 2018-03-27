@@ -72,3 +72,36 @@ Public Sub Recv_BNLS_0x0F(index As Integer)
     disconnectAll
   End If
 End Sub
+
+Public Sub Send_BNLS_0x10(index As Integer, product As Long)
+  With bnlsPacketHandler(index)
+    .InsertDWORD product
+    .sendPacket &H10
+  End With
+End Sub
+
+Public Sub Recv_BNLS_0x10(index As Integer)
+  Dim product As Long, versionByte As Long
+  
+  product = bnlsPacketHandler(index).GetDWORD
+  
+  If (product > &H0) Then
+    versionByte = bnlsPacketHandler(index).GetDWORD
+    
+    Select Case product
+      Case &H3: config.bnetW2BNVerByte = versionByte
+      Case &H4: config.bnetD2DVVerByte = versionByte
+      Case &H7: config.bnetWAR3VerByte = versionByte
+    End Select
+    
+    AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Version byte updated!"
+    AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNET] Reconnecting..."
+    
+    frmMain.sckBNLS(index).Close
+    frmMain.sckBNET(index).Connect config.bnetServer, 6112
+  Else
+    AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] Unable to update version byte!"
+    frmMain.sckBNLS(index).Close
+  End If
+End Sub
+
