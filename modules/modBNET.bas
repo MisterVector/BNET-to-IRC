@@ -86,8 +86,6 @@ Public Sub Recv0x51(index As Integer)
     Case &H102:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Downgrade game version."
     Case &H200:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] CDKey is invalid."
     Case &H201:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] CDKey in use by " & bnetPacketHandler(index).getNTString & "."
-                 frmMain.sckBNET(index).Close
-                 frmMain.sckBNLS(index).Close
     Case &H202:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Key is banned."
     Case &H203:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Key is for another product."
     Case &H210:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Expansion key is invalid."
@@ -101,6 +99,8 @@ Public Sub Recv0x51(index As Integer)
     Else
       Send0x3A index
     End If
+  Else
+    disconnectAll
   End If
 End Sub
 
