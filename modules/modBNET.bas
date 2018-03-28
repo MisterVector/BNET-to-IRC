@@ -84,7 +84,7 @@ Public Sub Recv0x51(index As Integer)
     Case &H100:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Your game is out of date."
                  AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Attempting to update version byte..."
                   
-                 badClientProduct = bnetData(index).product
+                 bnetData(index).badClientProduct = bnetData(index).product
                  bnlsType = BNLSRequestType.UPDATE_VERSION_BYTE
                  
                  frmMain.sckBNET(index).Close

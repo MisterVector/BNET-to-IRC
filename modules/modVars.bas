@@ -22,8 +22,6 @@ Public bnetQueueIndex As Integer
 Public bnetPacketHandler() As clsPacketHandler
 Public bnlsPacketHandler() As clsPacketHandler
 
-Public badClientProduct As String
-
 Public Enum BNLSRequestType
   REQUEST_FILE_INFO
   UPDATE_VERSION_BYTE
@@ -79,5 +77,7 @@ Public Type BNETDataStructure
   bnlsServerCode As Long
   
   nls_P As Long
+
+  badClientProduct As String
 End Type
 Public bnetData() As BNETDataStructure

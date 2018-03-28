@@ -435,7 +435,7 @@ Private Sub sckBNLS_Connect(index As Integer)
       AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Connected!"
       Send_BNLS_0x0E index
     Case UPDATE_VERSION_BYTE
-      Send_BNLS_0x10 index, getProdID(badClientProduct)
+      Send_BNLS_0x10 index, getProdID(bnetData(index).badClientProduct)
   End Select
 End Sub
 
