@@ -95,25 +95,32 @@ Begin VB.Form frmConfig
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmConfig.frx":0EDA
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "opWAR3"
-      Tab(1).Control(1)=   "opD2DV"
-      Tab(1).Control(2)=   "opW2BN"
-      Tab(1).Control(3)=   "txtBNETKey"
-      Tab(1).Control(4)=   "btnRemove"
-      Tab(1).Control(5)=   "btnAdd"
-      Tab(1).Control(6)=   "lvKeyList"
-      Tab(1).Control(7)=   "Label2"
+      Tab(1).Control(0)=   "Label2"
+      Tab(1).Control(1)=   "lvKeyList"
+      Tab(1).Control(2)=   "btnAdd"
+      Tab(1).Control(3)=   "btnRemove"
+      Tab(1).Control(4)=   "txtBNETKey"
+      Tab(1).Control(5)=   "opW2BN"
+      Tab(1).Control(6)=   "opD2DV"
+      Tab(1).Control(7)=   "opWAR3"
       Tab(1).ControlCount=   8
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0EF6
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "txtIRCServer"
-      Tab(2).Control(1)=   "txtIRCChannel"
-      Tab(2).Control(2)=   "txtIRCUsername"
+      Tab(2).Control(0)=   "Label9"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "Label8"
+      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(2)=   "Label7"
+      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Label10"
-      Tab(2).Control(4)=   "Label7"
-      Tab(2).Control(5)=   "Label8"
-      Tab(2).Control(6)=   "Label9"
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).Control(4)=   "txtIRCUsername"
+      Tab(2).Control(4).Enabled=   0   'False
+      Tab(2).Control(5)=   "txtIRCChannel"
+      Tab(2).Control(5).Enabled=   0   'False
+      Tab(2).Control(6)=   "txtIRCServer"
+      Tab(2).Control(6).Enabled=   0   'False
       Tab(2).ControlCount=   7
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0F12
@@ -178,21 +185,21 @@ Begin VB.Form frmConfig
          Left            =   -73320
          TabIndex        =   17
          Top             =   2160
-         Width           =   2535
+         Width           =   2775
       End
       Begin VB.TextBox txtIRCChannel 
          Height          =   345
          Left            =   -73320
          TabIndex        =   16
          Top             =   1680
-         Width           =   2535
+         Width           =   2775
       End
       Begin VB.TextBox txtIRCUsername 
          Height          =   345
          Left            =   -73320
          TabIndex        =   15
          Top             =   1200
-         Width           =   2535
+         Width           =   2775
       End
       Begin VB.TextBox txtBNETKey 
          Height          =   345
@@ -233,7 +240,7 @@ Begin VB.Form frmConfig
          PasswordChar    =   "*"
          TabIndex        =   1
          Top             =   1680
-         Width           =   2535
+         Width           =   2775
       End
       Begin VB.TextBox txtBNETUsername 
          BeginProperty Font 
@@ -249,14 +256,14 @@ Begin VB.Form frmConfig
          Left            =   1680
          TabIndex        =   0
          Top             =   1200
-         Width           =   2535
+         Width           =   2775
       End
       Begin VB.ComboBox cmbBNETServer 
          Height          =   315
          Left            =   1680
          TabIndex        =   4
          Top             =   3120
-         Width           =   2535
+         Width           =   2775
       End
       Begin VB.TextBox txtBNLSServer 
          BeginProperty Font 
@@ -272,7 +279,7 @@ Begin VB.Form frmConfig
          Left            =   1680
          TabIndex        =   3
          Top             =   2640
-         Width           =   2535
+         Width           =   2775
       End
       Begin VB.TextBox txtBNETChannel 
          BeginProperty Font 
@@ -288,7 +295,7 @@ Begin VB.Form frmConfig
          Left            =   1680
          TabIndex        =   2
          Top             =   2160
-         Width           =   2535
+         Width           =   2775
       End
       Begin MSComctlLib.ListView lvKeyList 
          Height          =   2415
@@ -727,9 +734,16 @@ Private Sub Form_Load()
   
     chkRememberWindowPosition.value = IIf(config.rememberWindowPosition = True, 1, 0)
   
-    arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net")
+    arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net", _
+                        "connect-eur.classic.blizzard.com", "connect-kor.classic.blizzard.com", _
+                        "connect-use.classic.blizzard.com", "connect-usw.classic.blizzard.com")
 
-    For i = 0 To 3
+    If (cmbBNETServer.text <> vbNullString) Then
+        cmbBNETServer.AddItem cmbBNETServer.text
+        cmbBNETServer.AddItem vbNullString
+    End If
+
+    For i = 0 To UBound(arrGateways)
         gateway = arrGateways(i)
         cmbBNETServer.AddItem gateway
         IPs = Split(Resolve(gateway))
@@ -738,7 +752,7 @@ Private Sub Form_Load()
             cmbBNETServer.AddItem IPs(j)
         Next j
 
-        If (i < 3) Then
+        If (i < UBound(arrGateways)) Then
             cmbBNETServer.AddItem vbNullString
         End If
     Next i
