@@ -95,25 +95,25 @@ Begin VB.Form frmConfig
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmConfig.frx":0EDA
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label2"
-      Tab(1).Control(1)=   "lvKeyList"
-      Tab(1).Control(2)=   "btnAdd"
-      Tab(1).Control(3)=   "btnRemove"
-      Tab(1).Control(4)=   "txtBNETKey"
-      Tab(1).Control(5)=   "opW2BN"
-      Tab(1).Control(6)=   "opD2DV"
-      Tab(1).Control(7)=   "opWAR3"
+      Tab(1).Control(0)=   "opWAR3"
+      Tab(1).Control(1)=   "opD2DV"
+      Tab(1).Control(2)=   "opW2BN"
+      Tab(1).Control(3)=   "txtBNETKey"
+      Tab(1).Control(4)=   "btnRemove"
+      Tab(1).Control(5)=   "btnAdd"
+      Tab(1).Control(6)=   "lvKeyList"
+      Tab(1).Control(7)=   "Label2"
       Tab(1).ControlCount=   8
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0EF6
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Label9"
-      Tab(2).Control(1)=   "Label8"
-      Tab(2).Control(2)=   "Label7"
+      Tab(2).Control(0)=   "txtIRCServer"
+      Tab(2).Control(1)=   "txtIRCChannel"
+      Tab(2).Control(2)=   "txtIRCUsername"
       Tab(2).Control(3)=   "Label10"
-      Tab(2).Control(4)=   "txtIRCUsername"
-      Tab(2).Control(5)=   "txtIRCChannel"
-      Tab(2).Control(6)=   "txtIRCServer"
+      Tab(2).Control(4)=   "Label7"
+      Tab(2).Control(5)=   "Label8"
+      Tab(2).Control(6)=   "Label9"
       Tab(2).ControlCount=   7
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0F12
@@ -616,166 +616,166 @@ Attribute VB_Exposed = False
 Private productChosen As String
 
 Private Sub btnAdd_Click()
-  Dim li As ListItem
+    Dim li As ListItem
 
-  If (txtBNETKey.text = vbNullString) Then
-    MsgBox "You must enter a CD-Key.", vbOKOnly, PROGRAM_TITLE
-    Exit Sub
-  End If
+    If (txtBNETKey.text = vbNullString) Then
+        MsgBox "You must enter a CD-Key.", vbOKOnly, PROGRAM_TITLE
+        Exit Sub
+    End If
   
-  If (productChosen = vbNullString) Then
-    MsgBox "You must select a product first.", vbOKOnly, PROGRAM_TITLE
-    Exit Sub
-  End If
+    If (productChosen = vbNullString) Then
+        MsgBox "You must select a product first.", vbOKOnly, PROGRAM_TITLE
+        Exit Sub
+    End If
   
-  If (Not isValidKey(txtBNETKey.text)) Then
-    MsgBox "You did not enter a valid " & productChosen & " key.", vbOKOnly, PROGRAM_TITLE
-    Exit Sub
-  End If
+    If (Not isValidKey(txtBNETKey.text)) Then
+        MsgBox "You did not enter a valid " & productChosen & " key.", vbOKOnly, PROGRAM_TITLE
+        Exit Sub
+    End If
   
-  Set li = lvKeyList.ListItems.Add(, , txtBNETKey.text, , productChosen)
-  li.Tag = productChosen
+    Set li = lvKeyList.ListItems.Add(, , txtBNETKey.text, , productChosen)
+    li.Tag = productChosen
   
-  txtBNETKey.text = vbNullString
+    txtBNETKey.text = vbNullString
 End Sub
 
 Private Sub btnCancel_Click()
-  Unload Me
+    Unload Me
 End Sub
 
 Private Sub btnOk_Click()
-  Dim oldKeyCount As Integer, li As ListItem, val As Variant
+    Dim oldKeyCount As Integer, li As ListItem, val As Variant
   
-  oldKeyCount = config.bnetKeyCount
+    oldKeyCount = config.bnetKeyCount
 
-  config.bnetUsername = txtBNETUsername.text
-  config.bnetPassword = txtBNETPassword.text
-  config.bnetChannel = txtBNETChannel.text
-  config.bnlsServer = txtBNLSServer.text
-  config.bnetServer = cmbBNETServer.text
-  config.bnetKeyCount = lvKeyList.ListItems.Count
+    config.bnetUsername = txtBNETUsername.text
+    config.bnetPassword = txtBNETPassword.text
+    config.bnetChannel = txtBNETChannel.text
+    config.bnlsServer = txtBNLSServer.text
+    config.bnetServer = cmbBNETServer.text
+    config.bnetKeyCount = lvKeyList.ListItems.Count
   
-  config.bnetW2BNVerByte = "&H" & txtW2BNVerByte.text
-  config.bnetD2DVVerByte = "&H" & txtD2DVVerByte.text
-  config.bnetWAR3VerByte = "&H" & txtWAR3VerByte.text
+    config.bnetW2BNVerByte = "&H" & txtW2BNVerByte.text
+    config.bnetD2DVVerByte = "&H" & txtD2DVVerByte.text
+    config.bnetWAR3VerByte = "&H" & txtWAR3VerByte.text
   
-  setupSockets oldKeyCount, config.bnetKeyCount
+    setupSockets oldKeyCount, config.bnetKeyCount
   
-  If (config.bnetKeyCount > 0) Then
-    ReDim bnetData(config.bnetKeyCount - 1)
+    If (config.bnetKeyCount > 0) Then
+        ReDim bnetData(config.bnetKeyCount - 1)
     
-    For i = 0 To config.bnetKeyCount - 1
-      With bnetData(i)
-        Set li = lvKeyList.ListItems.Item(i + 1)
-        .cdKey = li.text
-        .product = li.Tag
-      End With
-    Next i
-  End If
+        For i = 0 To config.bnetKeyCount - 1
+            With bnetData(i)
+                Set li = lvKeyList.ListItems.Item(i + 1)
+                .cdKey = li.text
+                .product = li.Tag
+            End With
+        Next i
+    End If
   
-  config.ircUsername = txtIRCUsername.text
-  config.ircChannel = txtIRCChannel.text
+    config.ircUsername = txtIRCUsername.text
+    config.ircChannel = txtIRCChannel.text
   
-  val = txtIRCServer.text
+    val = txtIRCServer.text
   
-  If (InStr(val, ":") > 0) Then
-    parts = Split(val, ":")
+    If (InStr(val, ":") > 0) Then
+        parts = Split(val, ":")
   
-    config.ircServer = parts(0)
-    config.ircPort = parts(1)
-  Else
-    config.ircServer = val
-    config.ircPort = 6667
-  End If
+        config.ircServer = parts(0)
+        config.ircPort = parts(1)
+    Else
+        config.ircServer = val
+        config.ircPort = 6667
+    End If
   
-  config.rememberWindowPosition = IIf(chkRememberWindowPosition.value = 1, True, False)
+    config.rememberWindowPosition = IIf(chkRememberWindowPosition.value = 1, True, False)
   
-  saveConfig
+    saveConfig
   
-  Unload Me
+    Unload Me
 End Sub
 
 Private Sub btnRemove_Click()
-  lvKeyList.ListItems.Remove (lvKeyList.SelectedItem.index)
+    lvKeyList.ListItems.Remove (lvKeyList.SelectedItem.index)
 End Sub
 
 Private Sub Form_Load()
-  Dim arrGateways() As Variant, gateway As String, IPs() As String, key As String, productValue As Long, li As ListItem
+    Dim arrGateways() As Variant, gateway As String, IPs() As String, key As String, productValue As Long, li As ListItem
   
-  txtBNETUsername.text = config.bnetUsername
-  txtBNETPassword.text = config.bnetPassword
-  txtBNETChannel.text = config.bnetChannel
-  txtBNLSServer.text = config.bnlsServer
-  cmbBNETServer.text = config.bnetServer
+    txtBNETUsername.text = config.bnetUsername
+    txtBNETPassword.text = config.bnetPassword
+    txtBNETChannel.text = config.bnetChannel
+    txtBNLSServer.text = config.bnlsServer
+    cmbBNETServer.text = config.bnetServer
   
-  txtW2BNVerByte.text = Right("0" & Hex(config.bnetW2BNVerByte), 2)
-  txtD2DVVerByte.text = Right("0" & Hex(config.bnetD2DVVerByte), 2)
-  txtWAR3VerByte.text = Right("0" & Hex(config.bnetWAR3VerByte), 2)
+    txtW2BNVerByte.text = Right("0" & Hex(config.bnetW2BNVerByte), 2)
+    txtD2DVVerByte.text = Right("0" & Hex(config.bnetD2DVVerByte), 2)
+    txtWAR3VerByte.text = Right("0" & Hex(config.bnetWAR3VerByte), 2)
   
-  If (config.bnetKeyCount > 0) Then
-    For i = 0 To config.bnetKeyCount - 1
-      With bnetData(i)
-        Set li = lvKeyList.ListItems.Add(, , .cdKey, , .product)
-        li.Tag = .product
-      End With
-    Next i
-  End If
-
-  txtIRCUsername.text = config.ircUsername
-  txtIRCChannel.text = config.ircChannel
-  txtIRCServer.text = config.ircServer
-  
-  chkRememberWindowPosition.value = IIf(config.rememberWindowPosition = True, 1, 0)
-  
-  arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net")
-
-  For i = 0 To 3
-    gateway = arrGateways(i)
-    cmbBNETServer.AddItem gateway
-    IPs = Split(Resolve(gateway))
-
-    For j = 0 To UBound(IPs)
-      cmbBNETServer.AddItem IPs(j)
-    Next j
-
-    If (i < 3) Then
-      cmbBNETServer.AddItem vbNullString
+    If (config.bnetKeyCount > 0) Then
+        For i = 0 To config.bnetKeyCount - 1
+            With bnetData(i)
+                Set li = lvKeyList.ListItems.Add(, , .cdKey, , .product)
+                li.Tag = .product
+            End With
+        Next i
     End If
-  Next i
+
+    txtIRCUsername.text = config.ircUsername
+    txtIRCChannel.text = config.ircChannel
+    txtIRCServer.text = config.ircServer
   
-  Me.Top = Screen.Height / 4
-  Me.Left = Screen.Width / 4
+    chkRememberWindowPosition.value = IIf(config.rememberWindowPosition = True, 1, 0)
+  
+    arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net")
+
+    For i = 0 To 3
+        gateway = arrGateways(i)
+        cmbBNETServer.AddItem gateway
+        IPs = Split(Resolve(gateway))
+
+        For j = 0 To UBound(IPs)
+            cmbBNETServer.AddItem IPs(j)
+        Next j
+
+        If (i < 3) Then
+            cmbBNETServer.AddItem vbNullString
+        End If
+    Next i
+  
+    Me.Top = Screen.Height / 4
+    Me.Left = Screen.Width / 4
 End Sub
 
 Public Function isValidKey(key As String) As Boolean
-  Dim productFound As String, productValue As Long
+    Dim productFound As String, productValue As Long
   
-  decode_hash_cdkey key, 0, 0, 0, productValue, vbNullString
+    decode_hash_cdkey key, 0, 0, 0, productValue, vbNullString
 
-  Select Case productValue
-    Case &H4
-      productFound = "W2BN"
-    Case &H6, &H7
-      productFound = "D2DV"
-    Case &HE, &HF
-      productFound = "WAR3"
-  End Select
+    Select Case productValue
+        Case &H4
+            productFound = "W2BN"
+        Case &H6, &H7
+            productFound = "D2DV"
+        Case &HE, &HF
+            productFound = "WAR3"
+    End Select
   
-  If (productFound = productChosen) Then
-    isValidKey = True
-  Else
-    isValidKey = False
-  End If
+    If (productFound = productChosen) Then
+        isValidKey = True
+    Else
+        isValidKey = False
+    End If
 End Function
 
 Private Sub opD2DV_Click()
-  productChosen = "D2DV"
+    productChosen = "D2DV"
 End Sub
 
 Private Sub opW2BN_Click()
-  productChosen = "W2BN"
+    productChosen = "W2BN"
 End Sub
 
 Private Sub opWAR3_Click()
-  productChosen = "WAR3"
+    productChosen = "WAR3"
 End Sub

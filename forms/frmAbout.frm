@@ -74,17 +74,17 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub Form_Load()
-  lblVersion.Caption = Replace(lblVersion.Caption, "%v", PROGRAM_VERSION)
+    lblVersion.Caption = Replace(lblVersion.Caption, "%v", PROGRAM_VERSION)
 
-  Me.top = Screen.Height / 4
-  Me.left = Screen.Width / 4
+    Me.Top = Screen.Height / 4
+    Me.Left = Screen.Width / 4
 End Sub
 
 Private Sub lblLink_Click()
-  ShellExecute 0, "open", "http://www.codespeak.org", 0, 0, 0
+    ShellExecute 0, "open", "http://www.codespeak.org", 0, 0, 0
 End Sub
 
 Private Sub lblLink_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-  SetCursor LoadCursor(0, IDC_HAND)
+    SetCursor LoadCursor(0, IDC_HAND)
 End Sub
 

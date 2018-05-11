@@ -9,6 +9,8 @@ Public Const VERBYTE_WAR3 As Long = &H1C
 Public Const DEFAULT_BNLS_SERVER As String = "bnls.bnetdocs.org"
 Public Const DEFAULT_REMEMBER_WINDOW_POSITION As Boolean = False
 
+Public Const LAST_NON_QUEUE_THRESHOLD_TIME As Long = 7000
+
 '// BNET SIDE
 Public dicQueue As New Dictionary
 Public dicQueueIndex As Integer
@@ -23,61 +25,62 @@ Public bnetPacketHandler() As clsPacketHandler
 Public bnlsPacketHandler() As clsPacketHandler
 
 Public Enum BNLSRequestType
-  REQUEST_FILE_INFO
-  UPDATE_VERSION_BYTE
+    REQUEST_FILE_INFO
+    UPDATE_VERSION_BYTE
 End Enum
 Public bnlsType As BNLSRequestType
 
-Public Enum PacketType
-  BNCS
-  BNLS
+Public Enum packetType
+    BNCS
+    BNLS
 End Enum
 
 Public Type ConfigStructure
-  formTop As Integer
-  formLeft As Integer
-  rememberWindowPosition As Boolean
+    formTop As Integer
+    formLeft As Integer
+    rememberWindowPosition As Boolean
 
-  bnlsServer As String
-  bnetServer As String
-  bnetUsername As String
-  bnetPassword As String
-  bnetChannel As String
-  bnetKeyCount As Integer
+    bnlsServer As String
+    bnetServer As String
+    bnetUsername As String
+    bnetPassword As String
+    bnetChannel As String
+    bnetKeyCount As Integer
 
-  bnetW2BNVerByte As Long
-  bnetD2DVVerByte As Long
-  bnetWAR3VerByte As Long
+    bnetW2BNVerByte As Long
+    bnetD2DVVerByte As Long
+    bnetWAR3VerByte As Long
 
-  ircUsername As String
-  ircPassword As String
-  ircServer As String
-  ircPort As Long
-  ircChannel As String
+    ircUsername As String
+    ircPassword As String
+    ircServer As String
+    ircPort As Long
+    ircChannel As String
 End Type
 Public config As ConfigStructure
 
 Public Type BNETDataStructure
-  accountName As String
-  uniqueName As String
+    accountName As String
+    uniqueName As String
 
-  product As String
-  passwordHash As String
-  verByte As Long
-  clientToken As Long
-  serverToken As Long
-  valueString As String
-  lockdownFile As String
-  checksumFormula As String
-  exeInfo As String
-  exeVersion As String
-  Checksum As String
-  cdKey As String
+    product As String
+    passwordHash As String
+    verByte As Long
+    clientToken As Long
+    serverToken As Long
+    valueString As String
+    lockdownFile As String
+    checksumFormula As String
+    exeInfo As String
+    exeVersion As String
+    Checksum As String
+    cdKey As String
   
-  bnlsServerCode As Long
+    bnlsServerCode As Long
   
-  nls_P As Long
+    nls_P As Long
 
-  badClientProduct As String
+    badClientProduct As String
+    lastQueueTime As Long
 End Type
 Public bnetData() As BNETDataStructure
