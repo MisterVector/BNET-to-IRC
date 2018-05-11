@@ -6,7 +6,7 @@ Public Const VERBYTE_W2BN As Long = &H4F
 Public Const VERBYTE_D2DV As Long = &HE
 Public Const VERBYTE_WAR3 As Long = &H1C
 
-Public Const DEFAULT_BNLS_SERVER As String = "bnls.bnetdocs.org"
+Public Const DEFAULT_BNLS_SERVER As String = "jbls.codespeak.org"
 Public Const DEFAULT_REMEMBER_WINDOW_POSITION As Boolean = False
 
 Public Const LAST_NON_QUEUE_THRESHOLD_TIME As Long = 7000
