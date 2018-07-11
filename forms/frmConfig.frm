@@ -96,39 +96,24 @@ Begin VB.Form frmConfig
       TabPicture(1)   =   "frmConfig.frx":0EDA
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Label2"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "lvKeyList"
-      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "btnAdd"
-      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "btnRemove"
-      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "txtBNETKey"
-      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).Control(5)=   "opW2BN"
-      Tab(1).Control(5).Enabled=   0   'False
       Tab(1).Control(6)=   "opD2DV"
-      Tab(1).Control(6).Enabled=   0   'False
       Tab(1).Control(7)=   "opWAR3"
-      Tab(1).Control(7).Enabled=   0   'False
       Tab(1).ControlCount=   8
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0EF6
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "Label9"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "Label8"
-      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "Label7"
-      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Label10"
-      Tab(2).Control(3).Enabled=   0   'False
       Tab(2).Control(4)=   "txtIRCUsername"
-      Tab(2).Control(4).Enabled=   0   'False
       Tab(2).Control(5)=   "txtIRCChannel"
-      Tab(2).Control(5).Enabled=   0   'False
       Tab(2).Control(6)=   "txtIRCServer"
-      Tab(2).Control(6).Enabled=   0   'False
       Tab(2).ControlCount=   7
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0F12
@@ -634,17 +619,17 @@ Private Sub btnAdd_Click()
     Dim li As ListItem
 
     If (txtBNETKey.text = vbNullString) Then
-        MsgBox "You must enter a CD-Key.", vbOKOnly, PROGRAM_TITLE
+        MsgBox "You must enter a CD-Key.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
     End If
   
     If (productChosen = vbNullString) Then
-        MsgBox "You must select a product first.", vbOKOnly, PROGRAM_TITLE
+        MsgBox "You must select a product first.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
     End If
   
     If (Not isValidKey(txtBNETKey.text)) Then
-        MsgBox "You did not enter a valid " & productChosen & " key.", vbOKOnly, PROGRAM_TITLE
+        MsgBox "You did not enter a valid " & productChosen & " key.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
     End If
   

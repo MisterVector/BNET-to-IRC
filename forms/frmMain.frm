@@ -81,7 +81,6 @@ Begin VB.Form frmMain
          TabPicture(1)   =   "frmMain.frx":001C
          Tab(1).ControlEnabled=   0   'False
          Tab(1).Control(0)=   "rtbChatIRCChat"
-         Tab(1).Control(0).Enabled=   0   'False
          Tab(1).ControlCount=   1
          Begin RichTextLib.RichTextBox rtbChatIRCChat 
             Height          =   5175
@@ -353,7 +352,7 @@ End Sub
 
 Private Sub mnuConnectBNET_Click()
     If config.bnetKeyCount = 0 Then
-        MsgBox "Your keys are not configured. Go to File -> Configuration -> Manage Keys first.", vbOKOnly, PROGRAM_TITLE
+        MsgBox "Your keys are not configured. Go to File -> Configuration -> Manage Keys first.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
     End If
   
