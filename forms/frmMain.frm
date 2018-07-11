@@ -1,6 +1,7 @@
 VERSION 5.00
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "mswinsck.ocx"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "tabctl32.ocx"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Battle.Net To IRC %v by Vector"
@@ -59,28 +60,78 @@ Begin VB.Form frmMain
       TabIndex        =   1
       Top             =   120
       Width           =   7935
-      Begin VB.Frame Frame3 
-         Caption         =   "Display Mode"
-         Height          =   555
-         Left            =   240
-         TabIndex        =   8
+      Begin TabDlg.SSTab SSTab1 
+         Height          =   5655
+         Left            =   120
+         TabIndex        =   7
          Top             =   240
-         Width           =   2415
-         Begin VB.OptionButton rcChat 
-            Caption         =   "Chat"
-            Height          =   255
-            Left            =   1320
-            TabIndex        =   10
-            Top             =   240
-            Width           =   735
+         Width           =   7695
+         _ExtentX        =   13573
+         _ExtentY        =   9975
+         _Version        =   393216
+         Tabs            =   2
+         TabHeight       =   520
+         TabCaption(0)   =   "Console"
+         TabPicture(0)   =   "frmMain.frx":0000
+         Tab(0).ControlEnabled=   -1  'True
+         Tab(0).Control(0)=   "rtbChatIRCConsole"
+         Tab(0).Control(0).Enabled=   0   'False
+         Tab(0).ControlCount=   1
+         TabCaption(1)   =   "Chat"
+         TabPicture(1)   =   "frmMain.frx":001C
+         Tab(1).ControlEnabled=   0   'False
+         Tab(1).Control(0)=   "rtbChatIRCChat"
+         Tab(1).Control(0).Enabled=   0   'False
+         Tab(1).ControlCount=   1
+         Begin RichTextLib.RichTextBox rtbChatIRCChat 
+            Height          =   5175
+            Left            =   -74880
+            TabIndex        =   8
+            Top             =   360
+            Width           =   7455
+            _ExtentX        =   13150
+            _ExtentY        =   9128
+            _Version        =   393217
+            BackColor       =   0
+            BorderStyle     =   0
+            Enabled         =   -1  'True
+            ReadOnly        =   -1  'True
+            ScrollBars      =   2
+            TextRTF         =   $"frmMain.frx":0038
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "MS Sans Serif"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
          End
-         Begin VB.OptionButton rcConsole 
-            Caption         =   "Console"
-            Height          =   255
+         Begin RichTextLib.RichTextBox rtbChatIRCConsole 
+            Height          =   5175
             Left            =   120
             TabIndex        =   9
-            Top             =   240
-            Width           =   975
+            Top             =   360
+            Width           =   7455
+            _ExtentX        =   13150
+            _ExtentY        =   9128
+            _Version        =   393217
+            BackColor       =   0
+            BorderStyle     =   0
+            Enabled         =   -1  'True
+            ReadOnly        =   -1  'True
+            ScrollBars      =   2
+            TextRTF         =   $"frmMain.frx":00BA
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+               Name            =   "MS Sans Serif"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
          End
       End
       Begin VB.CheckBox chkBtoBNET 
@@ -96,7 +147,7 @@ Begin VB.Form frmMain
          EndProperty
          Height          =   255
          Left            =   5760
-         TabIndex        =   6
+         TabIndex        =   5
          Top             =   6000
          Width           =   2055
       End
@@ -104,57 +155,9 @@ Begin VB.Form frmMain
          Height          =   285
          Left            =   120
          MultiLine       =   -1  'True
-         TabIndex        =   3
+         TabIndex        =   2
          Top             =   6000
          Width           =   5415
-      End
-      Begin RichTextLib.RichTextBox rtbChatIRCConsole 
-         Height          =   5055
-         Left            =   120
-         TabIndex        =   2
-         Top             =   840
-         Width           =   7695
-         _ExtentX        =   13573
-         _ExtentY        =   8916
-         _Version        =   393217
-         BackColor       =   0
-         BorderStyle     =   0
-         ReadOnly        =   -1  'True
-         ScrollBars      =   2
-         TextRTF         =   $"frmMain.frx":0000
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-      End
-      Begin RichTextLib.RichTextBox rtbChatIRCChat 
-         Height          =   5055
-         Left            =   120
-         TabIndex        =   11
-         Top             =   840
-         Width           =   7695
-         _ExtentX        =   13573
-         _ExtentY        =   8916
-         _Version        =   393217
-         BackColor       =   0
-         BorderStyle     =   0
-         ReadOnly        =   -1  'True
-         ScrollBars      =   2
-         TextRTF         =   $"frmMain.frx":0082
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
       End
    End
    Begin VB.Frame Frame1 
@@ -199,7 +202,7 @@ Begin VB.Form frmMain
          EndProperty
          Height          =   255
          Left            =   6000
-         TabIndex        =   7
+         TabIndex        =   6
          Top             =   6000
          Width           =   1815
       End
@@ -207,14 +210,14 @@ Begin VB.Form frmMain
          Height          =   285
          Left            =   120
          MultiLine       =   -1  'True
-         TabIndex        =   5
+         TabIndex        =   4
          Top             =   6000
          Width           =   5655
       End
       Begin RichTextLib.RichTextBox rtbChatBNET 
          Height          =   5535
          Left            =   120
-         TabIndex        =   4
+         TabIndex        =   3
          Top             =   360
          Width           =   7725
          _ExtentX        =   13626
@@ -222,9 +225,10 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
-         TextRTF         =   $"frmMain.frx":0104
+         TextRTF         =   $"frmMain.frx":013C
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
             Name            =   "MS Sans Serif"
             Size            =   9.75
@@ -286,16 +290,6 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Sub chkDisplayRTB_Click()
-    If chkDisplayRTB.value = 1 Then
-        rtbChatIRCConsole.Visible = False
-        rtbChatIRCChat.Visible = True
-    Else
-        rtbChatIRCConsole.Visible = True
-        rtbChatIRCChat.Visible = False
-    End If
-End Sub
-
 Private Sub chkBtoBNET_Click()
     If chkBtoBNET.value = 1 Then
         isBroadcastToBNET = True
@@ -332,8 +326,6 @@ Private Sub Form_Load()
     Else
         setDefaultValues
     End If
-  
-    rcConsole.value = True
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
@@ -402,16 +394,6 @@ End Sub
 
 Private Sub mnuQuit_Click()
     quitProgram
-End Sub
-
-Private Sub rcChat_Click()
-    rtbChatIRCConsole.Visible = False
-    rtbChatIRCChat.Visible = True
-End Sub
-
-Private Sub rcConsole_Click()
-    rtbChatIRCConsole.Visible = True
-    rtbChatIRCChat.Visible = False
 End Sub
 
 Private Sub sckBNET_Connect(index As Integer)
