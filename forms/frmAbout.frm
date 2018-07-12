@@ -86,7 +86,7 @@ Private Sub cmdOk_Click()
 End Sub
 
 Private Sub Form_Load()
-    lblVersion.Caption = Replace(lblVersion.Caption, "%v", PROGRAM_VERSION)
+    lblTitle.Caption = Replace(lblTitle.Caption, "%v", PROGRAM_VERSION)
 
     Me.Top = Screen.Height / 4
     Me.Left = Screen.Width / 4
