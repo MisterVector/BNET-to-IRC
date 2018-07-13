@@ -702,6 +702,8 @@ End Sub
 Private Sub Form_Load()
     Dim arrGateways() As Variant, gateway As String, IPs() As String, key As String, productValue As Long, li As ListItem
   
+    Me.Icon = frmMain.Icon
+
     txtBNETUsername.text = config.bnetUsername
     txtBNETPassword.text = config.bnetPassword
     txtBNETChannel.text = config.bnetChannel

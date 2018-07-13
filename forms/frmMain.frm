@@ -9,6 +9,7 @@ Begin VB.Form frmMain
    ClientLeft      =   150
    ClientTop       =   780
    ClientWidth     =   16200
+   Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -72,13 +73,13 @@ Begin VB.Form frmMain
          Tabs            =   2
          TabHeight       =   520
          TabCaption(0)   =   "Console"
-         TabPicture(0)   =   "frmMain.frx":0000
+         TabPicture(0)   =   "frmMain.frx":08CA
          Tab(0).ControlEnabled=   -1  'True
          Tab(0).Control(0)=   "rtbChatIRCConsole"
          Tab(0).Control(0).Enabled=   0   'False
          Tab(0).ControlCount=   1
          TabCaption(1)   =   "Chat"
-         TabPicture(1)   =   "frmMain.frx":001C
+         TabPicture(1)   =   "frmMain.frx":08E6
          Tab(1).ControlEnabled=   0   'False
          Tab(1).Control(0)=   "rtbChatIRCChat"
          Tab(1).ControlCount=   1
@@ -93,10 +94,9 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
-            TextRTF         =   $"frmMain.frx":0038
+            TextRTF         =   $"frmMain.frx":0902
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "MS Sans Serif"
                Size            =   9.75
@@ -118,10 +118,9 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
-            TextRTF         =   $"frmMain.frx":00BA
+            TextRTF         =   $"frmMain.frx":0984
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "MS Sans Serif"
                Size            =   9.75
@@ -224,10 +223,9 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
-         TextRTF         =   $"frmMain.frx":013C
+         TextRTF         =   $"frmMain.frx":0A06
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
             Name            =   "MS Sans Serif"
             Size            =   9.75

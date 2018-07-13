@@ -86,6 +86,8 @@ Private Sub cmdOk_Click()
 End Sub
 
 Private Sub Form_Load()
+    Me.Icon = frmMain.Icon
+    
     lblTitle.Caption = Replace(lblTitle.Caption, "%v", PROGRAM_VERSION)
 
     Me.Top = Screen.Height / 4
