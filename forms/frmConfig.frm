@@ -95,31 +95,42 @@ Begin VB.Form frmConfig
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmConfig.frx":0EDA
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "opWAR3"
-      Tab(1).Control(1)=   "opD2DV"
-      Tab(1).Control(2)=   "opW2BN"
-      Tab(1).Control(3)=   "txtBNETKey"
-      Tab(1).Control(4)=   "btnRemove"
-      Tab(1).Control(5)=   "btnAdd"
-      Tab(1).Control(6)=   "lvKeyList"
-      Tab(1).Control(7)=   "Label2"
+      Tab(1).Control(0)=   "Label2"
+      Tab(1).Control(1)=   "lvKeyList"
+      Tab(1).Control(2)=   "btnAdd"
+      Tab(1).Control(3)=   "btnRemove"
+      Tab(1).Control(4)=   "txtBNETKey"
+      Tab(1).Control(5)=   "opW2BN"
+      Tab(1).Control(6)=   "opD2DV"
+      Tab(1).Control(7)=   "opWAR3"
       Tab(1).ControlCount=   8
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0EF6
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "txtIRCServer"
-      Tab(2).Control(1)=   "txtIRCChannel"
-      Tab(2).Control(2)=   "txtIRCUsername"
+      Tab(2).Control(0)=   "Label9"
+      Tab(2).Control(1)=   "Label8"
+      Tab(2).Control(2)=   "Label7"
       Tab(2).Control(3)=   "Label10"
-      Tab(2).Control(4)=   "Label7"
-      Tab(2).Control(5)=   "Label8"
-      Tab(2).Control(6)=   "Label9"
+      Tab(2).Control(4)=   "txtIRCUsername"
+      Tab(2).Control(5)=   "txtIRCChannel"
+      Tab(2).Control(6)=   "txtIRCServer"
       Tab(2).ControlCount=   7
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0F12
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "chkRememberWindowPosition"
-      Tab(3).ControlCount=   1
+      Tab(3).Control(0).Enabled=   0   'False
+      Tab(3).Control(1)=   "chkCheckUpdateOnStartup"
+      Tab(3).Control(1).Enabled=   0   'False
+      Tab(3).ControlCount=   2
+      Begin VB.CheckBox chkCheckUpdateOnStartup 
+         Caption         =   "Check for Update on Startup"
+         Height          =   375
+         Left            =   -74760
+         TabIndex        =   37
+         Top             =   960
+         Width           =   2415
+      End
       Begin VB.TextBox txtWAR3VerByte 
          Height          =   375
          Left            =   1320
@@ -689,7 +700,8 @@ Private Sub btnOk_Click()
     End If
   
     config.rememberWindowPosition = IIf(chkRememberWindowPosition.value = 1, True, False)
-  
+    config.checkUpdateOnStartup = IIf(chkCheckUpdateOnStartup.value = 1, True, False)
+
     saveConfig
   
     Unload Me
@@ -728,6 +740,7 @@ Private Sub Form_Load()
     txtIRCServer.text = config.ircServer
   
     chkRememberWindowPosition.value = IIf(config.rememberWindowPosition = True, 1, 0)
+    chkCheckUpdateOnStartup.value = IIf(config.checkUpdateOnStartup = True, 1, 0)
   
     arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net", _
                         "connect-eur.classic.blizzard.com", "connect-kor.classic.blizzard.com", _

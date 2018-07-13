@@ -138,6 +138,7 @@ End Sub
 Public Sub setDefaultValues()
     config.bnlsServer = DEFAULT_BNLS_SERVER
     config.rememberWindowPosition = DEFAULT_REMEMBER_WINDOW_POSITION
+    config.checkUpdateOnStartup = DEFAULT_CHECK_UPDATE_ON_STARTUP
     config.bnetW2BNVerByte = VERBYTE_W2BN
     config.bnetD2DVVerByte = VERBYTE_D2DV
     config.bnetWAR3VerByte = VERBYTE_WAR3
@@ -159,6 +160,8 @@ Public Sub loadConfig()
         config.formLeft = val
     End If
   
+    config.checkUpdateOnStartup = IIf(ReadINI("Main", "CheckUpdateOnStartup", "Config.ini") = "Y", True, False)
+
     config.bnetUsername = ReadINI("BNET", "Username", "Config.ini")
     config.bnetPassword = ReadINI("BNET", "Password", "Config.ini")
     config.bnetChannel = ReadINI("BNET", "Channel", "Config.ini")
@@ -209,6 +212,8 @@ End Sub
 
 Public Sub saveConfig()
     WriteINI "Window", "RememberWindowPosition", IIf(config.rememberWindowPosition, "Y", "N"), "Config.ini"
+  
+    WriteINI "Main", "CheckUpdateOnStartup", IIf(config.checkUpdateOnStartup, "Y", "N"), "Config.ini"
   
     WriteINI "BNET", "Username", config.bnetUsername, "Config.ini"
     WriteINI "BNET", "Password", config.bnetPassword, "Config.ini"

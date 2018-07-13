@@ -9,6 +9,7 @@ Public Const VERBYTE_WAR3 As Long = &H1C
 
 Public Const DEFAULT_BNLS_SERVER As String = "jbls.codespeak.org"
 Public Const DEFAULT_REMEMBER_WINDOW_POSITION As Boolean = False
+Public Const DEFAULT_CHECK_UPDATE_ON_STARTUP As Boolean = True
 
 Public Const LAST_NON_QUEUE_THRESHOLD_TIME As Long = 7000
 
@@ -26,6 +27,7 @@ Public bnetPacketHandler() As clsPacketHandler
 Public bnlsPacketHandler() As clsPacketHandler
 
 Public updateString As String
+Public manualUpdateCheck As Boolean
 
 Public Enum BNLSRequestType
     REQUEST_FILE_INFO
@@ -42,6 +44,7 @@ Public Type ConfigStructure
     formTop As Integer
     formLeft As Integer
     rememberWindowPosition As Boolean
+    checkUpdateOnStartup As Boolean
 
     bnlsServer As String
     bnetServer As String
