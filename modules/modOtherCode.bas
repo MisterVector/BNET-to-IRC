@@ -150,7 +150,7 @@ End Sub
 Public Sub loadConfig()
     Dim val As Variant, parts() As String
   
-    config.rememberWindowPosition = IIf(ReadINI("Window", "RememberWindowPosition", "Config.ini") = "Y", True, False)
+    config.rememberWindowPosition = IIf(UCase(ReadINI("Window", "RememberWindowPosition", "Config.ini")) = "Y", True, False)
     val = ReadINI("Window", "Top", "Config.ini")
   
     If (IsNumeric(val) And val > 0) Then
@@ -163,7 +163,7 @@ Public Sub loadConfig()
         config.formLeft = val
     End If
   
-    config.checkUpdateOnStartup = IIf(ReadINI("Main", "CheckUpdateOnStartup", "Config.ini") = "Y", True, False)
+    config.checkUpdateOnStartup = IIf(UCase(ReadINI("Main", "CheckUpdateOnStartup", "Config.ini")) = "Y", True, False)
 
     config.bnetUsername = ReadINI("BNET", "Username", "Config.ini")
     config.bnetPassword = ReadINI("BNET", "Password", "Config.ini")
