@@ -490,7 +490,7 @@ Private Sub sckIRC_Close()
 End Sub
 
 Private Sub sckIRC_Connect()
-    AddChat rtbChatIRCConsole, vbGreen, "[IRC] Connected!"
+    AddChat rtbChatIRCConsole, vbGreen, "[IRC] Connected to " & config.ircServer & "!"
     sckIRC.SendData "NICK " & config.ircUsername & vbCrLf
     sckIRC.SendData "USER " & config.ircUsername & " 0 0 " & config.ircUsername & vbCrLf
     'SendToBNET "Connected to the IRC server at " & config.ircServer & "!"
