@@ -36,6 +36,7 @@ Public Function findFirstAliveBot() As Integer
 End Function
 
 Public Sub SendToBNET(ByVal msg As String)
+    If (Not isBroadcastToBNET) Then Exit Sub
     If (findFirstAliveBot() = -1) Then Exit Sub
 
     If Len(msg) > 140 Then
@@ -53,8 +54,10 @@ Public Sub SendToBNET(ByVal msg As String)
 End Sub
 
 Public Sub SendToIRC(ByVal msg As String)
-    If frmMain.sckIRC.State = sckConnected Then
-        frmMain.sckIRC.SendData "PRIVMSG " & config.ircChannel & " :" & msg & vbCrLf
+    If (isBroadcastToIRC) Then
+        If frmMain.sckIRC.State = sckConnected Then
+            frmMain.sckIRC.SendData "PRIVMSG " & config.ircChannel & " :" & msg & vbCrLf
+        End If
     End If
 End Sub
 

@@ -332,12 +332,12 @@ Public Sub Recv0x0F(index As Integer)
             Case &H2:
                 If Not supressEvent Then
                     AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " joined " & text
-                    If isBroadcastToIRC Then SendToIRC user & " has joined " & text & "."
+                    SendToIRC user & " has joined " & text & "."
                 End If
             Case &H3:
                 If Not supressEvent Then
                     AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " left " & text
-                    If isBroadcastToIRC Then SendToIRC user & " has left " & text & "."
+                    SendToIRC user & " has left " & text & "."
                 End If
             Case &H5, &H17:
                 If Not supressEvent Then
@@ -349,14 +349,12 @@ Public Sub Recv0x0F(index As Integer)
                         End If
                     Next i
                   
-                    If isBroadcastToIRC Then
-                        'SendToIRC "(" & text & " @ " & config.bnetServer & ") " & User & ": " & Text
-                        SendToIRC IIf(ID = &H17, "/me ", vbNullString) & user & ": " & text
-                    End If
+                    'SendToIRC "(" & text & " @ " & config.bnetServer & ") " & User & ": " & Text
+                    SendToIRC IIf(ID = &H17, "/me ", vbNullString) & user & ": " & text
                 End If
             Case &H7:
                 AddChat frmMain.rtbChatBNET, vbYellow, "You joined the channel ", vbWhite, text
-                If isBroadcastToIRC Then SendToIRC bnetData(index).uniqueName & " has joined the Battle.Net channel " & text
+                SendToIRC bnetData(index).uniqueName & " has joined the Battle.Net channel " & text
         End Select
     End With
 End Sub

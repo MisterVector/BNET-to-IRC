@@ -520,10 +520,8 @@ Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
                 'text = Replace(Split(Split(data, arrData(1))(1), ":")(1), vbCrLf, vbNullString)
                 specifiedChannel = Split(arrData(2), ":")(0)
   
-                If isBroadcastToBNET Then
-                    'SendToBNET "(" & config.ircChannel & " @ " & config.ircServer & ") " & name & ": " & getText
-                    SendToBNET name & ": " & text
-                End If
+                'SendToBNET "(" & config.ircChannel & " @ " & config.ircServer & ") " & name & ": " & getText
+                SendToBNET name & ": " & text
             Case Else
                 If (InStr(data, "End of /MOTD command.")) Then
                     sckIRC.SendData "JOIN " & config.ircChannel & vbCrLf
