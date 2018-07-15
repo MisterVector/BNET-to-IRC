@@ -30,6 +30,5 @@ Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal t
     msgTarget = arrTextData(0)
     msg = Mid$(arrTextData(1), 2)
     
-    MsgBox source & ": " & msg
     SendToBNET source & ": " & text
 End Sub
