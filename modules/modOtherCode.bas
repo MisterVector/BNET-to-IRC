@@ -281,3 +281,18 @@ Public Function isNewVersion(checkVersion As String) As Boolean
     isNewVersion = (versionPoints > currentVersionPoints)
 End Function
 
+Public Function joinArrayAtIndex(arr() As String, index As Integer)
+    Dim finalString As String
+
+    For i = 0 To UBound(arr)
+        If (i >= index) Then
+            If (finalString <> vbNullString) Then
+                finalString = finalString & " "
+            End If
+            
+            finalString = finalString & arr(i)
+        End If
+    Next i
+    
+    joinArrayAtIndex = finalString
+End Function

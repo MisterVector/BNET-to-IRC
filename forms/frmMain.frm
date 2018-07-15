@@ -433,7 +433,7 @@ Private Sub sckBNET_DataArrival(index As Integer, ByVal bytesTotal As Long)
     Loop
 End Sub
 
-Private Sub sckBNET_Error(index As Integer, ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+Private Sub sckBNET_Error(index As Integer, ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
     AddChat rtbChatBNET, vbRed, "Bot #" & index & " error #" & Number & ": " & Description
 End Sub
 
@@ -482,7 +482,7 @@ Private Sub sckCheckUpdate_DataArrival(ByVal bytesTotal As Long)
     tmrCheckUpdate.Enabled = True
 End Sub
 
-Private Sub sckCheckUpdate_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+Private Sub sckCheckUpdate_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
     MsgBox "Unable to check for update!", vbOKOnly Or vbExclamation, PROGRAM_TITLE
     tmrCheckUpdate.Enabled = False
     sckCheckUpdate.Close
@@ -502,47 +502,61 @@ Private Sub sckIRC_Connect()
 End Sub
 
 Private Sub sckIRC_DataArrival(ByVal bytesTotal As Long)
-    Dim data As String, arrData() As String, name As String, text As String, specifiedChannel As String
+    On Error GoTo err
+
+    Dim data As String, arrStream() As String, stream As Variant, arrData() As String
+    Dim sourceOrCommand As String, source As String, hostname As String, command As String, text As String
+    Dim dataIndex As Integer
+    
     sckIRC.GetData data
   
-    If InStr(data, config.ircUsername) Then
-        data = Mid$(data, InStr(data, config.ircUsername) + Len(config.ircUsername) + 1)
-    End If
+    arrStream = Split(data, vbCrLf)
+    source = vbNullString
+    hostname = vbNullString
+    command = vbNullString
     
-    If UBound(Split(data)) > 1 Then
-        arrData = Split(data)
-    
-        Select Case UCase(arrData(1))
-            Case "PRIVMSG"
-                name = Mid$(Split(arrData(0), "!")(0), 2)
-                text = Split(data, arrData(1))(1)
-                text = Replace(Mid$(text, InStr(text, ":") + 1), vbCrLf, vbNullString)
-                'text = Replace(Split(Split(data, arrData(1))(1), ":")(1), vbCrLf, vbNullString)
-                specifiedChannel = Split(arrData(2), ":")(0)
-  
-                'SendToBNET "(" & config.ircChannel & " @ " & config.ircServer & ") " & name & ": " & getText
-                SendToBNET name & ": " & text
-            Case Else
-                If (InStr(data, "End of /MOTD command.")) Then
-                    sckIRC.SendData "JOIN " & config.ircChannel & vbCrLf
+    For Each stream In arrStream
+        If (stream <> vbNullString) Then
+            arrData = Split(stream, " ")
+            
+            If (UBound(arrData) > 0) Then
+                sourceOrCommand = arrData(0)
+                
+                If (Left$(sourceOrCommand, 1) = ":") Then
+                    source = Mid$(sourceOrCommand, 2)
+                    
+                    If (InStr(source, "!") > 0) Then
+                        hostname = Mid$(source, InStr(source, "!") + 1)
+                        source = Left$(source, InStr(source, "!") - 1)
+                    End If
+                
+                    command = arrData(1)
+                    dataIndex = 2
+                Else
+                    If (IsNumeric(sourceOrCommand) Or sourceOrCommand = UCase(sourceOrCommand)) Then
+                        command = sourceOrCommand
+                        dataIndex = 1
+                    Else
+                        dataIndex = 0
+                    End If
                 End If
-
-                AddChat rtbChatIRCConsole, vbYellow, data
-        End Select
-    Else
-        AddChat rtbChatIRCConsole, vbYellow, data
-  
-        If Left(data, 5) = "PING " Then
-            AddChat rtbChatIRCConsole, vbWhite, "PING has been PONG'D"
-            sckIRC.SendData "PONG " & Mid$(data, 6) & vbCrLf
-      
-            Exit Sub
+                
+                text = joinArrayAtIndex(arrData, dataIndex)
+                
+                handleIRCData source, hostname, command, text
+            End If
         End If
+    Next
+    
+err:
+    If (err.Number > 0) Then
+        AddChat rtbChatIRCConsole, vbRed, err.Description & " while parsing stream: " & stream
+        err.Clear
     End If
 End Sub
 
 Private Sub tmrCheckUpdate_Timer()
-    On Error GoTo Err
+    On Error GoTo err
 
     Dim versionToCheck As String, updateMsg As String
     
@@ -564,9 +578,9 @@ Private Sub tmrCheckUpdate_Timer()
         End If
     End If
     
-Err:
-    If (Err.Number > 0) Then
-        Err.Clear
+err:
+    If (err.Number > 0) Then
+        err.Clear
         MsgBox "Unable to check for update!", vbOKOnly Or vbExclamation, PROGRAM_TITLE
     End If
     
