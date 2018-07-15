@@ -1,6 +1,8 @@
 Attribute VB_Name = "modIRC"
 Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal command As String, ByVal data As String)
     Select Case command
+        Case "JOIN"
+            RecvJOIN data
         Case "PRIVMSG"
             RecvPRIVMSG source, hostname, data
         Case "PING"
@@ -12,6 +14,11 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
 
             AddChat frmMain.rtbChatIRCConsole, vbYellow, data
     End Select
+End Sub
+
+Public Sub RecvJOIN(ByVal channel As String)
+    frmMain.SSTab1.TabCaption(1) = "Chat (" & channel & ")"
+    AddChat frmMain.rtbChatIRCChat, vbYellow, "Joined the channel ", vbWhite, channel, vbYellow, "."
 End Sub
 
 Public Sub SendPING(ByVal data As String)
@@ -30,6 +37,11 @@ Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal t
     msgTarget = arrTextData(0)
     msg = Mid$(arrTextData(1), 2)
     
-    AddChat frmMain.rtbChatIRCChat, vbYellow, source & " (", vbWhite, msgTarget, vbYellow, ")", vbWhite, ": ", vbYellow, msg
+    If (msgTarget = config.ircChannel) Then
+        AddChat frmMain.rtbChatIRCChat, vbYellow, source, vbWhite, ": ", vbYellow, msg
+    Else
+        AddChat frmMain.rtbChatIRCChat, vbYellow, source & " (", vbWhite, msgTarget, vbYellow, ")", vbWhite, ": ", vbYellow, msg
+    End If
+    
     SendToBNET source & ": " & text
 End Sub

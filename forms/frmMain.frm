@@ -387,6 +387,7 @@ Private Sub mnuDisconnectIRC_Click()
         'SendToBNET "Disconnected from " & config.ircServer & "!"
         SendToBNET "Disconnected from IRC!"
         sckIRC.SendData "QUIT"
+        SSTab1.TabCaption(1) = "Chat"
         DoEvents: DoEvents: DoEvents: DoEvents
     End If
 
