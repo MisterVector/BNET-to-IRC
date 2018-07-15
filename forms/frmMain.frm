@@ -390,6 +390,7 @@ Private Sub mnuDisconnectIRC_Click()
         'SendToBNET "Disconnected from " & config.ircServer & "!"
         SendToBNET "Disconnected from IRC!"
         sckIRC.SendData "QUIT"
+        SSTab1.TabCaption(0) = "Console"
         SSTab1.TabCaption(1) = "Chat"
         DoEvents: DoEvents: DoEvents: DoEvents
     End If
@@ -499,6 +500,8 @@ End Sub
 
 Private Sub sckIRC_Connect()
     AddChat rtbChatIRCConsole, vbGreen, "[IRC] Connected to " & config.ircServer & "!"
+    SSTab1.TabCaption(0) = "Console (" & config.ircServer & ")"
+    
     sckIRC.SendData "NICK " & config.ircUsername & vbCrLf
     sckIRC.SendData "USER " & config.ircUsername & " 0 0 " & config.ircUsername & vbCrLf
     'SendToBNET "Connected to the IRC server at " & config.ircServer & "!"
