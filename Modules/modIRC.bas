@@ -30,5 +30,6 @@ Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal t
     msgTarget = arrTextData(0)
     msg = Mid$(arrTextData(1), 2)
     
+    AddChat frmMain.rtbChatIRCChat, vbYellow, source & " (", vbWhite, msgTarget, vbYellow, ")", vbWhite, ": ", vbYellow, msg
     SendToBNET source & ": " & text
 End Sub
