@@ -94,6 +94,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0902
@@ -118,6 +119,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0984
@@ -223,6 +225,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0A06
@@ -384,21 +387,9 @@ Private Sub mnuDisconnectIRC_Click()
     rtbChatIRCConsole.text = vbNullString
     rtbChatIRCChat.text = vbNullString
 
-    AddChat rtbChatIRCConsole, vbRed, "[IRC] All connections closed."
-  
     If sckIRC.State = sckConnected Then
-        'SendToBNET "Disconnected from " & config.ircServer & "!"
-        SendToBNET "Disconnected from IRC!"
-        sckIRC.SendData "QUIT"
-        SSTab1.TabCaption(0) = "Console"
-        SSTab1.TabCaption(1) = "Chat"
-        DoEvents: DoEvents: DoEvents: DoEvents
+        sckIRC.SendData "QUIT" & vbCrLf
     End If
-
-    sckIRC.Close
-
-    mnuDisconnectIRC.Enabled = False
-    mnuConnectIRC.Enabled = True
 End Sub
 
 Private Sub mnuQuit_Click()
@@ -494,8 +485,7 @@ Private Sub sckCheckUpdate_Error(ByVal Number As Integer, Description As String,
 End Sub
 
 Private Sub sckIRC_Close()
-    'SendToBNET "Disconnected from the IRC server at " & config.ircServer & "!"
-    SendToBNET "Disconnected from IRC!"
+    handleIRCClose
 End Sub
 
 Private Sub sckIRC_Connect()
@@ -658,4 +648,17 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
             AddChat rtbChatIRCChat, vbWhite, config.ircServer & " (", vbYellow, config.ircChannel, vbWhite, ") " & text
         End If
     End If
+End Sub
+
+Public Sub handleIRCClose()
+    SSTab1.TabCaption(0) = "Console"
+    SSTab1.TabCaption(1) = "Chat"
+
+    mnuDisconnectIRC.Enabled = False
+    mnuConnectIRC.Enabled = True
+
+    'SendToBNET "Disconnected from " & config.ircServer & "!"
+    SendToBNET "Disconnected from IRC!"
+    
+    AddChat rtbChatIRCConsole, vbRed, "[IRC] All connections closed."
 End Sub
