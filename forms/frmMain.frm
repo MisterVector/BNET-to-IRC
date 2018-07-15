@@ -381,6 +381,9 @@ Private Sub mnuDisconnectBNET_Click()
 End Sub
 
 Private Sub mnuDisconnectIRC_Click()
+    rtbChatIRCConsole.text = vbNullString
+    rtbChatIRCChat.text = vbNullString
+
     AddChat rtbChatIRCConsole, vbRed, "[IRC] All connections closed."
   
     If sckIRC.State = sckConnected Then
