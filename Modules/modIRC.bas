@@ -11,7 +11,13 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
             If (InStr(data, "End of /MOTD command.")) Then
                 frmMain.sckIRC.SendData "JOIN " & config.ircChannel & vbCrLf
             End If
-
+            
+            If (Len(data) >= Len(config.ircUsername + " :")) Then
+                If (Left$(data, Len(config.ircUsername + " :")) = config.ircUsername + " :") Then
+                    data = Mid(data, Len(config.ircUsername + " :") + 1)
+                End If
+            End If
+            
             AddChat frmMain.rtbChatIRCConsole, vbYellow, data
     End Select
 End Sub
