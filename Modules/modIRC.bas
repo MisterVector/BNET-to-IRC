@@ -30,6 +30,7 @@ End Sub
 
 Public Sub RecvJOIN(ByVal channel As String)
     frmMain.SSTab1.TabCaption(1) = "Chat (" & channel & ")"
+    config.ircChannel = channel
     AddChat frmMain.rtbChatIRCChat, vbYellow, "Joined the channel ", vbWhite, channel, vbYellow, "."
 End Sub
 

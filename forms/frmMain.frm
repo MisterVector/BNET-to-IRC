@@ -82,7 +82,6 @@ Begin VB.Form frmMain
          TabPicture(1)   =   "frmMain.frx":08E6
          Tab(1).ControlEnabled=   0   'False
          Tab(1).Control(0)=   "rtbChatIRCChat"
-         Tab(1).Control(0).Enabled=   0   'False
          Tab(1).ControlCount=   1
          Begin RichTextLib.RichTextBox rtbChatIRCChat 
             Height          =   5175
@@ -643,7 +642,6 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
             Select Case LCase(cmd(0))
                 Case "join"
                     cmdEx = Split(text, " ", 2)
-                    config.ircChannel = cmdEx(1)
                     sckIRC.SendData "JOIN " & cmdEx(1) & vbCrLf
             End Select
         Else
