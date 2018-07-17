@@ -14,7 +14,13 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
             
             If (Len(data) >= Len(config.ircUsername + " :")) Then
                 If (Left$(data, Len(config.ircUsername + " :")) = config.ircUsername + " :") Then
-                    data = Mid(data, Len(config.ircUsername + " :") + 1)
+                    data = Mid$(data, Len(config.ircUsername + " :") + 1)
+                End If
+            End If
+            
+            If (Len(data) >= Len("* :*** ")) Then
+                If (Left$(data, Len("* :*** "))) = "* :*** " Then
+                    data = Mid$(data, Len("* :*** ") + 1)
                 End If
             End If
             
