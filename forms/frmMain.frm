@@ -647,7 +647,7 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
                     previousChannel = IRCData.joinedChannel
                     
                     If (previousChannel <> vbNullString) Then
-                        sendPART config.ircChannel
+                        sendPART previousChannel
                     End If
                     
                     sckIRC.SendData "JOIN " & cmdEx(1) & vbCrLf
