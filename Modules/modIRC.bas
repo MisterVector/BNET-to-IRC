@@ -29,7 +29,7 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
 End Sub
 
 Public Sub RecvJOIN(ByVal channel As String)
-    frmMain.SSTab1.TabCaption(1) = "Chat (" & channel & ")"
+    frmMain.IRCTab.TabCaption(1) = "Chat (" & channel & ")"
     IRCData.joinedChannel = channel
     config.ircChannel = channel
     AddChat frmMain.rtbChatIRCChat, vbYellow, "Joined the channel ", vbWhite, channel, vbYellow, "."

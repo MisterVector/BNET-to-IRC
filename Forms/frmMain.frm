@@ -61,7 +61,7 @@ Begin VB.Form frmMain
       TabIndex        =   1
       Top             =   120
       Width           =   7935
-      Begin TabDlg.SSTab SSTab1 
+      Begin TabDlg.SSTab IRCTab 
          Height          =   5655
          Left            =   120
          TabIndex        =   7
@@ -71,21 +71,22 @@ Begin VB.Form frmMain
          _ExtentY        =   9975
          _Version        =   393216
          Tabs            =   2
+         Tab             =   1
          TabHeight       =   520
          TabCaption(0)   =   "Console"
          TabPicture(0)   =   "frmMain.frx":08CA
-         Tab(0).ControlEnabled=   -1  'True
+         Tab(0).ControlEnabled=   0   'False
          Tab(0).Control(0)=   "rtbChatIRCConsole"
-         Tab(0).Control(0).Enabled=   0   'False
          Tab(0).ControlCount=   1
          TabCaption(1)   =   "Chat"
          TabPicture(1)   =   "frmMain.frx":08E6
-         Tab(1).ControlEnabled=   0   'False
+         Tab(1).ControlEnabled=   -1  'True
          Tab(1).Control(0)=   "rtbChatIRCChat"
+         Tab(1).Control(0).Enabled=   0   'False
          Tab(1).ControlCount=   1
          Begin RichTextLib.RichTextBox rtbChatIRCChat 
             Height          =   5175
-            Left            =   -74880
+            Left            =   120
             TabIndex        =   8
             Top             =   360
             Width           =   7455
@@ -109,7 +110,7 @@ Begin VB.Form frmMain
          End
          Begin RichTextLib.RichTextBox rtbChatIRCConsole 
             Height          =   5175
-            Left            =   120
+            Left            =   -74880
             TabIndex        =   9
             Top             =   360
             Width           =   7455
@@ -494,7 +495,7 @@ End Sub
 
 Private Sub sckIRC_Connect()
     AddChat rtbChatIRCConsole, vbGreen, "[IRC] Connected to " & config.ircServer & "!"
-    SSTab1.TabCaption(0) = "Console (" & config.ircServer & ")"
+    IRCTab.TabCaption(0) = "Console (" & config.ircServer & ")"
     
     sckIRC.SendData "NICK " & config.ircUsername & vbCrLf
     sckIRC.SendData "USER " & config.ircUsername & " 0 0 " & config.ircUsername & vbCrLf
@@ -662,8 +663,8 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Public Sub handleIRCClose()
-    SSTab1.TabCaption(0) = "Console"
-    SSTab1.TabCaption(1) = "Chat"
+    IRCTab.TabCaption(0) = "Console"
+    IRCTab.TabCaption(1) = "Chat"
 
     mnuDisconnectIRC.Enabled = False
     mnuConnectIRC.Enabled = True
