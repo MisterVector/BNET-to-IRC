@@ -630,6 +630,7 @@ End Sub
 
 Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
     Dim text As String, cmd() As String, cmdEx() As String
+    Dim previousChannel As String
   
     If KeyCode = 13 Then
         text = txtIRCChat.text
@@ -642,7 +643,13 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
             Select Case LCase(cmd(0))
                 Case "join"
                     cmdEx = Split(text, " ", 2)
-                    sendPART config.ircChannel
+                    
+                    previousChannel = IRCData.joinedChannel
+                    
+                    If (previousChannel <> vbNullString) Then
+                        sendPART config.ircChannel
+                    End If
+                    
                     sckIRC.SendData "JOIN " & cmdEx(1) & vbCrLf
             End Select
         Else

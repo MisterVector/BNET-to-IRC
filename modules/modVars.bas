@@ -65,6 +65,11 @@ Public Type ConfigStructure
 End Type
 Public config As ConfigStructure
 
+Public Type IRCDataStructure
+    joinedChannel As String
+End Type
+Public IRCData As IRCDataStructure
+
 Public Type BNETDataStructure
     accountName As String
     uniqueName As String
