@@ -642,6 +642,7 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
             Select Case LCase(cmd(0))
                 Case "join"
                     cmdEx = Split(text, " ", 2)
+                    sendPART config.ircChannel
                     sckIRC.SendData "JOIN " & cmdEx(1) & vbCrLf
             End Select
         Else

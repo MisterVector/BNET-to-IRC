@@ -34,6 +34,10 @@ Public Sub RecvJOIN(ByVal channel As String)
     AddChat frmMain.rtbChatIRCChat, vbYellow, "Joined the channel ", vbWhite, channel, vbYellow, "."
 End Sub
 
+Public Sub sendPART(ByVal channel As String)
+    frmMain.sckIRC.SendData "PART " & channel & vbCrLf
+End Sub
+
 Public Sub SendPING(ByVal data As String)
     frmMain.sckIRC.SendData "PONG " & data & vbCrLf
     AddChat frmMain.rtbChatIRCConsole, vbWhite, "PING has been PONG'D"
