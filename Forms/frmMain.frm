@@ -71,22 +71,21 @@ Begin VB.Form frmMain
          _ExtentY        =   9975
          _Version        =   393216
          Tabs            =   2
-         Tab             =   1
          TabHeight       =   520
          TabCaption(0)   =   "Console"
          TabPicture(0)   =   "frmMain.frx":08CA
-         Tab(0).ControlEnabled=   0   'False
+         Tab(0).ControlEnabled=   -1  'True
          Tab(0).Control(0)=   "rtbChatIRCConsole"
+         Tab(0).Control(0).Enabled=   0   'False
          Tab(0).ControlCount=   1
          TabCaption(1)   =   "Chat"
          TabPicture(1)   =   "frmMain.frx":08E6
-         Tab(1).ControlEnabled=   -1  'True
+         Tab(1).ControlEnabled=   0   'False
          Tab(1).Control(0)=   "rtbChatIRCChat"
-         Tab(1).Control(0).Enabled=   0   'False
          Tab(1).ControlCount=   1
          Begin RichTextLib.RichTextBox rtbChatIRCChat 
             Height          =   5175
-            Left            =   120
+            Left            =   -74880
             TabIndex        =   8
             Top             =   360
             Width           =   7455
@@ -110,7 +109,7 @@ Begin VB.Form frmMain
          End
          Begin RichTextLib.RichTextBox rtbChatIRCConsole 
             Height          =   5175
-            Left            =   -74880
+            Left            =   120
             TabIndex        =   9
             Top             =   360
             Width           =   7455
@@ -275,9 +274,6 @@ Begin VB.Form frmMain
       Begin VB.Menu mnuAbout 
          Caption         =   "About"
       End
-      Begin VB.Menu mnuVisitCodeSpeakOrg 
-         Caption         =   "Visit codespeak.org"
-      End
       Begin VB.Menu mnuSeparator3 
          Caption         =   "-"
       End
@@ -395,10 +391,6 @@ End Sub
 
 Private Sub mnuQuit_Click()
     quitProgram
-End Sub
-
-Private Sub mnuVisitCodeSpeakOrg_Click()
-    ShellExecute 0, "open", "http://www.codespeak.org", vbNullString, vbNullString, 4
 End Sub
 
 Private Sub sckBNET_Connect(index As Integer)
