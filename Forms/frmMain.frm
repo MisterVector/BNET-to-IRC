@@ -650,7 +650,7 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
         Else
             If (currentJoinedChannel <> vbNullString) Then
                 SendPRIVMSG currentJoinedChannel, text
-                AddChat rtbChatIRCChat, vbWhite, config.ircServer & " (", vbYellow, currentJoinedChannel, vbWhite, ") " & text
+                AddChat rtbChatIRCChat, vbYellow, config.ircUsername, vbWhite, ": " & text
             Else
                 AddChat rtbChatIRCChat, vbRed, "Currently not in a channel!"
             End If
