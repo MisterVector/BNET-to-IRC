@@ -487,7 +487,9 @@ End Sub
 
 Private Sub sckIRC_Connect()
     AddChat rtbChatIRCConsole, vbGreen, "[IRC] Connected to " & config.ircServer & "!"
+    
     IRCTab.TabCaption(0) = "Console (" & config.ircServer & ")"
+    IRCData.connectedUsername = config.ircUsername
     
     SendNICK config.ircUsername
     SendUSER config.ircUsername
@@ -650,7 +652,7 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
         Else
             If (currentJoinedChannel <> vbNullString) Then
                 SendPRIVMSG currentJoinedChannel, text
-                AddChat rtbChatIRCChat, vbYellow, config.ircUsername, vbWhite, ": " & text
+                AddChat rtbChatIRCChat, vbYellow, IRCData.connectedUsername, vbWhite, ": " & text
             Else
                 AddChat rtbChatIRCChat, vbRed, "Currently not in a channel!"
             End If

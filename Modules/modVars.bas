@@ -66,6 +66,7 @@ End Type
 Public config As ConfigStructure
 
 Public Type IRCDataStructure
+    connectedUsername As String
     joinedChannel As String
 End Type
 Public IRCData As IRCDataStructure

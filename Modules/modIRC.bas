@@ -1,5 +1,9 @@
 Attribute VB_Name = "modIRC"
 Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal command As String, ByVal data As String)
+    Dim connectedUsername As String
+    
+    connectedUsername = IRCData.connectedUsername
+    
     Select Case command
         Case "JOIN"
             RecvJOIN data
@@ -12,9 +16,9 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
                 SendJOIN config.ircChannel
             End If
             
-            If (Len(data) >= Len(config.ircUsername + " :")) Then
-                If (Left$(data, Len(config.ircUsername + " :")) = config.ircUsername + " :") Then
-                    data = Mid$(data, Len(config.ircUsername + " :") + 1)
+            If (Len(data) >= Len(connectedUsername + " :")) Then
+                If (Left$(data, Len(connectedUsername + " :")) = connectedUsername + " :") Then
+                    data = Mid$(data, Len(connectedUsername + " :") + 1)
                 End If
             End If
             
