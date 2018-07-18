@@ -5,6 +5,8 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
     connectedUsername = IRCData.connectedUsername
     
     Select Case command
+        Case "353"
+            AddChat frmMain.rtbChatIRCChat, vbYellow, data
         Case "JOIN"
             RecvJOIN data
         Case "PRIVMSG"
