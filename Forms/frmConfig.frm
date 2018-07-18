@@ -115,27 +115,27 @@ Begin VB.Form frmConfig
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0EF6
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Label9"
+      Tab(2).Control(0)=   "txtIRCServer"
       Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "Label8"
+      Tab(2).Control(1)=   "txtIRCChannel"
       Tab(2).Control(1).Enabled=   0   'False
-      Tab(2).Control(2)=   "Label7"
+      Tab(2).Control(2)=   "txtIRCUsername"
       Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Label10"
       Tab(2).Control(3).Enabled=   0   'False
-      Tab(2).Control(4)=   "txtIRCUsername"
+      Tab(2).Control(4)=   "Label7"
       Tab(2).Control(4).Enabled=   0   'False
-      Tab(2).Control(5)=   "txtIRCChannel"
+      Tab(2).Control(5)=   "Label8"
       Tab(2).Control(5).Enabled=   0   'False
-      Tab(2).Control(6)=   "txtIRCServer"
+      Tab(2).Control(6)=   "Label9"
       Tab(2).Control(6).Enabled=   0   'False
       Tab(2).ControlCount=   7
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0F12
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "chkRememberWindowPosition"
+      Tab(3).Control(0)=   "chkCheckUpdateOnStartup"
       Tab(3).Control(0).Enabled=   0   'False
-      Tab(3).Control(1)=   "chkCheckUpdateOnStartup"
+      Tab(3).Control(1)=   "chkRememberWindowPosition"
       Tab(3).Control(1).Enabled=   0   'False
       Tab(3).ControlCount=   2
       Begin VB.CheckBox chkCheckUpdateOnStartup 
@@ -229,7 +229,7 @@ Begin VB.Form frmConfig
       End
       Begin VB.CommandButton btnRemove 
          Caption         =   "Remove"
-         Height          =   255
+         Height          =   375
          Left            =   -71640
          TabIndex        =   14
          Top             =   4560
@@ -237,7 +237,7 @@ Begin VB.Form frmConfig
       End
       Begin VB.CommandButton btnAdd 
          Caption         =   "Add"
-         Height          =   255
+         Height          =   375
          Left            =   -74760
          TabIndex        =   13
          Top             =   4560
