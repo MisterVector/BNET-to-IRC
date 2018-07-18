@@ -54,9 +54,15 @@ Public Sub SendToBNET(ByVal msg As String)
 End Sub
 
 Public Sub SendToIRC(ByVal msg As String)
+    Dim currentJoinedChannel As String
+    
     If (isBroadcastToIRC) Then
         If frmMain.sckIRC.State = sckConnected Then
-            SendPRIVMSG config.ircChannel, msg
+            currentJoinedChannel = IRCData.joinedChannel
+        
+            If (currentJoinedChannel <> vbNullString) Then
+                SendPRIVMSG currentJoinedChannel, msg
+            End If
         End If
     End If
 End Sub
