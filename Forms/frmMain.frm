@@ -489,8 +489,8 @@ Private Sub sckIRC_Connect()
     AddChat rtbChatIRCConsole, vbGreen, "[IRC] Connected to " & config.ircServer & "!"
     IRCTab.TabCaption(0) = "Console (" & config.ircServer & ")"
     
-    sckIRC.SendData "NICK " & config.ircUsername & vbCrLf
-    sckIRC.SendData "USER " & config.ircUsername & " 0 0 " & config.ircUsername & vbCrLf
+    SendNICK config.ircUsername
+    SendUSER config.ircUsername
     'SendToBNET "Connected to the IRC server at " & config.ircServer & "!"
     SendToBNET "Connected to IRC!"
 End Sub
@@ -640,15 +640,15 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
                     previousChannel = IRCData.joinedChannel
                     
                     If (previousChannel <> vbNullString) Then
-                        sendPART previousChannel
+                        SendPART previousChannel
                     End If
                     
-                    sckIRC.SendData "JOIN " & cmdEx(1) & vbCrLf
+                    SendJOIN cmdEx(1)
             End Select
         Else
             If sckIRC.State <> sckConnected Then Exit Sub
 
-            sckIRC.SendData "PRIVMSG " & config.ircChannel & " :" & text & vbCrLf
+            SendPRIVMSG config.ircChannel, text
             AddChat rtbChatIRCChat, vbWhite, config.ircServer & " (", vbYellow, config.ircChannel, vbWhite, ") " & text
         End If
     End If

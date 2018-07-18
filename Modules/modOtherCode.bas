@@ -56,7 +56,7 @@ End Sub
 Public Sub SendToIRC(ByVal msg As String)
     If (isBroadcastToIRC) Then
         If frmMain.sckIRC.State = sckConnected Then
-            frmMain.sckIRC.SendData "PRIVMSG " & config.ircChannel & " :" & msg & vbCrLf
+            SendPRIVMSG config.ircChannel, msg
         End If
     End If
 End Sub

@@ -9,7 +9,7 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
              RecvPING data
         Case Else
             If (InStr(data, "End of /MOTD command.")) Then
-                frmMain.sckIRC.SendData "JOIN " & config.ircChannel & vbCrLf
+                SendJOIN config.ircChannel
             End If
             
             If (Len(data) >= Len(config.ircUsername + " :")) Then
@@ -28,6 +28,10 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
     End Select
 End Sub
 
+Public Sub SendJOIN(ByVal channel As String)
+    frmMain.sckIRC.SendData "JOIN " & channel & vbCrLf
+End Sub
+
 Public Sub RecvJOIN(ByVal channel As String)
     frmMain.IRCTab.TabCaption(1) = "Chat (" & channel & ")"
     IRCData.joinedChannel = channel
@@ -35,7 +39,11 @@ Public Sub RecvJOIN(ByVal channel As String)
     AddChat frmMain.rtbChatIRCChat, vbYellow, "Joined the channel ", vbWhite, channel, vbYellow, "."
 End Sub
 
-Public Sub sendPART(ByVal channel As String)
+Public Sub SendNICK(ByVal username As String)
+    frmMain.sckIRC.SendData "NICK " & username & vbCrLf
+End Sub
+
+Public Sub SendPART(ByVal channel As String)
     frmMain.sckIRC.SendData "PART " & channel & vbCrLf
 End Sub
 
@@ -46,6 +54,10 @@ End Sub
 
 Public Sub RecvPING(ByVal data As String)
     SendPING data
+End Sub
+
+Public Sub SendPRIVMSG(ByVal target As String, text As String)
+    frmMain.sckIRC.SendData "PRIVMSG " & target & " :" & text & vbCrLf
 End Sub
 
 Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal text As String)
@@ -62,4 +74,8 @@ Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal t
     End If
     
     SendToBNET source & ": " & text
+End Sub
+
+Public Sub SendUSER(ByVal username As String)
+    frmMain.sckIRC.SendData "USER " & username & " 0 0 " & username & vbCrLf
 End Sub
