@@ -630,6 +630,8 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
         text = Replace(text, vbNewLine, vbNullString)
         txtIRCChat.text = vbNullString
     
+        If sckIRC.State <> sckConnected Then Exit Sub
+    
         If Left(text, 1) = "/" Then
             cmd = Split(Mid$(text, 2))
       
@@ -646,8 +648,6 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
                     SendJOIN cmdEx(1)
             End Select
         Else
-            If sckIRC.State <> sckConnected Then Exit Sub
-
             SendPRIVMSG config.ircChannel, text
             AddChat rtbChatIRCChat, vbWhite, config.ircServer & " (", vbYellow, config.ircChannel, vbWhite, ") " & text
         End If
