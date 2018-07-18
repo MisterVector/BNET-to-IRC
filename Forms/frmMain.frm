@@ -337,6 +337,10 @@ Private Sub Form_Unload(Cancel As Integer)
         WriteINI "Window", "Left", Me.Left, "Config.ini"
     End If
 
+    If sckIRC.State = sckConnected Then
+        sckIRC.SendData "QUIT" & vbCrLf
+    End If
+    
     quitProgram
 End Sub
 
