@@ -1,10 +1,4 @@
-Attribute VB_Name = "modLibBNET"
-'Do not modify this file!
-'This is part of BNHash functionality and could possibly be updated. If you don't want to lose anywork
-'then it's advised that you create your own module.
-
-'LibBnet.dll by Rob
-
+Attribute VB_Name = "modBNETAPI"
 Public Declare Function nls_init Lib "libbnet.dll" (ByVal sUsername As String, ByVal sPassword As String) As Long
 Public Declare Sub nls_free Lib "libbnet.dll" (ByVal lNLSPointer As Long)
 Public Declare Function nls_account_logon Lib "libbnet.dll" (ByVal lNLSPointer As Long, ByVal sBufferOut As String) As Long
