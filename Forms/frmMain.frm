@@ -623,7 +623,7 @@ End Sub
 
 Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
     Dim text As String, cmd() As String, cmdEx() As String
-    Dim previousChannel As String
+    Dim currentJoinedChannel As String
   
     If KeyCode = 13 Then
         text = txtIRCChat.text
@@ -632,6 +632,8 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
     
         If sckIRC.State <> sckConnected Then Exit Sub
     
+        currentJoinedChannel = IRCData.joinedChannel
+        
         If Left(text, 1) = "/" Then
             cmd = Split(Mid$(text, 2))
       
@@ -639,17 +641,19 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
                 Case "join"
                     cmdEx = Split(text, " ", 2)
                     
-                    previousChannel = IRCData.joinedChannel
-                    
-                    If (previousChannel <> vbNullString) Then
-                        SendPART previousChannel
+                    If (currentJoinedChannel <> vbNullString) Then
+                        SendPART currentJoinedChannel
                     End If
                     
                     SendJOIN cmdEx(1)
             End Select
         Else
-            SendPRIVMSG config.ircChannel, text
-            AddChat rtbChatIRCChat, vbWhite, config.ircServer & " (", vbYellow, config.ircChannel, vbWhite, ") " & text
+            If (currentJoinedChannel <> vbNullString) Then
+                SendPRIVMSG currentJoinedChannel, text
+                AddChat rtbChatIRCChat, vbWhite, config.ircServer & " (", vbYellow, currentJoinedChannel, vbWhite, ") " & text
+            Else
+                AddChat rtbChatIRCChat, vbRed, "Currently not in a channel!"
+            End If
         End If
     End If
 End Sub
