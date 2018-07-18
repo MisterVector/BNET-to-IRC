@@ -7,6 +7,8 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
     Select Case command
         Case "353"
             AddChat frmMain.rtbChatIRCChat, vbYellow, data
+        Case "376"
+            SendJOIN config.ircChannel
         Case "JOIN"
             RecvJOIN data
         Case "PRIVMSG"
@@ -14,10 +16,6 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
         Case "PING"
              RecvPING data
         Case Else
-            If (InStr(data, "End of /MOTD command.")) Then
-                SendJOIN config.ircChannel
-            End If
-            
             If (Len(data) >= Len(connectedUsername + " :")) Then
                 If (Left$(data, Len(connectedUsername + " :")) = connectedUsername + " :") Then
                     data = Mid$(data, Len(connectedUsername + " :") + 1)
