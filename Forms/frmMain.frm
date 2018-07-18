@@ -563,10 +563,10 @@ Private Sub tmrCheckUpdate_Timer()
     versionToCheck = Split(updateString, "Content-Type: text/plain" & vbCrLf & vbCrLf)(1)
     
     If (isNewVersion(versionToCheck)) Then
-        updateMsg = "There is a new update for BNET-to-IRC!" & vbNewLine & vbNewLine & "Your version: " & PROGRAM_VERSION & " new version: " & versionToCheck & vbNewLine & vbNewLine _
+        updateMsg = "There is a new update for Battle.Net to IRC!" & vbNewLine & vbNewLine & "Your version: " & PROGRAM_VERSION & " new version: " & versionToCheck & vbNewLine & vbNewLine _
                   & "Would you like to visit the downloads page for updates?"
     
-        msgBoxResult = MsgBox(updateMsg, vbYesNo Or vbInformation, "New BNET-to-IRC version available!")
+        msgBoxResult = MsgBox(updateMsg, vbYesNo Or vbInformation, "New Battle.Net to IRC version available!")
 
         If (msgBoxResult = vbYes) Then
             ShellExecute 0, "open", RELEASES_URL, vbNullString, vbNullString, 4
