@@ -58,13 +58,13 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   6375
       Left            =   8160
-      TabIndex        =   1
+      TabIndex        =   8
       Top             =   120
       Width           =   7935
       Begin TabDlg.SSTab IRCTab 
          Height          =   5655
          Left            =   120
-         TabIndex        =   7
+         TabIndex        =   9
          Top             =   240
          Width           =   7695
          _ExtentX        =   13573
@@ -82,11 +82,12 @@ Begin VB.Form frmMain
          TabPicture(1)   =   "frmMain.frx":08E6
          Tab(1).ControlEnabled=   0   'False
          Tab(1).Control(0)=   "rtbChatIRCChat"
+         Tab(1).Control(0).Enabled=   0   'False
          Tab(1).ControlCount=   1
          Begin RichTextLib.RichTextBox rtbChatIRCChat 
             Height          =   5175
             Left            =   -74880
-            TabIndex        =   8
+            TabIndex        =   5
             Top             =   360
             Width           =   7455
             _ExtentX        =   13150
@@ -110,7 +111,7 @@ Begin VB.Form frmMain
          Begin RichTextLib.RichTextBox rtbChatIRCConsole 
             Height          =   5175
             Left            =   120
-            TabIndex        =   9
+            TabIndex        =   4
             Top             =   360
             Width           =   7455
             _ExtentX        =   13150
@@ -145,7 +146,7 @@ Begin VB.Form frmMain
          EndProperty
          Height          =   255
          Left            =   5760
-         TabIndex        =   5
+         TabIndex        =   7
          Top             =   6000
          Width           =   2055
       End
@@ -153,7 +154,7 @@ Begin VB.Form frmMain
          Height          =   285
          Left            =   120
          MultiLine       =   -1  'True
-         TabIndex        =   2
+         TabIndex        =   6
          Top             =   6000
          Width           =   5415
       End
@@ -200,7 +201,7 @@ Begin VB.Form frmMain
          EndProperty
          Height          =   255
          Left            =   6000
-         TabIndex        =   6
+         TabIndex        =   3
          Top             =   6000
          Width           =   1815
       End
@@ -208,14 +209,14 @@ Begin VB.Form frmMain
          Height          =   285
          Left            =   120
          MultiLine       =   -1  'True
-         TabIndex        =   4
+         TabIndex        =   2
          Top             =   6000
          Width           =   5655
       End
       Begin RichTextLib.RichTextBox rtbChatBNET 
          Height          =   5535
          Left            =   120
-         TabIndex        =   3
+         TabIndex        =   1
          Top             =   360
          Width           =   7725
          _ExtentX        =   13626
