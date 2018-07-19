@@ -82,7 +82,6 @@ Begin VB.Form frmMain
          TabPicture(1)   =   "frmMain.frx":08E6
          Tab(1).ControlEnabled=   0   'False
          Tab(1).Control(0)=   "rtbChatIRCChat"
-         Tab(1).Control(0).Enabled=   0   'False
          Tab(1).ControlCount=   1
          Begin RichTextLib.RichTextBox rtbChatIRCChat 
             Height          =   5175
@@ -95,6 +94,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0902
@@ -119,6 +119,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0984
@@ -224,6 +225,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0A06
@@ -361,8 +363,28 @@ Private Sub mnuConfiguration_Click()
 End Sub
 
 Private Sub mnuConnectBNET_Click()
+    If (config.bnetUsername = vbNullString) Then
+        MsgBox "Battle.Net username has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        Exit Sub
+    End If
+
+    If (config.bnetPassword = vbNullString) Then
+        MsgBox "Battle.Net password has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        Exit Sub
+    End If
+    
+    If (config.bnetChannel = vbNullString) Then
+        MsgBox "Battle.Net channel has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        Exit Sub
+    End If
+
+    If (config.bnetServer = vbNullString) Then
+        MsgBox "Battle.Net server has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        Exit Sub
+    End If
+
     If config.bnetKeyCount = 0 Then
-        MsgBox "Your keys are not configured. Go to File -> Configuration -> Manage Keys first.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        MsgBox "Your keys are not configured. Go to File -> Configuration -> Key Manager first.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
     End If
   
@@ -374,6 +396,31 @@ Private Sub mnuConnectBNET_Click()
 End Sub
 
 Private Sub mnuConnectIRC_Click()
+    If (config.ircUsername = vbNullString) Then
+        MsgBox "IRC username has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        Exit Sub
+    End If
+
+    If (config.ircServer = vbNullString) Then
+        MsgBox "IRC server has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        Exit Sub
+    End If
+    
+    If (config.ircPort = 0) Then
+        MsgBox "IRC port has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        Exit Sub
+    End If
+
+    If (config.ircChannel = vbNullString) Then
+        MsgBox "IRC channel has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        Exit Sub
+    End If
+    
+    If (Left$(config.ircChannel, 1) <> "#") Then
+        MsgBox "IRC channel has not been configured properly.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        Exit Sub
+    End If
+
     AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & config.ircServer & ":" & config.ircPort & "..."
     sckIRC.Connect config.ircServer, config.ircPort
   
