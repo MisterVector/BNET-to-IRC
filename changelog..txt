@@ -1,0 +1,3 @@
+Version 1.0.0 - Released on July 18, 2018
+
+  - First release of Battle.Net to IRC!
