@@ -94,7 +94,6 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0902
@@ -119,7 +118,6 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0984
@@ -225,7 +223,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0A06
@@ -280,8 +277,8 @@ Begin VB.Form frmMain
       Begin VB.Menu mnuSeparator3 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuCheckForUpdates 
-         Caption         =   "Check for Updates"
+      Begin VB.Menu mnuCheckForUpdate 
+         Caption         =   "Check for Update"
       End
    End
 End
@@ -351,7 +348,7 @@ Private Sub mnuAbout_Click()
     frmAbout.Show
 End Sub
 
-Private Sub mnuCheckForUpdates_Click()
+Private Sub mnuCheckForUpdate_Click()
     If (sckCheckUpdate.State = sckClosed) Then
         sckCheckUpdate.Connect "files.codespeak.org", 80
         manualUpdateCheck = True
