@@ -1,9 +1,9 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
-Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "tabctl32.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmConfig 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Battle.Net to IRC Configuration"
+   Caption         =   "Settings for Battle.Net to IRC"
    ClientHeight    =   6075
    ClientLeft      =   1875
    ClientTop       =   1995
@@ -115,27 +115,27 @@ Begin VB.Form frmConfig
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0EF6
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "txtIRCServer"
+      Tab(2).Control(0)=   "Label9"
       Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "txtIRCChannel"
+      Tab(2).Control(1)=   "Label8"
       Tab(2).Control(1).Enabled=   0   'False
-      Tab(2).Control(2)=   "txtIRCUsername"
+      Tab(2).Control(2)=   "Label7"
       Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Label10"
       Tab(2).Control(3).Enabled=   0   'False
-      Tab(2).Control(4)=   "Label7"
+      Tab(2).Control(4)=   "txtIRCUsername"
       Tab(2).Control(4).Enabled=   0   'False
-      Tab(2).Control(5)=   "Label8"
+      Tab(2).Control(5)=   "txtIRCChannel"
       Tab(2).Control(5).Enabled=   0   'False
-      Tab(2).Control(6)=   "Label9"
+      Tab(2).Control(6)=   "txtIRCServer"
       Tab(2).Control(6).Enabled=   0   'False
       Tab(2).ControlCount=   7
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0F12
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "chkCheckUpdateOnStartup"
+      Tab(3).Control(0)=   "chkRememberWindowPosition"
       Tab(3).Control(0).Enabled=   0   'False
-      Tab(3).Control(1)=   "chkRememberWindowPosition"
+      Tab(3).Control(1)=   "chkCheckUpdateOnStartup"
       Tab(3).Control(1).Enabled=   0   'False
       Tab(3).ControlCount=   2
       Begin VB.CheckBox chkCheckUpdateOnStartup 
