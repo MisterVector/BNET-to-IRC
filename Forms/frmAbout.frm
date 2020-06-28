@@ -75,7 +75,7 @@ Begin VB.Form frmAbout
       Width           =   4815
    End
    Begin VB.Label lblLink 
-      Caption         =   "http://www.codespeak.org"
+      Caption         =   "https://www.codespeak.org"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   12
@@ -112,7 +112,7 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub lblLink_Click()
-    ShellExecute 0, "open", "http://www.codespeak.org", 0, 0, 0
+    ShellExecute 0, "open", "https://www.codespeak.org", 0, 0, 0
 End Sub
 
 Private Sub lblLink_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
