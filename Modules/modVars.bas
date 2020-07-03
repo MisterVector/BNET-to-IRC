@@ -5,7 +5,6 @@ Public Const RELEASES_URL As String = "https://github.com/MisterVector/BNET-to-I
 
 Public Const VERBYTE_W2BN As Long = &H4F
 Public Const VERBYTE_D2DV As Long = &HE
-Public Const VERBYTE_WAR3 As Long = &H1C
 
 Public Const DEFAULT_BNLS_SERVER As String = "jbls.codespeak.org"
 Public Const DEFAULT_REMEMBER_WINDOW_POSITION As Boolean = False
@@ -55,7 +54,6 @@ Public Type ConfigStructure
 
     bnetW2BNVerByte As Long
     bnetD2DVVerByte As Long
-    bnetWAR3VerByte As Long
 
     ircUsername As String
     ircPassword As String

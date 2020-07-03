@@ -94,7 +94,6 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0902
@@ -119,7 +118,6 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0984
@@ -225,7 +223,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0A06
@@ -468,10 +465,6 @@ Private Sub sckBNET_DataArrival(index As Integer, ByVal bytesTotal As Long)
             Case &H3A: Recv0x3A index
             Case &H3D: Recv0x3D index
             Case &H50: Recv0x50 index
-            Case &H51: Recv0x51 index
-            Case &H52: Recv0x52 index
-            Case &H53: Recv0x53 index
-            Case &H54: Recv0x54 index
         End Select
     
         data = Mid$(data, pLen + 1)

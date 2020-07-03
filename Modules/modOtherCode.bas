@@ -12,7 +12,6 @@ Public Function getVerByte(ByVal product As String) As Long
     Select Case product
         Case "W2BN": getVerByte = config.bnetW2BNVerByte
         Case "D2DV": getVerByte = config.bnetD2DVVerByte
-        Case "WAR3": getVerByte = config.bnetWAR3VerByte
     End Select
 End Function
 
@@ -20,7 +19,6 @@ Public Function getProdID(ByVal product As String) As Long
     Select Case product
         Case "W2BN": getProdID = &H3
         Case "D2DV": getProdID = &H4
-        Case "WAR3": getProdID = &H7
     End Select
 End Function
 
@@ -85,32 +83,19 @@ Public Sub quitProgram()
     Next
 End Sub
 
-Public Function accountIdToReason(ByVal ID As Long, ByVal isWar3 As Boolean) As String
+Public Function accountIdToReason(ByVal ID As Long) As String
     Dim reason As String
 
-    If isWar3 Then
-        Select Case ID
-            Case &H4: reason = "username already exists."
-            Case &H7: reason = "username is too short or blank."
-            Case &H8: reason = "username contains an illegal character."
-            Case &H9: reason = "username contains an illegal word."
-            Case &HA: reason = "username contains too few alphanumeric characters."
-            Case &HB: reason = "username contains adjacent punctuation characters."
-            Case &HC: reason = "username contains too many punctuation characters."
-            Case Else: reason = "username already exists."
-        End Select
-    Else
-        Select Case ID
-            Case &H1: reason = "username is too short"
-            Case &H2: reason = "username contains invalid characters"
-            Case &H3: reason = "username contained a banned word"
-            Case &H4: reason = "username already exists"
-            Case &H5: reason = "username is still being created"
-            Case &H6: reason = "username does not contain enough alphanumeric characters"
-            Case &H7: reason = "username contained adjacent punctuation characters"
-            Case &H8: reason = "username contained too many punctuation characters"
-        End Select
-    End If
+    Select Case ID
+        Case &H1: reason = "username is too short"
+        Case &H2: reason = "username contains invalid characters"
+        Case &H3: reason = "username contained a banned word"
+        Case &H4: reason = "username already exists"
+        Case &H5: reason = "username is still being created"
+        Case &H6: reason = "username does not contain enough alphanumeric characters"
+        Case &H7: reason = "username contained adjacent punctuation characters"
+        Case &H8: reason = "username contained too many punctuation characters"
+    End Select
 
     accountIdToReason = reason
 End Function
@@ -150,7 +135,6 @@ Public Sub setDefaultValues()
     config.checkUpdateOnStartup = DEFAULT_CHECK_UPDATE_ON_STARTUP
     config.bnetW2BNVerByte = VERBYTE_W2BN
     config.bnetD2DVVerByte = VERBYTE_D2DV
-    config.bnetWAR3VerByte = VERBYTE_WAR3
 End Sub
 
 Public Sub loadConfig()
@@ -200,9 +184,6 @@ Public Sub loadConfig()
     val = "&H" & ReadINI("BNET", "D2DVVerByte", "Config.ini")
     config.bnetD2DVVerByte = IIf(IsNumeric(val), val, VERBYTE_D2DV)
   
-    val = "&H" & ReadINI("BNET", "WAR3VerByte", "Config.ini")
-    config.bnetWAR3VerByte = IIf(IsNumeric(val), val, VERBYTE_WAR3)
-  
     config.ircUsername = ReadINI("IRC", "Username", "Config.ini")
     config.ircChannel = ReadINI("IRC", "Channel", "Config.ini")
   
@@ -233,7 +214,6 @@ Public Sub saveConfig()
   
     WriteINI "BNET", "W2BNVerByte", Right("0" & Hex(config.bnetW2BNVerByte), 2), "Config.ini"
     WriteINI "BNET", "D2DVBerByte", Right("0" & Hex(config.bnetD2DVVerByte), 2), "Config.ini"
-    WriteINI "BNET", "WAR3VerByte", Right("0" & Hex(config.bnetWAR3VerByte), 2), "Config.ini"
   
     WriteINI "IRC", "Username", config.ircUsername, "Config.ini"
     WriteINI "IRC", "Channel", config.ircChannel, "Config.ini"

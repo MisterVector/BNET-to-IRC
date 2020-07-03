@@ -91,7 +91,6 @@ Public Sub Recv_BNLS_0x10(index As Integer)
         Select Case product
             Case &H3: config.bnetW2BNVerByte = versionByte
             Case &H4: config.bnetD2DVVerByte = versionByte
-            Case &H7: config.bnetWAR3VerByte = versionByte
         End Select
     
         AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Version byte updated!"
