@@ -734,7 +734,7 @@ End Sub
 Public Function isValidKey(key As String) As Boolean
     Dim productFound As String, productValue As Long
   
-    decode_hash_cdkey key, 0, 0, 0, productValue, vbNullString
+    kd_quick key, 0, 0, 0, productValue, vbNullString, 0
 
     Select Case productValue
         Case &H4
