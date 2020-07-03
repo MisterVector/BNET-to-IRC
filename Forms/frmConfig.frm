@@ -724,7 +724,7 @@ Public Function isValidKey(key As String) As Boolean
     Select Case productValue
         Case &H4
             productFound = "W2BN"
-        Case &H6, &H7
+        Case &H6, &H7, &H18
             productFound = "D2DV"
     End Select
   

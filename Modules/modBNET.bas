@@ -48,7 +48,8 @@ Public Sub Send0x51(index As Integer)
     Dim result As Long
 
     cdKeyLength = Len(bnetData(index).cdKey)
-    result = decode_hash_cdkey(bnetData(index).cdKey, bnetData(index).clientToken, bnetData(index).serverToken, cdKeyPublicValue, cdKeyProductValue, cdKeyHash)
+    
+    result = kd_quick(bnetData(index).cdKey, bnetData(index).clientToken, bnetData(index).serverToken, cdKeyPublicValue, cdKeyProductValue, cdKeyHash, Len(cdKeyHash))
 
     If (result = 0) Then
         AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Could not decode CD-Key!"
