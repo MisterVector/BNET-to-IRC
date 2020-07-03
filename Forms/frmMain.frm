@@ -94,6 +94,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0902
@@ -118,6 +119,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0984
@@ -223,6 +225,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0A06
@@ -697,7 +700,7 @@ Private Sub txtIRCChat_KeyDown(KeyCode As Integer, Shift As Integer)
         Else
             If (currentJoinedChannel <> vbNullString) Then
                 SendPRIVMSG currentJoinedChannel, text
-                AddChat rtbChatIRCChat, vbYellow, IRCData.connectedUsername, vbWhite, ": " & text
+                AddChat rtbChatIRCChat, vbCyan, IRCData.connectedUsername, vbWhite, ": " & text
             Else
                 AddChat rtbChatIRCChat, vbRed, "Currently not in a channel!"
             End If
