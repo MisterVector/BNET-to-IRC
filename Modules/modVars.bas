@@ -60,6 +60,7 @@ Public Type ConfigStructure
     ircServer As String
     ircPort As Long
     ircChannel As String
+    ircQuitMessage As String
 End Type
 Public config As ConfigStructure
 

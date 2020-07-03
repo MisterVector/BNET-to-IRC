@@ -341,7 +341,7 @@ Private Sub Form_Unload(Cancel As Integer)
     End If
 
     If sckIRC.State = sckConnected Then
-        sckIRC.SendData "QUIT" & vbCrLf
+        sckIRC.SendData "QUIT" & IIf(config.ircQuitMessage <> vbNullString, " :" & config.ircQuitMessage, vbNullString) & vbCrLf
     End If
     
     quitProgram
@@ -437,7 +437,7 @@ Private Sub mnuDisconnectIRC_Click()
     rtbChatIRCChat.text = vbNullString
 
     If sckIRC.State = sckConnected Then
-        sckIRC.SendData "QUIT" & vbCrLf
+        sckIRC.SendData "QUIT" & IIf(config.ircQuitMessage <> vbNullString, " :" & config.ircQuitMessage, vbNullString) & vbCrLf
     End If
 End Sub
 

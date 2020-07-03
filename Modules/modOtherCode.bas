@@ -186,6 +186,7 @@ Public Sub loadConfig()
   
     config.ircUsername = ReadINI("IRC", "Username", "Config.ini")
     config.ircChannel = ReadINI("IRC", "Channel", "Config.ini")
+    config.ircQuitMessage = ReadINI("IRC", "QuitMessage", "Config.ini")
   
     val = ReadINI("IRC", "Server", "Config.ini")
   
@@ -218,6 +219,7 @@ Public Sub saveConfig()
     WriteINI "IRC", "Username", config.ircUsername, "Config.ini"
     WriteINI "IRC", "Channel", config.ircChannel, "Config.ini"
     WriteINI "IRC", "Server", config.ircServer, "Config.ini"
+    WriteINI "IRC", "QuitMessage", config.ircQuitMessage, "Config.ini"
   
     If (config.bnetKeyCount > 0) Then
         For i = 0 To config.bnetKeyCount - 1

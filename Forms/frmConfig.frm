@@ -87,38 +87,49 @@ Begin VB.Form frmConfig
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmConfig.frx":09F0
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label2"
-      Tab(1).Control(0).Enabled=   0   'False
-      Tab(1).Control(1)=   "lvKeyList"
-      Tab(1).Control(1).Enabled=   0   'False
-      Tab(1).Control(2)=   "btnAdd"
-      Tab(1).Control(2).Enabled=   0   'False
+      Tab(1).Control(0)=   "opD2DV"
+      Tab(1).Control(1)=   "opW2BN"
+      Tab(1).Control(2)=   "txtBNETKey"
       Tab(1).Control(3)=   "btnRemove"
-      Tab(1).Control(3).Enabled=   0   'False
-      Tab(1).Control(4)=   "txtBNETKey"
-      Tab(1).Control(4).Enabled=   0   'False
-      Tab(1).Control(5)=   "opW2BN"
-      Tab(1).Control(5).Enabled=   0   'False
-      Tab(1).Control(6)=   "opD2DV"
-      Tab(1).Control(6).Enabled=   0   'False
+      Tab(1).Control(4)=   "btnAdd"
+      Tab(1).Control(5)=   "lvKeyList"
+      Tab(1).Control(6)=   "Label2"
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0A0C
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "txtIRCServer"
-      Tab(2).Control(1)=   "txtIRCChannel"
-      Tab(2).Control(2)=   "txtIRCUsername"
+      Tab(2).Control(0)=   "Label9"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "Label8"
+      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(2)=   "Label7"
+      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Label10"
-      Tab(2).Control(4)=   "Label7"
-      Tab(2).Control(5)=   "Label8"
-      Tab(2).Control(6)=   "Label9"
-      Tab(2).ControlCount=   7
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).Control(4)=   "Label15"
+      Tab(2).Control(4).Enabled=   0   'False
+      Tab(2).Control(5)=   "txtIRCUsername"
+      Tab(2).Control(5).Enabled=   0   'False
+      Tab(2).Control(6)=   "txtIRCChannel"
+      Tab(2).Control(6).Enabled=   0   'False
+      Tab(2).Control(7)=   "txtIRCServer"
+      Tab(2).Control(7).Enabled=   0   'False
+      Tab(2).Control(8)=   "txtIRCQuitMessage"
+      Tab(2).Control(8).Enabled=   0   'False
+      Tab(2).ControlCount=   9
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0A28
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "chkCheckUpdateOnStartup"
-      Tab(3).Control(1)=   "chkRememberWindowPosition"
+      Tab(3).Control(0)=   "chkRememberWindowPosition"
+      Tab(3).Control(1)=   "chkCheckUpdateOnStartup"
       Tab(3).ControlCount=   2
+      Begin VB.TextBox txtIRCQuitMessage 
+         Height          =   1815
+         Left            =   -74760
+         TabIndex        =   36
+         Top             =   3000
+         Width           =   4215
+      End
       Begin VB.CheckBox chkCheckUpdateOnStartup 
          Caption         =   "Check for Update on Startup"
          Height          =   375
@@ -305,6 +316,23 @@ Begin VB.Form frmConfig
             Key             =   "key"
             Object.Width           =   3528
          EndProperty
+      End
+      Begin VB.Label Label15 
+         Caption         =   "Quit Message"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   -74760
+         TabIndex        =   35
+         Top             =   2640
+         Width           =   1455
       End
       Begin VB.Label Label14 
          Caption         =   "Diablo II"
@@ -649,6 +677,7 @@ Private Sub btnOk_Click()
   
     config.ircUsername = txtIRCUsername.text
     config.ircChannel = txtIRCChannel.text
+    config.ircQuitMessage = txtIRCQuitMessage.text
   
     val = txtIRCServer.text
   
@@ -700,6 +729,7 @@ Private Sub Form_Load()
     txtIRCUsername.text = config.ircUsername
     txtIRCChannel.text = config.ircChannel
     txtIRCServer.text = config.ircServer
+    txtIRCQuitMessage.text = config.ircQuitMessage
   
     chkRememberWindowPosition.value = IIf(config.rememberWindowPosition = True, 1, 0)
     chkCheckUpdateOnStartup.value = IIf(config.checkUpdateOnStartup = True, 1, 0)
