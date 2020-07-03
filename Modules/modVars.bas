@@ -6,7 +6,7 @@ Public Const RELEASES_URL As String = "https://github.com/MisterVector/BNET-to-I
 Public Const VERBYTE_W2BN As Long = &H4F
 Public Const VERBYTE_D2DV As Long = &HE
 
-Public Const DEFAULT_BNLS_SERVER As String = "jbls.codespeak.org"
+Public Const DEFAULT_BNLS_SERVER As String = "jbls.davnit.net"
 Public Const DEFAULT_REMEMBER_WINDOW_POSITION As Boolean = False
 Public Const DEFAULT_CHECK_UPDATE_ON_STARTUP As Boolean = True
 
