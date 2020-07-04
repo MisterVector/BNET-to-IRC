@@ -711,6 +711,8 @@ Public Sub handleIRCClose()
     IRCTab.TabCaption(0) = "Console"
     IRCTab.TabCaption(1) = "Chat"
 
+    sckIRC.Close
+
     IRCData.joinedChannel = vbNullString
     canSendQuit = False
     
