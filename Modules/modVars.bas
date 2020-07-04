@@ -28,6 +28,8 @@ Public bnlsPacketHandler() As clsPacketHandler
 Public updateString As String
 Public manualUpdateCheck As Boolean
 
+Public canSendQuit As Boolean
+
 Public Enum BNLSRequestType
     REQUEST_FILE_INFO
     UPDATE_VERSION_BYTE

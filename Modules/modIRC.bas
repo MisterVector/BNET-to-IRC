@@ -41,6 +41,10 @@ Public Sub RecvJOIN(ByVal channel As String)
     IRCData.joinedChannel = channel
     config.ircChannel = channel
     AddChat frmMain.rtbChatIRCChat, vbYellow, "Joined the channel ", vbWhite, channel, vbYellow, "."
+    
+    If (Not canSendQuit) Then
+        canSendQuit = True
+    End If
 End Sub
 
 Public Sub SendNICK(ByVal username As String)

@@ -433,7 +433,7 @@ Private Sub mnuDisconnectIRC_Click()
     rtbChatIRCConsole.text = vbNullString
     rtbChatIRCChat.text = vbNullString
 
-    If sckIRC.State = sckConnected Then
+    If sckIRC.State = sckConnected And canSendQuit Then
         sckIRC.SendData "QUIT" & IIf(config.ircQuitMessage <> vbNullString, " :" & config.ircQuitMessage, vbNullString) & vbCrLf
     Else
         handleIRCClose
@@ -712,6 +712,7 @@ Public Sub handleIRCClose()
     IRCTab.TabCaption(1) = "Chat"
 
     IRCData.joinedChannel = vbNullString
+    canSendQuit = False
     
     mnuDisconnectIRC.Enabled = False
     mnuConnectIRC.Enabled = True
