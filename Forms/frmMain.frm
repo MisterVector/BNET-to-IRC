@@ -598,6 +598,12 @@ err:
     End If
 End Sub
 
+Private Sub sckIRC_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+    AddChat rtbChatIRCConsole, vbRed, "IRC: error #" & Number & ": " & Description
+    
+    handleIRCClose
+End Sub
+
 Private Sub tmrCheckUpdate_Timer()
     On Error GoTo err
 
