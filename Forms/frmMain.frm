@@ -2,6 +2,7 @@ VERSION 5.00
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Battle.Net to IRC %v"
@@ -16,6 +17,17 @@ Begin VB.Form frmMain
    ScaleHeight     =   6600
    ScaleWidth      =   16200
    StartUpPosition =   3  'Windows Default
+   Begin InetCtlsObjects.Inet inetCheckUpdate 
+      Left            =   3240
+      Top             =   1920
+      _ExtentX        =   1005
+      _ExtentY        =   1005
+      _Version        =   393216
+      Protocol        =   5
+      RemotePort      =   443
+      URL             =   "https://"
+      RequestTimeout  =   3
+   End
    Begin VB.Timer tmrReleaseQueue 
       Enabled         =   0   'False
       Interval        =   1250
@@ -32,8 +44,8 @@ Begin VB.Form frmMain
    End
    Begin MSWinsockLib.Winsock sckBNET 
       Index           =   0
-      Left            =   3720
-      Top             =   1440
+      Left            =   2760
+      Top             =   1920
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
@@ -174,16 +186,8 @@ Begin VB.Form frmMain
       TabIndex        =   0
       Top             =   120
       Width           =   7935
-      Begin MSWinsockLib.Winsock sckCheckUpdate 
-         Left            =   2640
-         Top             =   1800
-         _ExtentX        =   741
-         _ExtentY        =   741
-         _Version        =   393216
-      End
-      Begin VB.Timer tmrCheckUpdate 
-         Enabled         =   0   'False
-         Interval        =   450
+      Begin VB.Timer tmrCheckUpdateDelay 
+         Interval        =   200
          Left            =   2160
          Top             =   1800
       End
@@ -288,7 +292,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub chkBtoBNET_Click()
-    If chkBtoBNET.value = 1 Then
+    If chkBtoBNET.Value = 1 Then
         isBroadcastToBNET = True
     Else
         isBroadcastToBNET = False
@@ -296,7 +300,7 @@ Private Sub chkBtoBNET_Click()
 End Sub
 
 Private Sub chkBtoIRC_Click()
-    If chkBtoIRC.value = 1 Then
+    If chkBtoIRC.Value = 1 Then
         isBroadcastToIRC = True
     Else
         isBroadcastToIRC = False
@@ -323,12 +327,6 @@ Private Sub Form_Load()
     Else
         setDefaultValues
     End If
-    
-    If (config.checkUpdateOnStartup) Then
-        If (sckCheckUpdate.State = sckClosed) Then
-            sckCheckUpdate.Connect "files.codespeak.org", 80
-        End If
-    End If
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
@@ -349,9 +347,8 @@ Private Sub mnuAbout_Click()
 End Sub
 
 Private Sub mnuCheckForUpdate_Click()
-    If (sckCheckUpdate.State = sckClosed) Then
-        sckCheckUpdate.Connect "files.codespeak.org", 80
-        manualUpdateCheck = True
+    If (Not checkProgramUpdate(True)) Then
+        MsgBox "Unable to check for update!", vbOKOnly Or vbExclamation, PROGRAM_NAME
     End If
 End Sub
 
@@ -509,27 +506,6 @@ Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)
     Loop
 End Sub
 
-Private Sub sckCheckUpdate_Connect()
-    sckCheckUpdate.SendData "GET /projects/bnet-to-irc/CurrentVersion.txt HTTP/1.1" & vbCrLf _
-                                & "User-Agent: BNET-to-IRC/" & PROGRAM_VERSION & vbCrLf _
-                                & "Host: files.codespeak.org" & vbCrLf & vbCrLf
-End Sub
-
-Private Sub sckCheckUpdate_DataArrival(ByVal bytesTotal As Long)
-    Dim data As String
-    sckCheckUpdate.GetData data
-    
-    updateString = updateString & data
-    
-    tmrCheckUpdate.Enabled = True
-End Sub
-
-Private Sub sckCheckUpdate_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
-    MsgBox "Unable to check for update!", vbOKOnly Or vbExclamation, PROGRAM_TITLE
-    tmrCheckUpdate.Enabled = False
-    sckCheckUpdate.Close
-End Sub
-
 Private Sub sckIRC_Close()
     handleIRCClose
 End Sub
@@ -606,38 +582,14 @@ Private Sub sckIRC_Error(ByVal Number As Integer, Description As String, ByVal S
     handleIRCClose
 End Sub
 
-Private Sub tmrCheckUpdate_Timer()
-    On Error GoTo err
-
-    Dim versionToCheck As String, updateMsg As String
+Private Sub tmrCheckUpdateDelay_Timer()
+    tmrCheckUpdateDelay.Enabled = False
     
-    versionToCheck = Split(updateString, "Content-Type: text/plain" & vbCrLf & vbCrLf)(1)
-    
-    If (isNewVersion(versionToCheck)) Then
-        updateMsg = "There is a new update for Battle.Net to IRC!" & vbNewLine & vbNewLine & "Your version: " & PROGRAM_VERSION & " new version: " & versionToCheck & vbNewLine & vbNewLine _
-                  & "Would you like to visit the downloads page for updates?"
-    
-        msgBoxResult = MsgBox(updateMsg, vbYesNo Or vbInformation, "New Battle.Net to IRC version available!")
-
-        If (msgBoxResult = vbYes) Then
-            ShellExecute 0, "open", RELEASES_URL, vbNullString, vbNullString, 4
-        End If
-    Else
-        If (manualUpdateCheck) Then
-            MsgBox "There is no new version at this time.", vbOKOnly Or vbInformation, PROGRAM_TITLE
-            manualUpdateCheck = False
+    If (config.checkUpdateOnStartup) Then
+        If (Not checkProgramUpdate(False)) Then
+            MsgBox "Unable to check for update!", vbOKOnly Or vbExclamation, PROGRAM_NAME
         End If
     End If
-    
-err:
-    If (err.Number > 0) Then
-        err.Clear
-        MsgBox "Unable to check for update!", vbOKOnly Or vbExclamation, PROGRAM_TITLE
-    End If
-    
-    updateString = vbNullString
-    tmrCheckUpdate.Enabled = False
-    sckCheckUpdate.Close
 End Sub
 
 Private Sub tmrReleaseQueue_Timer()

@@ -319,7 +319,7 @@ Public Function countActiveConnections() As Integer
     If (hasLoadedConnections) Then
         For i = 0 To profiles.getCount() - 1
             stateBNLS = frmMain.sckBNLS(i).State
-            stateBNCS = frmMain.sckBNCS(i).State
+            stateBNCS = frmMain.sckBNET(i).State
             
             If (stateBNLS <> sckClosed Or stateBNCS <> sckClosed) Then
                 count = count + 1
@@ -328,22 +328,6 @@ Public Function countActiveConnections() As Integer
     End If
     
     countActiveConnections = count
-End Function
-
-Public Function isNewVersion(checkVersion As String) As Boolean
-    Dim currentVersionParts() As String, versionParts() As String
-    Dim currentVersionPoints As Long, versionPoints As Long
-    Dim updated As Boolean
-  
-    currentVersionParts = Split(PROGRAM_VERSION, ".")
-    versionParts = Split(checkVersion, ".")
-    
-    currentVersionPoints = ((currentVersionParts(0) * 1000000) + (currentVersionParts(1) * 1000) _
-                         + currentVersionParts(2))
-    
-    versionPoints = ((versionParts(0) * 1000000) + (versionParts(1) * 1000) + versionParts(2))
-
-    isNewVersion = (versionPoints > currentVersionPoints)
 End Function
 
 Public Function joinArrayAtIndex(arr() As String, index As Integer)
@@ -360,4 +344,46 @@ Public Function joinArrayAtIndex(arr() As String, index As Integer)
     Next i
     
     joinArrayAtIndex = finalString
+End Function
+
+Public Function checkProgramUpdate(ByVal manualUpdateCheck As Boolean) As Boolean
+    On Error GoTo err
+    
+    Dim text As String, status As Integer, requestReleaseTime As Date, releaseTime As Date, requestVersion As String, version As String, programURL As String
+    Dim jsonResponse As Dictionary, jsonContents As Dictionary
+    Dim updateMsg As String, msgBoxResult As Integer
+
+    text = frmMain.inetCheckUpdate.OpenURL(PROGRAM_UPDATE_URL)
+    Set jsonResponse = JSON.parse(text)
+    status = jsonResponse.Item("status")
+    
+    If (status = 1) Then
+        Set jsonContents = jsonResponse.Item("contents")
+        
+        requestReleaseTime = jsonContents.Item("request_release_time")
+        requestVeresion = jsonContents.Item("request_version")
+        releaseTime = jsonContents.Item("release_time")
+        version = jsonContents.Item("version")
+        
+        If (releaseTime > requestReleaseTime) Then
+            updateMsg = "There is a new update for " & PROGRAM_NAME & "!" & vbNewLine & vbNewLine & "Your version: " & PROGRAM_VERSION & " new version: " & version & vbNewLine & vbNewLine _
+                      & "Would you like to visit the program page to download the latest version??"
+            programURL = jsonContents.Item("program_url")
+        
+            msgBoxResult = MsgBox(updateMsg, vbYesNo Or vbInformation, "New version for " & PROGRAM_NAME)
+    
+            If (msgBoxResult = vbYes) Then
+                ShellExecute 0, "open", programURL, vbNullString, vbNullString, 4
+            End If
+        Else
+            If (manualUpdateCheck) Then
+                MsgBox "There is no new version at this time.", vbOKOnly Or vbInformation, PROGRAM_NAME
+            End If
+        End If
+        
+        checkProgramUpdate = True
+        Exit Function
+    End If
+
+err:
 End Function
