@@ -9,6 +9,7 @@ Public Const VERBYTE_D2DV As Long = &HE
 Public Const DEFAULT_BNLS_SERVER As String = "jbls.davnit.net"
 Public Const DEFAULT_REMEMBER_WINDOW_POSITION As Boolean = False
 Public Const DEFAULT_CHECK_UPDATE_ON_STARTUP As Boolean = True
+Public Const DEFAULT_UPDATE_CHANNEL_ON_CHANNEL_JOIN As Boolean = False
 
 Public Const LAST_NON_QUEUE_THRESHOLD_TIME As Long = 7000
 
@@ -68,6 +69,7 @@ Public Type ConfigStructure
     ircPort As Long
     ircChannel As String
     ircQuitMessage As String
+    ircUpdateChannelOnChannelJoin As Boolean
 End Type
 Public config As ConfigStructure
 

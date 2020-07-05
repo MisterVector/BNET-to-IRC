@@ -116,18 +116,37 @@ Begin VB.Form frmConfig
       Tab(2).Control(7).Enabled=   0   'False
       Tab(2).Control(8)=   "txtIRCQuitMessage"
       Tab(2).Control(8).Enabled=   0   'False
-      Tab(2).ControlCount=   9
+      Tab(2).Control(9)=   "chkUpdateChannelOnChannelJoin"
+      Tab(2).Control(9).Enabled=   0   'False
+      Tab(2).ControlCount=   10
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0A28
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "chkRememberWindowPosition"
-      Tab(3).Control(1)=   "chkCheckUpdateOnStartup"
+      Tab(3).Control(0)=   "chkCheckUpdateOnStartup"
+      Tab(3).Control(1)=   "chkRememberWindowPosition"
       Tab(3).ControlCount=   2
+      Begin VB.CheckBox chkUpdateChannelOnChannelJoin 
+         Caption         =   "Update On Channel Join"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   -73320
+         TabIndex        =   37
+         Top             =   2160
+         Width           =   2775
+      End
       Begin VB.TextBox txtIRCQuitMessage 
-         Height          =   1815
+         Height          =   1455
          Left            =   -74760
          TabIndex        =   36
-         Top             =   3000
+         Top             =   3480
          Width           =   4215
       End
       Begin VB.CheckBox chkCheckUpdateOnStartup 
@@ -180,7 +199,7 @@ Begin VB.Form frmConfig
          Height          =   345
          Left            =   -73320
          TabIndex        =   15
-         Top             =   2160
+         Top             =   2640
          Width           =   2775
       End
       Begin VB.TextBox txtIRCChannel 
@@ -331,7 +350,7 @@ Begin VB.Form frmConfig
          Height          =   255
          Left            =   -74760
          TabIndex        =   35
-         Top             =   2640
+         Top             =   3120
          Width           =   1455
       End
       Begin VB.Label Label14 
@@ -469,7 +488,7 @@ Begin VB.Form frmConfig
          Height          =   255
          Left            =   -74760
          TabIndex        =   26
-         Top             =   2160
+         Top             =   2640
          Width           =   615
       End
       Begin VB.Label Label2 
@@ -656,7 +675,7 @@ Private Sub btnOk_Click()
     config.bnetChannel = txtBNETChannel.text
     config.bnlsServer = txtBNLSServer.text
     config.bnetServer = cmbBNETServer.text
-    config.bnetKeyCount = lvKeyList.ListItems.Count
+    config.bnetKeyCount = lvKeyList.ListItems.count
   
     config.bnetW2BNVerByte = "&H" & txtW2BNVerByte.text
     config.bnetD2DVVerByte = "&H" & txtD2DVVerByte.text
@@ -669,8 +688,8 @@ Private Sub btnOk_Click()
         For i = 0 To config.bnetKeyCount - 1
             With bnetData(i)
                 Set li = lvKeyList.ListItems.Item(i + 1)
-                .CDKey = li.text
-                .Product = li.Tag
+                .cdKey = li.text
+                .product = li.Tag
             End With
         Next i
     End If
@@ -678,6 +697,7 @@ Private Sub btnOk_Click()
     config.ircUsername = txtIRCUsername.text
     config.ircChannel = txtIRCChannel.text
     config.ircQuitMessage = txtIRCQuitMessage.text
+    config.ircUpdateChannelOnChannelJoin = IIf(chkUpdateChannelOnChannelJoin.value = 1, True, False)
   
     val = txtIRCServer.text
   
@@ -720,8 +740,8 @@ Private Sub Form_Load()
     If (config.bnetKeyCount > 0) Then
         For i = 0 To config.bnetKeyCount - 1
             With bnetData(i)
-                Set li = lvKeyList.ListItems.Add(, , .CDKey, , .Product)
-                li.Tag = .Product
+                Set li = lvKeyList.ListItems.Add(, , .cdKey, , .product)
+                li.Tag = .product
             End With
         Next i
     End If
@@ -730,6 +750,7 @@ Private Sub Form_Load()
     txtIRCChannel.text = config.ircChannel
     txtIRCServer.text = config.ircServer
     txtIRCQuitMessage.text = config.ircQuitMessage
+    chkUpdateChannelOnChannelJoin.value = IIf(config.ircUpdateChannelOnChannelJoin, 1, 0)
   
     chkRememberWindowPosition.value = IIf(config.rememberWindowPosition = True, 1, 0)
     chkCheckUpdateOnStartup.value = IIf(config.checkUpdateOnStartup = True, 1, 0)

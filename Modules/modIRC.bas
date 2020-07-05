@@ -39,7 +39,15 @@ End Sub
 Public Sub RecvJOIN(ByVal channel As String)
     frmMain.IRCTab.TabCaption(1) = "Chat (" & channel & ")"
     IRCData.joinedChannel = channel
-    config.ircChannel = channel
+    
+    If (config.ircUpdateChannelOnChannelJoin) Then
+        If (channel <> config.ircChannel) Then
+            config.ircChannel = channel
+            
+            saveConfig
+        End If
+    End If
+
     AddChat frmMain.rtbChatIRCChat, vbYellow, "Joined the channel ", vbWhite, channel, vbYellow, "."
     
     If (Not canSendQuit) Then

@@ -135,6 +135,7 @@ Public Sub setDefaultValues()
     config.checkUpdateOnStartup = DEFAULT_CHECK_UPDATE_ON_STARTUP
     config.bnetW2BNVerByte = VERBYTE_W2BN
     config.bnetD2DVVerByte = VERBYTE_D2DV
+    config.ircUpdateChannelOnChannelJoin = DEFAULT_UPDATE_CHANNEL_ON_CHANNEL_JOIN
 End Sub
 
 Public Sub loadConfig()
@@ -187,6 +188,7 @@ Public Sub loadConfig()
     config.ircUsername = ReadINI("IRC", "Username", "Config.ini")
     config.ircChannel = ReadINI("IRC", "Channel", "Config.ini")
     config.ircQuitMessage = ReadINI("IRC", "QuitMessage", "Config.ini")
+    config.ircUpdateChannelOnChannelJoin = IIf(UCase(ReadINI("IRC", "UpdateChannelOnChannelJoin", "Config.ini")) = "Y", True, False)
   
     val = ReadINI("IRC", "Server", "Config.ini")
   
@@ -220,6 +222,7 @@ Public Sub saveConfig()
     WriteINI "IRC", "Channel", config.ircChannel, "Config.ini"
     WriteINI "IRC", "Server", config.ircServer, "Config.ini"
     WriteINI "IRC", "QuitMessage", config.ircQuitMessage, "Config.ini"
+    WriteINI "IRC", "UpdateChannelOnChannelJoin", IIf(config.ircUpdateChannelOnChannelJoin, "Y", "N"), "Config.ini"
   
     If (config.bnetKeyCount > 0) Then
         For i = 0 To config.bnetKeyCount - 1
