@@ -1,6 +1,7 @@
 Attribute VB_Name = "modVars"
+Public Const PROGRAM_NAME As String = "Battle.Net to IRC"
 Public Const PROGRAM_VERSION As String = "1.0.0"
-Public Const PROGRAM_TITLE As String = "Battle.Net to IRC v" & PROGRAM_VERSION & " by Vector"
+Public Const PROGRAM_TITLE As String = PROGRAM_NAME & " v" & PROGRAM_VERSION & " by Vector"
 Public Const RELEASES_URL As String = "https://github.com/MisterVector/BNET-to-IRC/releases"
 
 Public Const VERBYTE_W2BN As Long = &H4F
