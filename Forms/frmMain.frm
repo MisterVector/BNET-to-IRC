@@ -474,7 +474,7 @@ Private Sub sckBNET_DataArrival(index As Integer, ByVal bytesTotal As Long)
 End Sub
 
 Private Sub sckBNET_Error(index As Integer, ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
-    AddChat rtbChatBNET, vbRed, "Bot #" & index & " error #" & Number & ": " & Description
+    AddChat rtbChatBNET, vbRed, "Bot #" & index & " error #" & Number & ": [BNET] " & Description
     
     killSocket index
 End Sub
