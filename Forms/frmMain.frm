@@ -475,6 +475,8 @@ End Sub
 
 Private Sub sckBNET_Error(index As Integer, ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
     AddChat rtbChatBNET, vbRed, "Bot #" & index & " error #" & Number & ": " & Description
+    
+    killSocket index
 End Sub
 
 Private Sub sckBNLS_Connect(index As Integer)
@@ -653,9 +655,9 @@ Private Sub tmrReleaseQueue_Timer()
     bnetQueueIndex = bnetQueueIndex + 1
     dicQueueIndex = dicQueueIndex + 1
   
-    If bnetQueueIndex = sckBNET.Count Then bnetQueueIndex = 0
+    If bnetQueueIndex = sckBNET.count Then bnetQueueIndex = 0
   
-    If dicQueueIndex > dicQueue.Count Then
+    If dicQueueIndex > dicQueue.count Then
         dicQueueIndex = 1
         dicQueue.RemoveAll
         tmrReleaseQueue.Enabled = False
@@ -672,7 +674,7 @@ Private Sub txtBNETChat_KeyDown(KeyCode As Integer, Shift As Integer)
     
         bnetSocketIndex = bnetSocketIndex + 1
     
-        If bnetSocketIndex = sckBNET.Count Then bnetSocketIndex = 0
+        If bnetSocketIndex = sckBNET.count Then bnetSocketIndex = 0
     End If
 End Sub
 
