@@ -1,6 +1,6 @@
 Attribute VB_Name = "modOtherCode"
 Private Sub AddQ(ByVal msg As String)
-    dicQueue.Add dicQueue.Count + 1, msg
+    dicQueue.Add dicQueue.count + 1, msg
 
     If Not frmMain.tmrReleaseQueue.Enabled Then
         dicQueueIndex = 1
@@ -23,7 +23,7 @@ Public Function getProdID(ByVal product As String) As Long
 End Function
 
 Public Function findFirstAliveBot() As Integer
-    For i = 0 To frmMain.sckBNET.Count - 1
+    For i = 0 To frmMain.sckBNET.count - 1
         If frmMain.sckBNET(i).State = sckConnected Then
             findFirstAliveBot = i
             Exit Function
@@ -67,7 +67,7 @@ End Sub
 
 Public Sub ConnectOtherBots()
     If config.bnetKeyCount > 1 Then
-        For i = 1 To frmMain.sckBNET.Count - 1
+        For i = 1 To frmMain.sckBNET.count - 1
             If frmMain.sckBNET(i).State = sckClosed Then
                 frmMain.sckBNET(i).Connect config.bnetServer, 6112
             End If
@@ -231,27 +231,101 @@ Public Sub saveConfig()
     End If
 End Sub
 
-Public Sub disconnectAll()
-    Dim socketsStillAlive As Boolean
-  
-    For i = 0 To frmMain.sckBNET.Count - 1
-        frmMain.sckBNET(i).Close
+Public Sub killSocket(ByVal index As Integer)
+    Dim ds As DisconnectStatus, activeConnections As Integer
+
+    ds = disconnectSocket(index)
+    activeConnections = countActiveConnections()
     
-        If frmMain.sckBNLS(i).State <> sckClosed Then
-            If Not socketsStillAlive Then socketsStillAlive = True
-            frmMain.sckBNLS(i).Close
+    If (activeConnections = 0) Then
+        finishDisconnectAll
+    End If
+    
+    showDisconnectMessage ds, activeConnections = 0
+End Sub
+
+Public Function disconnectSocket(ByVal index As Integer) As DisconnectStatus
+    Dim ds As DisconnectStatus
+
+    If frmMain.sckBNLS(index).State <> sckClosed Then
+        frmMain.sckBNLS(index).Close
+
+        ds.disconnectedBNLS = True
+    End If
+    
+    If (frmMain.sckBNET(index).State <> sckClosed) Then
+        frmMain.sckBNET(index).Close
+    
+        ds.disconnectedBNET = True
+    End If
+
+    disconnectSocket = ds
+End Function
+
+Public Sub disconnectAll()
+    Dim ds As DisconnectStatus, dsAll As DisconnectStatus
+  
+    For i = 0 To frmMain.sckBNET.count - 1
+        ds = disconnectSocket(i)
+    
+        If (ds.disconnectedBNLS) Then
+            If (Not dsAll.disconnectedBNLS) Then
+                dsAll.disconnectedBNLS = True
+            End If
+        End If
+        
+        If (ds.disconnectedBNET) Then
+            If (Not dsAll.disconnectedBNET) Then
+                dsAll.disconnectedBNET = True
+            End If
         End If
     Next i
   
+    finishDisconnectAll
+    
+    showDisconnectMessage dsAll, True
+End Sub
+
+Public Sub finishDisconnectAll()
     frmMain.mnuDisconnectBNET.Enabled = False
     frmMain.mnuConnectBNET.Enabled = True
-  
-    If socketsStillAlive Then
-        AddChat frmMain.rtbChatBNET, vbRed, "[BNLS] All connections closed."
-    End If
-  
-    AddChat frmMain.rtbChatBNET, vbRed, "[BNET] All connections closed."
 End Sub
+
+Public Sub showDisconnectMessage(ds As DisconnectStatus, ByVal allSocketsDisconnect As Boolean)
+    If (ds.disconnectedBNLS) Then
+        If (allSocketsDisconnect) Then
+            AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] All connections closed."
+        Else
+            AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] Connection has been closed."
+        End If
+    End If
+    
+    If (ds.disconnectedBNET) Then
+        If (allSocketsDisconnect) Then
+            AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] All connections closed."
+        Else
+            AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Connection has been closed."
+        End If
+    End If
+End Sub
+
+Public Function countActiveConnections() As Integer
+    Dim stateBNLS As Integer, stateBNET As Integer
+    Dim count As Integer
+
+    If (hasLoadedConnections) Then
+        For i = 0 To profiles.getCount() - 1
+            stateBNLS = frmMain.sckBNLS(i).State
+            stateBNCS = frmMain.sckBNCS(i).State
+            
+            If (stateBNLS <> sckClosed Or stateBNCS <> sckClosed) Then
+                count = count + 1
+            End If
+        Next i
+    End If
+    
+    countActiveConnections = count
+End Function
 
 Public Function isNewVersion(checkVersion As String) As Boolean
     Dim currentVersionParts() As String, versionParts() As String

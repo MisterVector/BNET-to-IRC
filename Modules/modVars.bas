@@ -41,6 +41,11 @@ Public Enum packetType
     BNLS
 End Enum
 
+Public Type DisconnectStatus
+    disconnectedBNET As Boolean
+    disconnectedBNLS As Boolean
+End Type
+
 Public Type ConfigStructure
     formTop As Integer
     formLeft As Integer
