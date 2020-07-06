@@ -7,15 +7,15 @@ Begin VB.Form frmConfig
    ClientHeight    =   6075
    ClientLeft      =   1875
    ClientTop       =   1995
-   ClientWidth     =   5715
+   ClientWidth     =   5295
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   6075
-   ScaleWidth      =   5715
+   ScaleWidth      =   5295
    ShowInTaskbar   =   0   'False
    Begin MSComctlLib.ImageList ilIcons 
-      Left            =   2400
+      Left            =   2280
       Top             =   5280
       _ExtentX        =   1005
       _ExtentY        =   1005
@@ -41,8 +41,8 @@ Begin VB.Form frmConfig
       Left            =   0
       TabIndex        =   27
       Top             =   0
-      Width           =   5775
-      _ExtentX        =   10186
+      Width           =   5295
+      _ExtentX        =   9340
       _ExtentY        =   9128
       _Version        =   393216
       Tabs            =   4
@@ -98,16 +98,16 @@ Begin VB.Form frmConfig
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0A0C
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "chkUpdateChannelOnChannelJoin"
-      Tab(2).Control(1)=   "txtIRCQuitMessage"
-      Tab(2).Control(2)=   "txtIRCServer"
-      Tab(2).Control(3)=   "txtIRCChannel"
-      Tab(2).Control(4)=   "txtIRCUsername"
-      Tab(2).Control(5)=   "Label15"
-      Tab(2).Control(6)=   "Label10"
-      Tab(2).Control(7)=   "Label7"
-      Tab(2).Control(8)=   "Label8"
-      Tab(2).Control(9)=   "Label9"
+      Tab(2).Control(0)=   "Label9"
+      Tab(2).Control(1)=   "Label8"
+      Tab(2).Control(2)=   "Label7"
+      Tab(2).Control(3)=   "Label10"
+      Tab(2).Control(4)=   "Label15"
+      Tab(2).Control(5)=   "txtIRCUsername"
+      Tab(2).Control(6)=   "txtIRCChannel"
+      Tab(2).Control(7)=   "txtIRCServer"
+      Tab(2).Control(8)=   "txtIRCQuitMessage"
+      Tab(2).Control(9)=   "chkUpdateChannelOnChannelJoin"
       Tab(2).ControlCount=   10
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0A28
@@ -127,17 +127,17 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -73320
+         Left            =   -72720
          TabIndex        =   17
          Top             =   2640
          Width           =   2775
       End
       Begin VB.TextBox txtIRCQuitMessage 
-         Height          =   1455
+         Height          =   1695
          Left            =   -74760
          TabIndex        =   18
-         Top             =   3360
-         Width           =   4215
+         Top             =   3240
+         Width           =   4815
       End
       Begin VB.CheckBox chkCheckUpdateOnStartup 
          Caption         =   "Check for Update on Startup"
@@ -149,16 +149,16 @@ Begin VB.Form frmConfig
       End
       Begin VB.TextBox txtD2DVVerByte 
          Height          =   360
-         Left            =   3240
+         Left            =   3360
          TabIndex        =   7
-         Top             =   4080
+         Top             =   4560
          Width           =   735
       End
       Begin VB.TextBox txtW2BNVerByte 
          Height          =   375
-         Left            =   1320
+         Left            =   1440
          TabIndex        =   6
-         Top             =   4080
+         Top             =   4560
          Width           =   735
       End
       Begin VB.CheckBox chkRememberWindowPosition 
@@ -172,36 +172,36 @@ Begin VB.Form frmConfig
       Begin VB.OptionButton opD2DV 
          Caption         =   "Diablo II"
          Height          =   255
-         Left            =   -73560
-         TabIndex        =   10
-         Top             =   3720
+         Left            =   -73680
+         TabIndex        =   11
+         Top             =   4080
          Width           =   975
       End
       Begin VB.OptionButton opW2BN 
          Caption         =   "Warcraft II"
          Height          =   255
-         Left            =   -74640
-         TabIndex        =   9
-         Top             =   3720
+         Left            =   -74760
+         TabIndex        =   10
+         Top             =   4080
          Width           =   1095
       End
       Begin VB.TextBox txtIRCServer 
          Height          =   345
-         Left            =   -73320
+         Left            =   -72720
          TabIndex        =   14
          Top             =   1200
          Width           =   2775
       End
       Begin VB.TextBox txtIRCChannel 
          Height          =   345
-         Left            =   -73320
+         Left            =   -72720
          TabIndex        =   16
          Top             =   2160
          Width           =   2775
       End
       Begin VB.TextBox txtIRCUsername 
          Height          =   345
-         Left            =   -73320
+         Left            =   -72720
          TabIndex        =   15
          Top             =   1680
          Width           =   2775
@@ -209,14 +209,14 @@ Begin VB.Form frmConfig
       Begin VB.TextBox txtBNETKey 
          Height          =   345
          Left            =   -74760
-         TabIndex        =   11
-         Top             =   4080
-         Width           =   5295
+         TabIndex        =   9
+         Top             =   3600
+         Width           =   4815
       End
       Begin VB.CommandButton btnRemove 
          Caption         =   "Remove"
          Height          =   375
-         Left            =   -71640
+         Left            =   -72480
          TabIndex        =   13
          Top             =   4560
          Width           =   2175
@@ -241,7 +241,7 @@ Begin VB.Form frmConfig
          EndProperty
          Height          =   360
          IMEMode         =   3  'DISABLE
-         Left            =   1680
+         Left            =   2280
          PasswordChar    =   "*"
          TabIndex        =   4
          Top             =   2640
@@ -258,14 +258,14 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   360
-         Left            =   1680
+         Left            =   2280
          TabIndex        =   3
          Top             =   2160
          Width           =   2775
       End
       Begin VB.ComboBox cmbBNETServer 
          Height          =   315
-         Left            =   1680
+         Left            =   2280
          TabIndex        =   1
          Top             =   1200
          Width           =   2775
@@ -281,7 +281,7 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   360
-         Left            =   1680
+         Left            =   2280
          TabIndex        =   2
          Top             =   1680
          Width           =   2775
@@ -297,19 +297,19 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   360
-         Left            =   1680
+         Left            =   2280
          TabIndex        =   5
          Top             =   3120
          Width           =   2775
       End
       Begin MSComctlLib.ListView lvKeyList 
-         Height          =   2415
+         Height          =   2295
          Left            =   -74760
          TabIndex        =   8
          Top             =   1200
-         Width           =   5295
-         _ExtentX        =   9340
-         _ExtentY        =   4260
+         Width           =   4815
+         _ExtentX        =   8493
+         _ExtentY        =   4048
          View            =   2
          LabelEdit       =   1
          LabelWrap       =   -1  'True
@@ -340,7 +340,7 @@ Begin VB.Form frmConfig
          Height          =   255
          Left            =   -74760
          TabIndex        =   37
-         Top             =   3000
+         Top             =   2880
          Width           =   1455
       End
       Begin VB.Label Label14 
@@ -355,9 +355,9 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   2280
+         Left            =   2400
          TabIndex        =   36
-         Top             =   4080
+         Top             =   4560
          Width           =   855
       End
       Begin VB.Label Label13 
@@ -372,12 +372,13 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   240
+         Left            =   360
          TabIndex        =   35
-         Top             =   4080
+         Top             =   4560
          Width           =   975
       End
       Begin VB.Label Label12 
+         Alignment       =   2  'Center
          Caption         =   "Version Bytes"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -389,10 +390,10 @@ Begin VB.Form frmConfig
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   1080
+         Left            =   240
          TabIndex        =   34
-         Top             =   3600
-         Width           =   1815
+         Top             =   4080
+         Width           =   4815
       End
       Begin VB.Label Label11 
          Alignment       =   2  'Center
@@ -410,7 +411,7 @@ Begin VB.Form frmConfig
          Left            =   240
          TabIndex        =   33
          Top             =   600
-         Width           =   3975
+         Width           =   4815
       End
       Begin VB.Label Label10 
          Alignment       =   2  'Center
@@ -428,7 +429,7 @@ Begin VB.Form frmConfig
          Left            =   -74760
          TabIndex        =   32
          Top             =   600
-         Width           =   3975
+         Width           =   4815
       End
       Begin VB.Label Label7 
          Caption         =   "Username"
@@ -497,7 +498,7 @@ Begin VB.Form frmConfig
          Left            =   -74760
          TabIndex        =   28
          Top             =   600
-         Width           =   4935
+         Width           =   4815
       End
       Begin VB.Label Label4 
          Caption         =   "Server"
@@ -597,7 +598,7 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
-      Left            =   3720
+      Left            =   3000
       TabIndex        =   22
       Top             =   5400
       Width           =   1695
@@ -614,7 +615,7 @@ Begin VB.Form frmConfig
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
-      Left            =   360
+      Left            =   240
       TabIndex        =   21
       Top             =   5400
       Width           =   1695
@@ -678,8 +679,8 @@ Private Sub btnOk_Click()
         For i = 0 To config.bnetKeyCount - 1
             With bnetData(i)
                 Set li = lvKeyList.ListItems.Item(i + 1)
-                .cdKey = li.text
-                .product = li.Tag
+                .CDKey = li.text
+                .Product = li.Tag
             End With
         Next i
     End If
@@ -730,8 +731,8 @@ Private Sub Form_Load()
     If (config.bnetKeyCount > 0) Then
         For i = 0 To config.bnetKeyCount - 1
             With bnetData(i)
-                Set li = lvKeyList.ListItems.Add(, , .cdKey, , .product)
-                li.Tag = .product
+                Set li = lvKeyList.ListItems.Add(, , .CDKey, , .Product)
+                li.Tag = .Product
             End With
         Next i
     End If
