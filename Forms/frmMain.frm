@@ -357,6 +357,11 @@ Private Sub mnuConfiguration_Click()
 End Sub
 
 Private Sub mnuConnectBNET_Click()
+    If (config.bnetServer = vbNullString) Then
+        MsgBox "Battle.Net server has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        Exit Sub
+    End If
+
     If (config.bnetUsername = vbNullString) Then
         MsgBox "Battle.Net username has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
@@ -369,11 +374,6 @@ Private Sub mnuConnectBNET_Click()
     
     If (config.bnetChannel = vbNullString) Then
         MsgBox "Battle.Net channel has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
-        Exit Sub
-    End If
-
-    If (config.bnetServer = vbNullString) Then
-        MsgBox "Battle.Net server has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
     End If
 
