@@ -507,9 +507,10 @@ End Sub
 Private Sub sckBNLS_Connect(index As Integer)
     tmrBNETConnectionTimeout(index).Enabled = False
     
+    AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Connected!"
+    
     Select Case bnlsType
         Case REQUEST_FILE_INFO
-            AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Connected!"
             Send_BNLS_0x0E index
         Case UPDATE_VERSION_BYTE
             Send_BNLS_0x10 index, getProdID(bnetData(index).badClientProduct)
