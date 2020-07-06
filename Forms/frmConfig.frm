@@ -98,23 +98,41 @@ Begin VB.Form frmConfig
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmConfig.frx":0A0C
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "Label9"
-      Tab(2).Control(1)=   "Label8"
-      Tab(2).Control(2)=   "Label7"
-      Tab(2).Control(3)=   "Label10"
-      Tab(2).Control(4)=   "Label15"
-      Tab(2).Control(5)=   "txtIRCUsername"
-      Tab(2).Control(6)=   "txtIRCChannel"
-      Tab(2).Control(7)=   "txtIRCServer"
-      Tab(2).Control(8)=   "txtIRCQuitMessage"
-      Tab(2).Control(9)=   "chkUpdateChannelOnChannelJoin"
+      Tab(2).Control(0)=   "chkUpdateChannelOnChannelJoin"
+      Tab(2).Control(1)=   "txtIRCQuitMessage"
+      Tab(2).Control(2)=   "txtIRCServer"
+      Tab(2).Control(3)=   "txtIRCChannel"
+      Tab(2).Control(4)=   "txtIRCUsername"
+      Tab(2).Control(5)=   "Label15"
+      Tab(2).Control(6)=   "Label10"
+      Tab(2).Control(7)=   "Label7"
+      Tab(2).Control(8)=   "Label8"
+      Tab(2).Control(9)=   "Label9"
       Tab(2).ControlCount=   10
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmConfig.frx":0A28
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "chkCheckUpdateOnStartup"
-      Tab(3).Control(1)=   "chkRememberWindowPosition"
-      Tab(3).ControlCount=   2
+      Tab(3).Control(0)=   "txtConnectionTimeout"
+      Tab(3).Control(1)=   "chkCheckUpdateOnStartup"
+      Tab(3).Control(2)=   "chkRememberWindowPosition"
+      Tab(3).Control(3)=   "Label16"
+      Tab(3).ControlCount=   4
+      Begin VB.TextBox txtConnectionTimeout 
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   360
+         Left            =   -72720
+         TabIndex        =   38
+         Top             =   480
+         Width           =   2775
+      End
       Begin VB.CheckBox chkUpdateChannelOnChannelJoin 
          Caption         =   "Update On Channel Join"
          BeginProperty Font 
@@ -141,10 +159,10 @@ Begin VB.Form frmConfig
       End
       Begin VB.CheckBox chkCheckUpdateOnStartup 
          Caption         =   "Check for Update on Startup"
-         Height          =   375
+         Height          =   255
          Left            =   -74760
          TabIndex        =   20
-         Top             =   960
+         Top             =   1320
          Width           =   2415
       End
       Begin VB.TextBox txtD2DVVerByte 
@@ -163,11 +181,11 @@ Begin VB.Form frmConfig
       End
       Begin VB.CheckBox chkRememberWindowPosition 
          Caption         =   "Remember Window Position"
-         Height          =   375
+         Height          =   255
          Left            =   -74760
          TabIndex        =   19
-         Top             =   600
-         Width           =   3615
+         Top             =   960
+         Width           =   2415
       End
       Begin VB.OptionButton opD2DV 
          Caption         =   "Diablo II"
@@ -325,6 +343,23 @@ Begin VB.Form frmConfig
             Key             =   "key"
             Object.Width           =   3528
          EndProperty
+      End
+      Begin VB.Label Label16 
+         Caption         =   "Connection Timeout"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   -74760
+         TabIndex        =   39
+         Top             =   480
+         Width           =   1935
       End
       Begin VB.Label Label15 
          Caption         =   "Quit Message"
@@ -659,6 +694,18 @@ End Sub
 Private Sub btnOk_Click()
     Dim oldKeyCount As Integer, li As ListItem, val As Variant
   
+    If (IsNumeric(txtConnectionTimeout.text)) Then
+        If (txtConnectionTimeout.text < 1 Or txtConnectionTimeout.text > 30000) Then
+            MsgBox "Connection timeout must be a value between 1 and 30000.", vbOKOnly, PROGRAM_NAME
+            
+            Exit Sub
+        End If
+    Else
+        MsgBox "Connection timeout must be a value between 1 and 30000.", vbOKOnly, PROGRAM_NAME
+        
+        Exit Sub
+    End If
+  
     oldKeyCount = config.bnetKeyCount
 
     config.bnetUsername = txtBNETUsername.text
@@ -704,6 +751,9 @@ Private Sub btnOk_Click()
   
     config.rememberWindowPosition = IIf(chkRememberWindowPosition.Value = 1, True, False)
     config.checkUpdateOnStartup = IIf(chkCheckUpdateOnStartup.Value = 1, True, False)
+    config.connectionTimeout = txtConnectionTimeout.text
+
+    frmMain.tmrIRCConnectionTimeout.Interval = config.connectionTimeout
 
     saveConfig
   
@@ -745,6 +795,7 @@ Private Sub Form_Load()
   
     chkRememberWindowPosition.Value = IIf(config.rememberWindowPosition = True, 1, 0)
     chkCheckUpdateOnStartup.Value = IIf(config.checkUpdateOnStartup = True, 1, 0)
+    txtConnectionTimeout.text = config.connectionTimeout
   
     arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net", _
                         "connect-eur.classic.blizzard.com", "connect-kor.classic.blizzard.com", _

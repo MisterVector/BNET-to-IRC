@@ -100,6 +100,9 @@ Public Sub Recv_BNLS_0x10(index As Integer)
     
         frmMain.sckBNLS(index).Close
         frmMain.sckBNET(index).Connect config.bnetServer, 6112
+        
+        bnetData(index).bnetConnectionState = ConnectionTimeoutState.BNET_CONNECT
+        frmMain.tmrBNETConnectionTimeout(index).Enabled = True
     Else
         AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] Unable to update version byte!"
         frmMain.sckBNLS(index).Close

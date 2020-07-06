@@ -70,6 +70,9 @@ Public Sub ConnectOtherBots()
         For i = 1 To frmMain.sckBNET.count - 1
             If frmMain.sckBNET(i).State = sckClosed Then
                 frmMain.sckBNET(i).Connect config.bnetServer, 6112
+                
+                bnetData(i).bnetConnectionState = ConnectionTimeoutState.BNET_CONNECT
+                frmMain.tmrBNETConnectionTimeout(i).Enabled = True
             End If
         Next i
     End If
@@ -106,6 +109,7 @@ Public Sub setupSockets(previousConnectionCount As Integer, connectionCount As I
             If (i > 0) Then
                 Unload frmMain.sckBNLS(i)
                 Unload frmMain.sckBNET(i)
+                Unload frmMain.tmrBNETConnectionTimeout(i)
             End If
         Next i
     End If
@@ -118,6 +122,7 @@ Public Sub setupSockets(previousConnectionCount As Integer, connectionCount As I
             If (i > 0) Then
                 Load frmMain.sckBNLS(i)
                 Load frmMain.sckBNET(i)
+                Load frmMain.tmrBNETConnectionTimeout(i)
             End If
       
             Set bnlsPacketHandler(i) = New clsPacketHandler
@@ -125,6 +130,8 @@ Public Sub setupSockets(previousConnectionCount As Integer, connectionCount As I
   
             bnlsPacketHandler(i).setSocket frmMain.sckBNLS(i), packetType.BNLS
             bnetPacketHandler(i).setSocket frmMain.sckBNET(i), packetType.BNCS
+            
+            frmMain.tmrBNETConnectionTimeout(i).Interval = config.connectionTimeout
         Next i
     End If
 End Sub
@@ -133,6 +140,7 @@ Public Sub setDefaultValues()
     config.bnlsServer = DEFAULT_BNLS_SERVER
     config.rememberWindowPosition = DEFAULT_REMEMBER_WINDOW_POSITION
     config.checkUpdateOnStartup = DEFAULT_CHECK_UPDATE_ON_STARTUP
+    config.connectionTimeout = DEFAULT_CONNECTION_TIMEOUT
     config.bnetW2BNVerByte = VERBYTE_W2BN
     config.bnetD2DVVerByte = VERBYTE_D2DV
     config.ircUpdateChannelOnChannelJoin = DEFAULT_UPDATE_CHANNEL_ON_CHANNEL_JOIN
@@ -156,6 +164,14 @@ Public Sub loadConfig()
   
     config.checkUpdateOnStartup = IIf(UCase(ReadINI("Main", "CheckUpdateOnStartup", "Config.ini")) = "Y", True, False)
 
+    val = ReadINI("Main", "ConnectionTimeout", "Config.ini")
+    
+    If (IsNumeric(val) And val > 0) Then
+        config.connectionTimeout = val
+    Else
+        config.connectionTimeout = DEFAULT_CONNECTION_TIMEOUT
+    End If
+  
     config.bnetUsername = ReadINI("BNET", "Username", "Config.ini")
     config.bnetPassword = ReadINI("BNET", "Password", "Config.ini")
     config.bnetChannel = ReadINI("BNET", "Channel", "Config.ini")
@@ -207,6 +223,7 @@ Public Sub saveConfig()
     WriteINI "Window", "RememberWindowPosition", IIf(config.rememberWindowPosition, "Y", "N"), "Config.ini"
   
     WriteINI "Main", "CheckUpdateOnStartup", IIf(config.checkUpdateOnStartup, "Y", "N"), "Config.ini"
+    WriteINI "Main", "ConnectionTimeout", config.connectionTimeout, "Config.ini"
   
     WriteINI "BNET", "Username", config.bnetUsername, "Config.ini"
     WriteINI "BNET", "Password", config.bnetPassword, "Config.ini"
@@ -249,6 +266,8 @@ End Sub
 
 Public Function disconnectSocket(ByVal index As Integer) As DisconnectStatus
     Dim ds As DisconnectStatus
+
+    frmMain.tmrBNETConnectionTimeout(index).Enabled = False
 
     If frmMain.sckBNLS(index).State <> sckClosed Then
         frmMain.sckBNLS(index).Close

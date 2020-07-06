@@ -39,8 +39,10 @@ Public Sub Recv0x50(index As Integer)
     AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Connecting to " & config.bnlsServer & "..."
 
     bnlsType = BNLSRequestType.REQUEST_FILE_INFO
+    bnetData(index).bnetConnectionState = ConnectionTimeoutState.BNLS_CONNECT
 
     frmMain.sckBNLS(index).Connect config.bnlsServer, 9367
+    frmMain.tmrBNETConnectionTimeout(index).Enabled = True
 End Sub
 
 Public Sub Send0x51(index As Integer)
@@ -87,10 +89,13 @@ Public Sub Recv0x51(index As Integer)
             AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Attempting to update version byte..."
                   
             bnetData(index).badClientProduct = bnetData(index).product
+            
             bnlsType = BNLSRequestType.UPDATE_VERSION_BYTE
+            bnetData(index).bnetConnectionState = ConnectionTimeoutState.BNLS_CONNECT
                  
             frmMain.sckBNET(index).Close
             frmMain.sckBNLS(index).Connect config.bnlsServer, 9367
+            frmMain.tmrBNETConnectionTimeout(index).Enabled = True
                  
             Exit Sub
         Case &H101:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Invalid game version."

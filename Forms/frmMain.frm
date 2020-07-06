@@ -106,6 +106,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0902
@@ -130,6 +131,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0984
@@ -186,6 +188,17 @@ Begin VB.Form frmMain
       TabIndex        =   0
       Top             =   120
       Width           =   7935
+      Begin VB.Timer tmrIRCConnectionTimeout 
+         Enabled         =   0   'False
+         Left            =   2880
+         Top             =   2760
+      End
+      Begin VB.Timer tmrBNETConnectionTimeout 
+         Enabled         =   0   'False
+         Index           =   0
+         Left            =   2280
+         Top             =   2760
+      End
       Begin VB.Timer tmrCheckUpdateDelay 
          Interval        =   200
          Left            =   2160
@@ -227,6 +240,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0A06
@@ -327,6 +341,8 @@ Private Sub Form_Load()
     Else
         setDefaultValues
     End If
+    
+    tmrIRCConnectionTimeout.Interval = config.connectionTimeout
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
@@ -388,8 +404,12 @@ Private Sub mnuConnectBNET_Click()
     End If
   
     AddChat rtbChatBNET, vbYellow, "Bot #0: [BNET] Connecting..."
+    
+    bnetData(0).bnetConnectionState = ConnectionTimeoutState.BNET_CONNECT
+                 
     sckBNET(0).Connect config.bnetServer, 6112
-  
+    tmrBNETConnectionTimeout(0).Enabled = True
+            
     mnuConnectBNET.Enabled = False
     mnuDisconnectBNET.Enabled = True
 End Sub
@@ -422,6 +442,7 @@ Private Sub mnuConnectIRC_Click()
 
     AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & config.ircServer & ":" & config.ircPort & "..."
     sckIRC.Connect config.ircServer, config.ircPort
+    tmrIRCConnectionTimeout.Enabled = True
   
     mnuConnectIRC.Enabled = False
     mnuDisconnectIRC.Enabled = True
@@ -447,6 +468,8 @@ Private Sub mnuQuit_Click()
 End Sub
 
 Private Sub sckBNET_Connect(index As Integer)
+    tmrBNETConnectionTimeout(index).Enabled = False
+    
     AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNET] Connected!"
     sckBNET(index).SendData Chr$(1)
     Send0x50 index
@@ -482,6 +505,8 @@ Private Sub sckBNET_Error(index As Integer, ByVal Number As Integer, Description
 End Sub
 
 Private Sub sckBNLS_Connect(index As Integer)
+    tmrBNETConnectionTimeout(index).Enabled = False
+    
     Select Case bnlsType
         Case REQUEST_FILE_INFO
             AddChat rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Connected!"
@@ -516,6 +541,8 @@ Private Sub sckIRC_Close()
 End Sub
 
 Private Sub sckIRC_Connect()
+    tmrIRCConnectionTimeout.Enabled = False
+
     AddChat rtbChatIRCConsole, vbGreen, "[IRC] Connected to " & config.ircServer & "!"
     
     IRCTab.TabCaption(0) = "Console (" & config.ircServer & ")"
@@ -587,6 +614,23 @@ Private Sub sckIRC_Error(ByVal Number As Integer, Description As String, ByVal S
     handleIRCClose
 End Sub
 
+Private Sub tmrBNETConnectionTimeout_Timer(index As Integer)
+    Dim disconnectMessage As String
+
+    tmrBNETConnectionTimeout(index).Enabled = False
+    
+    Select Case bnetData(index).bnetConnectionState
+        Case BNET_CONNECT
+            disconnectMessage = "[BNET] The attempt to connect timed out."
+        Case BNLS_CONNECT
+            disconnectMessage = "[BNLS] The attempt to connect timed out."
+    End Select
+    
+    AddChat rtbChatBNET, vbRed, "Bot #" & index & ": " & disconnectMessage
+    
+    killSocket index
+End Sub
+
 Private Sub tmrCheckUpdateDelay_Timer()
     tmrCheckUpdateDelay.Enabled = False
     
@@ -595,6 +639,14 @@ Private Sub tmrCheckUpdateDelay_Timer()
             MsgBox "Unable to check for update!", vbOKOnly Or vbExclamation, PROGRAM_NAME
         End If
     End If
+End Sub
+
+Private Sub tmrIRCConnectionTimeout_Timer()
+    tmrIRCConnectionTimeout.Enabled = False
+
+    AddChat rtbChatIRCConsole, vbRed, "[IRC] The attempt to connect timed out."
+    
+    handleIRCClose
 End Sub
 
 Private Sub tmrReleaseQueue_Timer()

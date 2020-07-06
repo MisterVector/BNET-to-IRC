@@ -12,6 +12,7 @@ Public Const DEFAULT_BNLS_SERVER As String = "jbls.davnit.net"
 Public Const DEFAULT_REMEMBER_WINDOW_POSITION As Boolean = False
 Public Const DEFAULT_CHECK_UPDATE_ON_STARTUP As Boolean = True
 Public Const DEFAULT_UPDATE_CHANNEL_ON_CHANNEL_JOIN As Boolean = False
+Public Const DEFAULT_CONNECTION_TIMEOUT As Integer = 10000
 
 Public Const LAST_NON_QUEUE_THRESHOLD_TIME As Long = 7000
 
@@ -44,6 +45,11 @@ Public Enum packetType
     BNLS
 End Enum
 
+Public Enum ConnectionTimeoutState
+    BNET_CONNECT
+    BNLS_CONNECT
+End Enum
+
 Public Type DisconnectStatus
     disconnectedBNET As Boolean
     disconnectedBNLS As Boolean
@@ -54,6 +60,7 @@ Public Type ConfigStructure
     formLeft As Integer
     rememberWindowPosition As Boolean
     checkUpdateOnStartup As Boolean
+    connectionTimeout As Integer
 
     bnlsServer As String
     bnetServer As String
@@ -96,7 +103,7 @@ Public Type BNETDataStructure
     exeInfo As String
     exeVersion As String
     Checksum As String
-    cdKey As String
+    CDKey As String
   
     bnlsServerCode As Long
   
@@ -104,5 +111,6 @@ Public Type BNETDataStructure
 
     badClientProduct As String
     lastQueueTime As Long
+    bnetConnectionState As ConnectionTimeoutState
 End Type
 Public bnetData() As BNETDataStructure
