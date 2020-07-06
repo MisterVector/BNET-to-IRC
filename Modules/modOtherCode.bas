@@ -261,7 +261,7 @@ Public Sub killSocket(ByVal index As Integer)
         finishDisconnectAll
     End If
     
-    showDisconnectMessage ds, activeConnections = 0
+    showDisconnectMessage ds, activeConnections = 0, index
 End Sub
 
 Public Function disconnectSocket(ByVal index As Integer) As DisconnectStatus
@@ -313,20 +313,20 @@ Public Sub finishDisconnectAll()
     frmMain.mnuConnectBNET.Enabled = True
 End Sub
 
-Public Sub showDisconnectMessage(ds As DisconnectStatus, ByVal allSocketsDisconnect As Boolean)
+Public Sub showDisconnectMessage(ds As DisconnectStatus, ByVal allSocketsDisconnect As Boolean, Optional ByVal index As Integer = -1)
     If (ds.disconnectedBNLS) Then
         If (allSocketsDisconnect) Then
-            AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] All connections closed."
+            AddChat frmMain.rtbChatBNET, vbRed, IIf(index > -1, "Bot #" & index & ": ", "") & "[BNLS] All connections closed."
         Else
-            AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] Connection has been closed."
+            AddChat frmMain.rtbChatBNET, vbRed, IIf(index > -1, "Bot #" & index & ": ", "") & "[BNLS] Connection has been closed."
         End If
     End If
     
     If (ds.disconnectedBNET) Then
         If (allSocketsDisconnect) Then
-            AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] All connections closed."
+            AddChat frmMain.rtbChatBNET, vbRed, IIf(index > -1, "Bot #" & index & ": ", "") & "[BNET] All connections closed."
         Else
-            AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Connection has been closed."
+            AddChat frmMain.rtbChatBNET, vbRed, IIf(index > -1, "Bot #" & index & ": ", "") & "[BNET] Connection has been closed."
         End If
     End If
 End Sub
