@@ -93,6 +93,8 @@ Public Sub Recv_BNLS_0x10(index As Integer)
             Case &H4: config.bnetD2DVVerByte = versionByte
         End Select
     
+        saveConfig
+    
         AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNLS] Version byte updated!"
         AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNET] Reconnecting..."
     
