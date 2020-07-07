@@ -106,7 +106,6 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0902
@@ -131,7 +130,6 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0984
@@ -240,7 +238,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0A06
@@ -257,8 +254,8 @@ Begin VB.Form frmMain
    End
    Begin VB.Menu mnuFile 
       Caption         =   "File"
-      Begin VB.Menu mnuConfiguration 
-         Caption         =   "Configuration"
+      Begin VB.Menu mnuSettings 
+         Caption         =   "Settings"
       End
       Begin VB.Menu mnuSeparator1 
          Caption         =   "-"
@@ -368,7 +365,7 @@ Private Sub mnuCheckForUpdate_Click()
     End If
 End Sub
 
-Private Sub mnuConfiguration_Click()
+Private Sub mnuSettings_Click()
     frmSettings.Show
 End Sub
 
@@ -399,7 +396,7 @@ Private Sub mnuConnectBNET_Click()
     End If
 
     If config.bnetKeyCount = 0 Then
-        MsgBox "Your keys are not configured. Go to File -> Configuration -> Key Manager first.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+        MsgBox "Your keys are not configured. Go to File -> Settings -> Key Manager first.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
     End If
   
