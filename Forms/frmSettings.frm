@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
-Begin VB.Form frmConfig 
+Begin VB.Form frmSettings 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Settings for Battle.Net to IRC"
    ClientHeight    =   6075
@@ -27,11 +27,11 @@ Begin VB.Form frmConfig
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   2
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmConfig.frx":0000
+            Picture         =   "frmSettings.frx":0000
             Key             =   "W2BN"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmConfig.frx":04EA
+            Picture         =   "frmSettings.frx":04EA
             Key             =   "D2DV"
          EndProperty
       EndProperty
@@ -49,7 +49,7 @@ Begin VB.Form frmConfig
       TabsPerRow      =   4
       TabHeight       =   520
       TabCaption(0)   =   "Battle.Net"
-      TabPicture(0)   =   "frmConfig.frx":09D4
+      TabPicture(0)   =   "frmSettings.frx":09D4
       Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "Label6"
       Tab(0).Control(0).Enabled=   0   'False
@@ -85,37 +85,37 @@ Begin VB.Form frmConfig
       Tab(0).Control(15).Enabled=   0   'False
       Tab(0).ControlCount=   16
       TabCaption(1)   =   "Key Manager"
-      TabPicture(1)   =   "frmConfig.frx":09F0
+      TabPicture(1)   =   "frmSettings.frx":09F0
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "opD2DV"
-      Tab(1).Control(1)=   "opW2BN"
-      Tab(1).Control(2)=   "txtBNETKey"
+      Tab(1).Control(0)=   "Label2"
+      Tab(1).Control(1)=   "lvKeyList"
+      Tab(1).Control(2)=   "btnAdd"
       Tab(1).Control(3)=   "btnRemove"
-      Tab(1).Control(4)=   "btnAdd"
-      Tab(1).Control(5)=   "lvKeyList"
-      Tab(1).Control(6)=   "Label2"
+      Tab(1).Control(4)=   "txtBNETKey"
+      Tab(1).Control(5)=   "opW2BN"
+      Tab(1).Control(6)=   "opD2DV"
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "IRC"
-      TabPicture(2)   =   "frmConfig.frx":0A0C
+      TabPicture(2)   =   "frmSettings.frx":0A0C
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "chkUpdateChannelOnChannelJoin"
-      Tab(2).Control(1)=   "txtIRCQuitMessage"
-      Tab(2).Control(2)=   "txtIRCServer"
-      Tab(2).Control(3)=   "txtIRCChannel"
-      Tab(2).Control(4)=   "txtIRCUsername"
-      Tab(2).Control(5)=   "Label15"
-      Tab(2).Control(6)=   "Label10"
-      Tab(2).Control(7)=   "Label7"
-      Tab(2).Control(8)=   "Label8"
-      Tab(2).Control(9)=   "Label9"
+      Tab(2).Control(0)=   "Label9"
+      Tab(2).Control(1)=   "Label8"
+      Tab(2).Control(2)=   "Label7"
+      Tab(2).Control(3)=   "Label10"
+      Tab(2).Control(4)=   "Label15"
+      Tab(2).Control(5)=   "txtIRCUsername"
+      Tab(2).Control(6)=   "txtIRCChannel"
+      Tab(2).Control(7)=   "txtIRCServer"
+      Tab(2).Control(8)=   "txtIRCQuitMessage"
+      Tab(2).Control(9)=   "chkUpdateChannelOnChannelJoin"
       Tab(2).ControlCount=   10
       TabCaption(3)   =   "Miscellaneous"
-      TabPicture(3)   =   "frmConfig.frx":0A28
+      TabPicture(3)   =   "frmSettings.frx":0A28
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "txtConnectionTimeout"
-      Tab(3).Control(1)=   "chkCheckUpdateOnStartup"
-      Tab(3).Control(2)=   "chkRememberWindowPosition"
-      Tab(3).Control(3)=   "Label16"
+      Tab(3).Control(0)=   "Label16"
+      Tab(3).Control(1)=   "chkRememberWindowPosition"
+      Tab(3).Control(2)=   "chkCheckUpdateOnStartup"
+      Tab(3).Control(3)=   "txtConnectionTimeout"
       Tab(3).ControlCount=   4
       Begin VB.TextBox txtConnectionTimeout 
          BeginProperty Font 
@@ -656,7 +656,7 @@ Begin VB.Form frmConfig
       Width           =   1695
    End
 End
-Attribute VB_Name = "frmConfig"
+Attribute VB_Name = "frmSettings"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True

@@ -369,7 +369,7 @@ Private Sub mnuCheckForUpdate_Click()
 End Sub
 
 Private Sub mnuConfiguration_Click()
-    frmConfig.Show
+    frmSettings.Show
 End Sub
 
 Private Sub mnuConnectBNET_Click()
