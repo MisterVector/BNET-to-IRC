@@ -32,7 +32,25 @@ Begin VB.Form frmAbout
       Width           =   1335
    End
    Begin VB.Label Label1 
-      Caption         =   "This program was created by Vector"
+      Caption         =   "Battle.Net to IRC is a program that bridges the communication between a Battle.Net channel and an IRC channel."
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   735
+      Left            =   3240
+      TabIndex        =   5
+      Top             =   1320
+      Width           =   4815
+   End
+   Begin VB.Label lblVersion 
+      Alignment       =   2  'Center
+      Caption         =   "By Vector"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   9.75
@@ -44,17 +62,9 @@ Begin VB.Form frmAbout
       EndProperty
       Height          =   255
       Left            =   3240
-      TabIndex        =   5
-      Top             =   1680
-      Width           =   3375
-   End
-   Begin VB.Label lblVersion 
-      Caption         =   "Version %v"
-      Height          =   255
-      Left            =   3240
       TabIndex        =   4
-      Top             =   960
-      Width           =   2775
+      Top             =   720
+      Width           =   4815
    End
    Begin VB.Label lblTitle 
       Alignment       =   2  'Center
@@ -105,8 +115,6 @@ End Sub
 Private Sub Form_Load()
     Me.Icon = frmMain.Icon
     
-    lblVersion.Caption = Replace(lblVersion.Caption, "%v", PROGRAM_VERSION)
-
     Me.Top = Screen.Height / 4
     Me.Left = Screen.Width / 4
 End Sub
