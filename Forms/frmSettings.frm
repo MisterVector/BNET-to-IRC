@@ -257,10 +257,10 @@ Begin VB.Form frmSettings
       Begin VB.CommandButton btnRemove 
          Caption         =   "Remove"
          Height          =   375
-         Left            =   -72480
+         Left            =   -72360
          TabIndex        =   13
          Top             =   4560
-         Width           =   2175
+         Width           =   2415
       End
       Begin VB.CommandButton btnAdd 
          Caption         =   "Add"
@@ -268,7 +268,7 @@ Begin VB.Form frmSettings
          Left            =   -74760
          TabIndex        =   12
          Top             =   4560
-         Width           =   2175
+         Width           =   2415
       End
       Begin VB.TextBox txtBNETPassword 
          BeginProperty Font 
@@ -674,7 +674,7 @@ Begin VB.Form frmSettings
          Strikethrough   =   0   'False
       EndProperty
       Height          =   495
-      Left            =   3000
+      Left            =   3360
       TabIndex        =   22
       Top             =   5400
       Width           =   1695
