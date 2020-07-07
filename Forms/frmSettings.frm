@@ -88,35 +88,58 @@ Begin VB.Form frmSettings
       TabPicture(1)   =   "frmSettings.frx":09F0
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Label2"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "lvKeyList"
+      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "btnAdd"
+      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "btnRemove"
+      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "txtBNETKey"
+      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).Control(5)=   "opW2BN"
+      Tab(1).Control(5).Enabled=   0   'False
       Tab(1).Control(6)=   "opD2DV"
+      Tab(1).Control(6).Enabled=   0   'False
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmSettings.frx":0A0C
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "Label9"
+      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "Label8"
+      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "Label7"
+      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Label10"
+      Tab(2).Control(3).Enabled=   0   'False
       Tab(2).Control(4)=   "Label15"
+      Tab(2).Control(4).Enabled=   0   'False
       Tab(2).Control(5)=   "txtIRCUsername"
+      Tab(2).Control(5).Enabled=   0   'False
       Tab(2).Control(6)=   "txtIRCChannel"
+      Tab(2).Control(6).Enabled=   0   'False
       Tab(2).Control(7)=   "txtIRCServer"
+      Tab(2).Control(7).Enabled=   0   'False
       Tab(2).Control(8)=   "txtIRCQuitMessage"
+      Tab(2).Control(8).Enabled=   0   'False
       Tab(2).Control(9)=   "chkUpdateChannelOnChannelJoin"
+      Tab(2).Control(9).Enabled=   0   'False
       Tab(2).ControlCount=   10
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmSettings.frx":0A28
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "Label16"
-      Tab(3).Control(1)=   "chkRememberWindowPosition"
-      Tab(3).Control(2)=   "chkCheckUpdateOnStartup"
-      Tab(3).Control(3)=   "txtConnectionTimeout"
-      Tab(3).ControlCount=   4
+      Tab(3).Control(0).Enabled=   0   'False
+      Tab(3).Control(1)=   "Label17"
+      Tab(3).Control(1).Enabled=   0   'False
+      Tab(3).Control(2)=   "chkRememberWindowPosition"
+      Tab(3).Control(2).Enabled=   0   'False
+      Tab(3).Control(3)=   "chkCheckUpdateOnStartup"
+      Tab(3).Control(3).Enabled=   0   'False
+      Tab(3).Control(4)=   "txtConnectionTimeout"
+      Tab(3).Control(4).Enabled=   0   'False
+      Tab(3).ControlCount=   5
       Begin VB.TextBox txtConnectionTimeout 
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -130,7 +153,7 @@ Begin VB.Form frmSettings
          Height          =   360
          Left            =   -72720
          TabIndex        =   38
-         Top             =   480
+         Top             =   1200
          Width           =   2775
       End
       Begin VB.CheckBox chkUpdateChannelOnChannelJoin 
@@ -162,7 +185,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -74760
          TabIndex        =   20
-         Top             =   1320
+         Top             =   2040
          Width           =   2415
       End
       Begin VB.TextBox txtD2DVVerByte 
@@ -184,7 +207,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -74760
          TabIndex        =   19
-         Top             =   960
+         Top             =   1680
          Width           =   2415
       End
       Begin VB.OptionButton opD2DV 
@@ -344,6 +367,24 @@ Begin VB.Form frmSettings
             Object.Width           =   3528
          EndProperty
       End
+      Begin VB.Label Label17 
+         Alignment       =   2  'Center
+         Caption         =   "Miscellaneous Settings"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   -74760
+         TabIndex        =   40
+         Top             =   600
+         Width           =   4815
+      End
       Begin VB.Label Label16 
          Caption         =   "Connection Timeout"
          BeginProperty Font 
@@ -358,7 +399,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -74760
          TabIndex        =   39
-         Top             =   480
+         Top             =   1200
          Width           =   1935
       End
       Begin VB.Label Label15 
