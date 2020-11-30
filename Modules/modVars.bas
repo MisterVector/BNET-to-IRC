@@ -92,7 +92,7 @@ Public Type BNETDataStructure
     accountName As String
     uniqueName As String
 
-    Product As String
+    product As String
     passwordHash As String
     verByte As Long
     ClientToken As Long
@@ -103,7 +103,7 @@ Public Type BNETDataStructure
     exeInfo As String
     exeVersion As String
     Checksum As String
-    CDKey As String
+    cdKey As String
   
     bnlsServerCode As Long
   
