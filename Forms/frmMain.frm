@@ -2,7 +2,6 @@ VERSION 5.00
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
-Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Battle.Net to IRC %v"
@@ -17,17 +16,6 @@ Begin VB.Form frmMain
    ScaleHeight     =   6600
    ScaleWidth      =   16200
    StartUpPosition =   3  'Windows Default
-   Begin InetCtlsObjects.Inet inetCheckUpdate 
-      Left            =   3240
-      Top             =   1920
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      _Version        =   393216
-      Protocol        =   5
-      RemotePort      =   443
-      URL             =   "https://"
-      RequestTimeout  =   3
-   End
    Begin VB.Timer tmrReleaseQueue 
       Enabled         =   0   'False
       Interval        =   1250
@@ -106,6 +94,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0902
@@ -130,6 +119,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0984
@@ -238,6 +228,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0A06

@@ -371,8 +371,14 @@ Public Function checkProgramUpdate(ByVal manualUpdateCheck As Boolean) As Boolea
     Dim text As String, status As Integer, requestReleaseTime As Date, releaseTime As Date, requestVersion As String, version As String, programURL As String
     Dim jsonResponse As Dictionary, jsonContents As Dictionary
     Dim updateMsg As String, msgBoxResult As Integer
+    Dim xml As Object
+    
+    Set xml = CreateObject("MSXML2.XMLHTTP")
 
-    text = frmMain.inetCheckUpdate.OpenURL(PROGRAM_UPDATE_URL)
+    xml.Open "GET", PROGRAM_UPDATE_URL, False
+    xml.send
+    
+    text = xml.responseText
     Set jsonResponse = JSON.parse(text)
     status = jsonResponse.Item("status")
     
@@ -405,4 +411,5 @@ Public Function checkProgramUpdate(ByVal manualUpdateCheck As Boolean) As Boolea
     End If
 
 err:
+    Set xml = Nothing
 End Function
