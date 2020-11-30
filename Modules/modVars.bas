@@ -1,7 +1,7 @@
 Attribute VB_Name = "modVars"
 Public Const PROGRAM_NAME As String = "Battle.Net to IRC"
 Public Const PROGRAM_VERSION As String = "1.1.0"
-Public Const PROGRAM_TITLE As String = "Battle.Net to IRC v" & PROGRAM_VERSION & " by Vector"
+Public Const PROGRAM_TITLE As String = PROGRAM_NAME & " v" & PROGRAM_VERSION & " by Vector"
 Public Const PROGRAM_SLUG = "battle-net-to-irc"
 Public Const PROGRAM_UPDATE_URL As String = "https://distribution.codespeak.org/data_handler.php?query=check_program_version&slug=" & PROGRAM_SLUG & "&current_version=" & PROGRAM_VERSION
 
