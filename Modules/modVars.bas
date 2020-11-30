@@ -1,20 +1,20 @@
 Attribute VB_Name = "modVars"
-Public Const PROGRAM_NAME As String = "Battle.Net to IRC"
-Public Const PROGRAM_VERSION As String = "1.1.0"
-Public Const PROGRAM_TITLE As String = PROGRAM_NAME & " v" & PROGRAM_VERSION & " by Vector"
-Public Const PROGRAM_SLUG = "battle-net-to-irc"
-Public Const PROGRAM_UPDATE_URL As String = "https://distribution.codespeak.org/data_handler.php?query=check_program_version&slug=" & PROGRAM_SLUG & "&current_version=" & PROGRAM_VERSION
+Public Const PROGRAM_VERSION                        As String = "1.1.0"
+Public Const PROGRAM_NAME                           As String = "Battle.Net to IRC"
+Public Const PROGRAM_TITLE                          As String = PROGRAM_NAME & " v" & PROGRAM_VERSION & " by Vector"
+Public Const PROGRAM_SLUG                           As String = "battle-net-to-irc"
+Public Const PROGRAM_UPDATE_URL                     As String = "https://distribution.codespeak.org/data_handler.php?query=check_program_version&slug=" & PROGRAM_SLUG & "&current_version=" & PROGRAM_VERSION
 
-Public Const VERBYTE_W2BN As Long = &H4F
-Public Const VERBYTE_D2DV As Long = &HE
+Public Const VERBYTE_W2BN                           As Long = &H4F
+Public Const VERBYTE_D2DV                           As Long = &HE
 
-Public Const DEFAULT_BNLS_SERVER As String = "jbls.davnit.net"
-Public Const DEFAULT_REMEMBER_WINDOW_POSITION As Boolean = False
-Public Const DEFAULT_CHECK_UPDATE_ON_STARTUP As Boolean = True
+Public Const DEFAULT_BNLS_SERVER                    As String = "jbls.davnit.net"
+Public Const DEFAULT_REMEMBER_WINDOW_POSITION       As Boolean = False
+Public Const DEFAULT_CHECK_UPDATE_ON_STARTUP        As Boolean = True
 Public Const DEFAULT_UPDATE_CHANNEL_ON_CHANNEL_JOIN As Boolean = False
-Public Const DEFAULT_CONNECTION_TIMEOUT As Integer = 10000
+Public Const DEFAULT_CONNECTION_TIMEOUT             As Integer = 10000
 
-Public Const LAST_NON_QUEUE_THRESHOLD_TIME As Long = 7000
+Public Const LAST_NON_QUEUE_THRESHOLD_TIME          As Long = 7000
 
 '// BNET SIDE
 Public dicQueue As New Dictionary
@@ -92,7 +92,7 @@ Public Type BNETDataStructure
     accountName As String
     uniqueName As String
 
-    product As String
+    Product As String
     passwordHash As String
     verByte As Long
     ClientToken As Long
@@ -103,7 +103,7 @@ Public Type BNETDataStructure
     exeInfo As String
     exeVersion As String
     Checksum As String
-    cdKey As String
+    CDKey As String
   
     bnlsServerCode As Long
   
