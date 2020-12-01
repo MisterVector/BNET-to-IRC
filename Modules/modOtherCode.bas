@@ -368,7 +368,7 @@ End Function
 Public Function checkProgramUpdate(ByVal manualUpdateCheck As Boolean) As Boolean
     On Error GoTo err
     
-    Dim text As String, status As Integer, requestReleaseTime As Date, releaseTime As Date, requestVersion As String, version As String, programURL As String
+    Dim text As String, status As Integer, requestReleaseTime As Date, releaseTime As Date, requestVersion As String, version As String
     Dim jsonResponse As Dictionary, jsonContents As Dictionary
     Dim updateMsg As String, msgBoxResult As Integer
     Dim xml As Object
@@ -392,13 +392,12 @@ Public Function checkProgramUpdate(ByVal manualUpdateCheck As Boolean) As Boolea
         
         If (releaseTime > requestReleaseTime) Then
             updateMsg = "There is a new update for " & PROGRAM_NAME & "!" & vbNewLine & vbNewLine & "Your version: " & PROGRAM_VERSION & " new version: " & version & vbNewLine & vbNewLine _
-                      & "Would you like to visit the program page to download the latest version??"
-            programURL = jsonContents.Item("program_url")
+                      & "Would you like to view the changelog and download the latest update?"
         
             msgBoxResult = MsgBox(updateMsg, vbYesNo Or vbInformation, "New version for " & PROGRAM_NAME)
     
             If (msgBoxResult = vbYes) Then
-                ShellExecute 0, "open", programURL, vbNullString, vbNullString, 4
+                ShellExecute 0, "open", UPDATE_SUMMARY_URL, vbNullString, vbNullString, 4
             End If
         Else
             If (manualUpdateCheck) Then

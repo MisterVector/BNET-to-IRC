@@ -4,6 +4,7 @@ Public Const PROGRAM_NAME                           As String = "Battle.Net to I
 Public Const PROGRAM_TITLE                          As String = PROGRAM_NAME & " v" & PROGRAM_VERSION & " by Vector"
 Public Const PROGRAM_SLUG                           As String = "battle-net-to-irc"
 Public Const PROGRAM_UPDATE_URL                     As String = "https://distribution.codespeak.org/data_handler.php?query=check_program_version&slug=" & PROGRAM_SLUG & "&current_version=" & PROGRAM_VERSION
+Public Const UPDATE_SUMMARY_URL                     As String = "https://www.codespeak.org/distribution/updatesummary/" & PROGRAM_SLUG & "/" & PROGRAM_VERSION
 
 Public Const VERBYTE_W2BN                           As Long = &H4F
 Public Const VERBYTE_D2DV                           As Long = &HE
