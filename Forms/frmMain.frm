@@ -497,7 +497,7 @@ Private Sub sckBNLS_Connect(index As Integer)
     
     Select Case bnlsType
         Case REQUEST_FILE_INFO
-            Send_BNLS_0x0E index
+            Send_BNLS_0x09 index
         Case UPDATE_VERSION_BYTE
             Send_BNLS_0x10 index, getProdID(bnetData(index).badClientProduct)
     End Select
@@ -514,8 +514,6 @@ Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)
     
         Select Case pID
             Case &H9: Recv_BNLS_0x09 index
-            Case &HE: Recv_BNLS_0x0E index
-            Case &HF: Recv_BNLS_0x0F index
             Case &H10: Recv_BNLS_0x10 index
         End Select
     
