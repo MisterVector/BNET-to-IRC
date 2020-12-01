@@ -126,8 +126,7 @@ Public Sub Send0x3A(index As Integer)
   
     AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNET] Logging in..."
 
-    double_hash_password config.bnetPassword, bnetData(index).clientToken, _
-                         bnetData(index).serverToken, hashCode
+    hashCode = doubleHashPassword(config.bnetPassword, bnetData(index).clientToken, bnetData(index).serverToken)
 
     With bnetPacketHandler(index)
         .InsertDWORD bnetData(index).clientToken
@@ -158,7 +157,7 @@ End Sub
 Public Sub Send0x3D(index As Integer)
     Dim passwordHash As String * 20
   
-    hash_password config.bnetPassword, passwordHash
+    passwordHash = hashPassword(config.bnetPassword)
   
     With bnetPacketHandler(index)
         .InsertNonNTString passwordHash
