@@ -477,6 +477,7 @@ Private Sub sckBNET_DataArrival(index As Integer, ByVal bytesTotal As Long)
             Case &H3A: Recv0x3A index
             Case &H3D: Recv0x3D index
             Case &H50: Recv0x50 index
+            Case &H51: Recv0x51 index
         End Select
     
         data = Mid$(data, pLen + 1)
