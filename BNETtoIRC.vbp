@@ -13,7 +13,6 @@ Module=modBNET; modules\modBNET.bas
 Module=modGeneralAPI; Modules\modGeneralAPI.bas
 Module=modText; modules\modText.bas
 Module=modDNS; modules\modDNS.bas
-Module=modBNETAPI; Modules\modBNETAPI.bas
 Module=modBNLSChecksum; modules\modBNLSChecksum.bas
 Form=Forms\frmSettings.frm
 Object={831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0; MSCOMCTL.OCX
