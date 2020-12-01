@@ -92,12 +92,12 @@ Public Type BNETDataStructure
     accountName As String
     uniqueName As String
 
-    Product As String
+    product As String
     passwordHash As String
     verByte As Long
-    ClientToken As Long
-    ServerToken As Long
-    ValueString As String
+    clientToken As Long
+    serverToken As Long
+    valueString As String
     lockdownFile As String
     checksumFormula As String
     exeInfo As String

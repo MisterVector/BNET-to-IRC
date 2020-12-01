@@ -2,7 +2,7 @@ Attribute VB_Name = "modDNS"
 Private Declare Function DnsQuery Lib "dnsapi" Alias "DnsQuery_A" (ByVal strname As String, ByVal wType As Integer, ByVal fOptions As Long, ByVal pServers As Long, ppQueryResultsSet As Long, ByVal pReserved As Long) As Long
 Private Declare Function DnsRecordListFree Lib "dnsapi" (ByVal pDnsRecord As Long, ByVal FreeType As Long) As Long
 Private Declare Function lstrlen Lib "Kernel32" (ByVal straddress As Long) As Long
-Private Declare Sub CopyMemory Lib "Kernel32" Alias "RtlMoveMemory" (Destination As Any, ByVal Source As Long, ByVal Length As Long)
+Private Declare Sub CopyMemory Lib "Kernel32" Alias "RtlMoveMemory" (Destination As Any, ByVal source As Long, ByVal Length As Long)
 Private Declare Function inet_ntoa Lib "ws2_32.dll" (ByVal pIP As Long) As Long
 Private Declare Function inet_addr Lib "ws2_32.dll" (ByVal sAddr As String) As Long
 

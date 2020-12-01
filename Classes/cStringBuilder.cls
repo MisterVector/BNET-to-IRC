@@ -38,7 +38,7 @@ Option Explicit
 '
 ' ======================================================================================
 
-Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" _
+Private Declare Sub CopyMemory Lib "Kernel32" Alias "RtlMoveMemory" _
       (pDst As Any, pSrc As Any, ByVal ByteLen As Long)
       
       
@@ -142,7 +142,7 @@ Public Sub Insert(ByVal iIndex As Long, ByRef sThis As String)
    
    ' is iIndex within bounds?
    If (iIndex * 2 > m_iPos) Then
-      Err.Raise 9
+      err.Raise 9
    Else
    
       lLen = LenB(sThis)
@@ -176,11 +176,11 @@ Public Sub Remove(ByVal iIndex As Long, ByVal lLen As Long)
 
    ' is iIndex within bounds?
    If (iIndex * 2 > m_iPos) Then
-      Err.Raise 9
+      err.Raise 9
    Else
       ' is there sufficient length?
       If ((iIndex + lLen) * 2 > m_iPos) Then
-         Err.Raise 9
+         err.Raise 9
       Else
          ' Need to copy characters from iIndex*2 to m_iPos back by lLen chars:
          lSrc = UnsignedAdd(StrPtr(m_sString), (iIndex + lLen) * 2)

@@ -40,24 +40,24 @@ Public Declare Function extractMPQNumber Lib "bncsutil.dll" _
 ' [!] You should use checkRevision and getExeInfo (see below) instead of their
 '     _Raw counterparts.
 Public Declare Function checkRevision_Raw Lib "bncsutil.dll" Alias "checkRevisionFlat" _
-    (ByVal ValueString As String, ByVal File1 As String, ByVal File2 As String, _
+    (ByVal valueString As String, ByVal File1 As String, ByVal File2 As String, _
      ByVal File3 As String, ByVal mpqNumber As Long, ByRef Checksum As Long) As Long
 Public Declare Function getExeInfo_Raw Lib "bncsutil.dll" Alias "getExeInfo" _
     (ByVal Filename As String, ByVal exeInfoString As String, _
-    ByVal infoBufferSize As Long, Version As Long, ByVal Platform As Long) As Long
+    ByVal infoBufferSize As Long, version As Long, ByVal Platform As Long) As Long
 
 ' Old Logon System
 ' [!] You should use doubleHashPassword and hashPassword instead of their
 '     _Raw counterparts.  (See below for those functions.)
 Public Declare Sub doubleHashPassword_Raw Lib "bncsutil.dll" Alias "doubleHashPassword" _
-    (ByVal Password As String, ByVal ClientToken As Long, ByVal ServerToken As Long, _
+    (ByVal Password As String, ByVal clientToken As Long, ByVal serverToken As Long, _
     ByVal outBuffer As String)
 Public Declare Sub hashPassword_Raw Lib "bncsutil.dll" Alias "hashPassword" _
     (ByVal Password As String, ByVal outBuffer As String)
 
 ' Broken SHA-1
 Public Declare Sub calcHashBuf Lib "bncsutil.dll" _
-    (ByVal Data As String, ByVal Length As Long, ByVal Hash As String)
+    (ByVal data As String, ByVal Length As Long, ByVal Hash As String)
 
 ' CD-Key Decoding
 
@@ -69,8 +69,8 @@ Public Declare Sub calcHashBuf Lib "bncsutil.dll" _
 ' memory it is using.
 
 Public Declare Function kd_quick Lib "bncsutil.dll" _
-    (ByVal CDKey As String, ByVal ClientToken As Long, ByVal ServerToken As Long, _
-    PublicValue As Long, Product As Long, ByVal HashBuffer As String, ByVal BufferLen As Long) As Long
+    (ByVal CDKey As String, ByVal clientToken As Long, ByVal serverToken As Long, _
+    PublicValue As Long, product As Long, ByVal HashBuffer As String, ByVal BufferLen As Long) As Long
 Public Declare Function kd_init Lib "bncsutil.dll" () As Long
 Public Declare Function kd_create Lib "bncsutil.dll" _
     (ByVal CDKey As String, ByVal keyLength As Long) As Long
@@ -87,7 +87,7 @@ Public Declare Function kd_val2 Lib "bncsutil.dll" _
 Public Declare Function kd_longVal2 Lib "bncsutil.dll" _
     (ByVal decoder As Long, ByVal Out As String) As Long
 Public Declare Function kd_calculateHash Lib "bncsutil.dll" _
-    (ByVal decoder As Long, ByVal ClientToken As Long, ByVal ServerToken As Long) As Long
+    (ByVal decoder As Long, ByVal clientToken As Long, ByVal serverToken As Long) As Long
 Public Declare Function kd_getHash Lib "bncsutil.dll" _
     (ByVal decoder As Long, ByVal Out As String) As Long
 Public Declare Function kd_isValid Lib "bncsutil.dll" _
@@ -104,14 +104,14 @@ Public Declare Function kd_isValid Lib "bncsutil.dll" _
 ' SID_AUTH_ACCOUNTCREATE and SID_AUTH_ACCOUNTLOGIN packets, respectively.
 
 Public Declare Function nls_init Lib "bncsutil.dll" _
-    (ByVal Username As String, ByVal Password As String) As Long 'really returns a POINTER!
+    (ByVal username As String, ByVal Password As String) As Long 'really returns a POINTER!
 Public Declare Function nls_init_l Lib "bncsutil.dll" _
-    (ByVal Username As String, ByVal Username_Length As Long, _
+    (ByVal username As String, ByVal Username_Length As Long, _
     ByVal Password As String, ByVal Password_Length As Long) As Long
 Public Declare Function nls_reinit Lib "bncsutil.dll" _
-    (ByVal NLS As Long, ByVal Username As String, ByVal Password As String) As Long
+    (ByVal NLS As Long, ByVal username As String, ByVal Password As String) As Long
 Public Declare Function nls_reinit_l Lib "bncsutil.dll" _
-    (ByVal NLS As Long, ByVal Username As String, ByVal Username_Length As Long, _
+    (ByVal NLS As Long, ByVal username As String, ByVal Username_Length As Long, _
     ByVal Password As String, ByVal Password_Length As Long) As Long
 Public Declare Sub nls_free Lib "bncsutil.dll" _
     (ByVal NLS As Long)
@@ -168,8 +168,8 @@ Private Declare Function getsockname Lib "ws2_32.dll" (ByVal S As Long, Name As 
 '  VB-Specifc Functions and Properties  '
 '---------------------------------------'
 
-Public Property Get Version() As String
-    Version = bncsutil_getVersionString()
+Public Property Get version() As String
+    version = bncsutil_getVersionString()
 End Property
 
 Public Property Get DebugMode() As Boolean
@@ -192,12 +192,12 @@ Public Sub DebugMessage(Message As String)
     bncsutil_debug_message Message
 End Sub
 
-Public Sub DebugHexDump(Data As String, Optional ByVal Length As Long = -1)
+Public Sub DebugHexDump(data As String, Optional ByVal Length As Long = -1)
     If (Length = -1) Then
-        Length = Len(Data)
+        Length = Len(data)
     End If
     
-    bncsutil_debug_dump Data, Length
+    bncsutil_debug_dump data, Length
 End Sub
 
 
@@ -211,7 +211,7 @@ Public Function bncsutil_checkVersion(ByVal RequiredVersion As String) As Boolea
     Frag = Split(RequiredVersion, ".")
     j = 0
     For i = UBound(Frag) To 0 Step -1
-        Check = Check + (CLng(Val(Frag(i))) * (100 ^ j))
+        Check = Check + (CLng(val(Frag(i))) * (100 ^ j))
         j = j + 1
     Next i
     Check = bncsutil_getVersion()
@@ -228,12 +228,12 @@ Public Function bncsutil_getVersionString() As String
 End Function
 
 'CheckRevision
-Public Function checkRevision(ValueString As String, File1$, File2$, File3$, mpqNumber As Long, Checksum As Long) As Boolean
-    checkRevision = (checkRevision_Raw(ValueString, File1, File2, File3, mpqNumber, Checksum) > 0)
+Public Function checkRevision(valueString As String, File1$, File2$, File3$, mpqNumber As Long, Checksum As Long) As Boolean
+    checkRevision = (checkRevision_Raw(valueString, File1, File2, File3, mpqNumber, Checksum) > 0)
 End Function
 
-Public Function checkRevisionA(ValueString As String, Files() As String, mpqNumber As Long, Checksum As Long) As Boolean
-    checkRevisionA = (checkRevision_Raw(ValueString, Files(0), Files(1), Files(2), mpqNumber, Checksum) > 0)
+Public Function checkRevisionA(valueString As String, Files() As String, mpqNumber As Long, Checksum As Long) As Boolean
+    checkRevisionA = (checkRevision_Raw(valueString, Files(0), Files(1), Files(2), mpqNumber, Checksum) > 0)
 End Function
 
 'EXE Information
@@ -241,34 +241,34 @@ End Function
 'InfoString does NOT need to be initialized (e.g. InfoString = String$(255, vbNullChar))
 'Returns the file version or 0 on failure.
 Public Function getExeInfo(EXEFile As String, InfoString As String, Optional ByVal Platform As Long = BNCSUTIL_PLATFORM_WINDOWS) As Long
-    Dim Version As Long, InfoSize As Long, Result As Long
+    Dim version As Long, InfoSize As Long, result As Long
     Dim i&
     InfoSize = 256
     InfoString = String$(256, vbNullChar)
-    Result = getExeInfo_Raw(EXEFile, InfoString, InfoSize, Version, Platform)
-    If Result = 0 Then
+    result = getExeInfo_Raw(EXEFile, InfoString, InfoSize, version, Platform)
+    If result = 0 Then
         getExeInfo = 0
         Exit Function
     End If
-    While Result > InfoSize
+    While result > InfoSize
         If InfoSize > 1024 Then
             getExeInfo = 0
             Exit Function
         End If
         InfoSize = InfoSize + 256
         InfoString = String$(InfoSize, vbNullChar)
-        Result = getExeInfo_Raw(EXEFile, InfoString, InfoSize, Version, Platform)
+        result = getExeInfo_Raw(EXEFile, InfoString, InfoSize, version, Platform)
     Wend
-    getExeInfo = Version
+    getExeInfo = version
     i = InStr(InfoString, vbNullChar)
     If i = 0 Then Exit Function
     InfoString = Left$(InfoString, i - 1)
 End Function
 
 'OLS Password Hashing
-Public Function doubleHashPassword(Password As String, ByVal ClientToken&, ByVal ServerToken&) As String
+Public Function doubleHashPassword(Password As String, ByVal clientToken&, ByVal serverToken&) As String
     Dim Hash As String * 20
-    doubleHashPassword_Raw Password, ClientToken, ServerToken, Hash
+    doubleHashPassword_Raw Password, clientToken, serverToken, Hash
     doubleHashPassword = Hash
 End Function
 
@@ -286,3 +286,4 @@ Public Function nls_check_socket_signature(ByVal SocketHandle As Long, Signature
     
     nls_check_socket_signature = (nls_check_signature(Name.Address, Signature) <> 0)
 End Function
+

@@ -190,7 +190,7 @@ Public Sub loadConfig()
         For i = 0 To config.bnetKeyCount - 1
             With bnetData(i)
                 .product = ReadINI(i, "Product", "Config.ini")
-                .cdKey = ReadINI(i, "CDKey", "Config.ini")
+                .CDKey = ReadINI(i, "CDKey", "Config.ini")
             End With
         Next i
     End If
@@ -245,7 +245,7 @@ Public Sub saveConfig()
         For i = 0 To config.bnetKeyCount - 1
             With bnetData(i)
                 WriteINI i, "Product", .product, "Config.ini"
-                WriteINI i, "CDKey", .cdKey, "Config.ini"
+                WriteINI i, "CDKey", .CDKey, "Config.ini"
             End With
         Next i
     End If

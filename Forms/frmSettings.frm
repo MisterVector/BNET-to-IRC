@@ -716,7 +716,7 @@ Private Sub btnAdd_Click()
         MsgBox "You must select a product first.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
     End If
-  
+
     If (Not isValidKey(txtBNETKey.text)) Then
         MsgBox "You did not enter a valid " & productChosen & " key.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
@@ -768,7 +768,7 @@ Private Sub btnOk_Click()
             With bnetData(i)
                 Set li = lvKeyList.ListItems.Item(i + 1)
                 .CDKey = li.text
-                .Product = li.Tag
+                .product = li.Tag
             End With
         Next i
     End If
@@ -822,8 +822,8 @@ Private Sub Form_Load()
     If (config.bnetKeyCount > 0) Then
         For i = 0 To config.bnetKeyCount - 1
             With bnetData(i)
-                Set li = lvKeyList.ListItems.Add(, , .CDKey, , .Product)
-                li.Tag = .Product
+                Set li = lvKeyList.ListItems.Add(, , .CDKey, , .product)
+                li.Tag = .product
             End With
         Next i
     End If
