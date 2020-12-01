@@ -394,14 +394,14 @@ Public Function checkProgramUpdate(ByVal manualUpdateCheck As Boolean) As Boolea
             updateMsg = "There is a new update for " & PROGRAM_NAME & "!" & vbNewLine & vbNewLine & "Your version: " & PROGRAM_VERSION & " new version: " & version & vbNewLine & vbNewLine _
                       & "Would you like to view the changelog and download the latest update?"
         
-            msgBoxResult = MsgBox(updateMsg, vbYesNo Or vbInformation, "New version for " & PROGRAM_NAME)
+            msgBoxResult = MsgBox(updateMsg, vbYesNo Or vbInformation, "New version for " & PROGRAM_TITLE)
     
             If (msgBoxResult = vbYes) Then
                 ShellExecute 0, "open", UPDATE_SUMMARY_URL, vbNullString, vbNullString, 4
             End If
         Else
             If (manualUpdateCheck) Then
-                MsgBox "There is no new version at this time.", vbOKOnly Or vbInformation, PROGRAM_NAME
+                MsgBox "There is no new version at this time.", vbOKOnly Or vbInformation, PROGRAM_TITLE
             End If
         End If
         
