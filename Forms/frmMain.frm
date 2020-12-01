@@ -664,7 +664,7 @@ Private Sub txtBNETChat_KeyDown(KeyCode As Integer, Shift As Integer)
     If KeyCode = 13 Then
         If sckBNET(bnetSocketIndex).State = sckConnected Then
             txtBNETChat.text = Replace(txtBNETChat.text, vbNewLine, vbNullString)
-            SendToBNET txtBNETChat.text
+            SendToBNET txtBNETChat.text, True
             txtBNETChat.text = vbNullString
         End If
     

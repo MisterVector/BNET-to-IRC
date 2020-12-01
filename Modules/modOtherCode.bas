@@ -33,8 +33,8 @@ Public Function findFirstAliveBot() As Integer
     findFirstAliveBot = -1
 End Function
 
-Public Sub SendToBNET(ByVal msg As String)
-    If (Not isBroadcastToBNET) Then Exit Sub
+Public Sub SendToBNET(ByVal msg As String, Optional ByVal force As Boolean = False)
+    If (Not isBroadcastToBNET And Not force) Then Exit Sub
     If (findFirstAliveBot() = -1) Then Exit Sub
 
     If Len(msg) > 140 Then
