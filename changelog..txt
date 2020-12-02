@@ -1,3 +1,16 @@
+Version 1.1.1 - Released on December 1, 2020
+
+  - Instead of going to the GitHub releases page, the updater will now go to the update
+    summary page on the Code Speak website
+  - Minor title bar change on the updater message boxes
+  - Fixed an issue where the Battle.Net connection was completely broken
+  - Dropped libbnet.dll and migrated code that used it to BNCSUtil.dll
+  - The libbnet.dll library has been dropped as BNCSUtil.dll has replaced it
+  - Sending messages through the text box under the Battle.Net section ignores the
+    "Broadcast to BNET" checkbox
+  - BNLS no longer authorizes
+  - Updated BNCSUtil.dll
+
 Version 1.1.0 - Released on July 6, 2020
 
   - The "Check for Updates" menu item has been changed to "Check for Update"
