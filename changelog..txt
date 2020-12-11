@@ -1,3 +1,7 @@
+Version 1.1.2 - Released on December 10, 2020
+
+  - The program will not check for update if loaded from the Code Speak Distribution Client
+
 Version 1.1.1 - Released on December 1, 2020
 
   - Instead of going to the GitHub releases page, the updater will now go to the update
