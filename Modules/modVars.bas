@@ -35,6 +35,8 @@ Public manualUpdateCheck As Boolean
 
 Public canSendQuit As Boolean
 
+Public loadedFromCSDSClient As Boolean
+
 Public Enum BNLSRequestType
     REQUEST_FILE_INFO
     UPDATE_VERSION_BYTE

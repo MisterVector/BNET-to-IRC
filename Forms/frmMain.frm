@@ -331,8 +331,13 @@ Private Sub Form_Load()
         setDefaultValues
     End If
     
+    If (InStr(command, "--csds-launch") > 0) Then
+        loadedFromCSDSClient = True
+    Else
+        tmrCheckUpdateDelay.Enabled = True
+    End If
+    
     tmrIRCConnectionTimeout.Interval = config.connectionTimeout
-    tmrCheckUpdateDelay.Enabled = True
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
@@ -353,6 +358,11 @@ Private Sub mnuAbout_Click()
 End Sub
 
 Private Sub mnuCheckForUpdate_Click()
+    If (loadedFromCSDSClient) Then
+        MsgBox "Cannot check update as Maelstrom was loaded by the Code Speak Distribution Client!", vbOKOnly Or vbExclamation, PROGRAM_TITLE
+        Exit Sub
+    End If
+    
     If (Not checkProgramUpdate(True)) Then
         MsgBox "Unable to check for update!", vbOKOnly Or vbExclamation, PROGRAM_NAME
     End If
