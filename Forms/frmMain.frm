@@ -94,6 +94,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0902
@@ -118,6 +119,7 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
+            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0984
@@ -186,6 +188,7 @@ Begin VB.Form frmMain
          Top             =   2760
       End
       Begin VB.Timer tmrCheckUpdateDelay 
+         Enabled         =   0   'False
          Interval        =   200
          Left            =   2160
          Top             =   1800
@@ -226,6 +229,7 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0A06
@@ -328,6 +332,7 @@ Private Sub Form_Load()
     End If
     
     tmrIRCConnectionTimeout.Interval = config.connectionTimeout
+    tmrCheckUpdateDelay.Enabled = True
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
