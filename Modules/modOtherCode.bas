@@ -365,10 +365,18 @@ Public Function joinArrayAtIndex(arr() As String, index As Integer)
     joinArrayAtIndex = finalString
 End Function
 
+Public Function makeCompatibleDate(ByVal dateTimeString As String) As Date
+    dateTimeString = Replace(dateTimeString, "T", " ")
+    dateTimeString = Replace(dateTimeString, "Z", "")
+
+    makeCompatibleDate = dateTimeString
+End Function
+
 Public Function checkProgramUpdate(ByVal manualUpdateCheck As Boolean) As Boolean
     On Error GoTo err
     
     Dim text As String, status As Integer, requestReleaseTime As Date, releaseTime As Date, requestVersion As String, version As String
+    Dim isoRequestReleaseTime As String, isoReleaseTime As String
     Dim jsonResponse As Dictionary, jsonContents As Dictionary
     Dim updateMsg As String, msgBoxResult As Integer
     Dim xml As Object
@@ -386,10 +394,13 @@ Public Function checkProgramUpdate(ByVal manualUpdateCheck As Boolean) As Boolea
     If (status = 1) Then
         Set jsonContents = jsonResponse.Item("contents")
         
-        requestReleaseTime = jsonContents.Item("request_release_time")
+        isoRequestReleaseTime = jsonContents.Item("request_release_time")
         requestVeresion = jsonContents.Item("request_version")
-        releaseTime = jsonContents.Item("release_time")
+        isoReleaseTime = jsonContents.Item("release_time")
         version = jsonContents.Item("version")
+        
+        requestReleaseTime = makeCompatibleDate(isoRequestReleaseTime)
+        releaseTime = makeCompatibleDate(isoReleaseTime)
         
         If (releaseTime > requestReleaseTime) Then
             updateMsg = "There is a new update for " & PROGRAM_NAME & "!" & vbNewLine & vbNewLine & "Your version: " & PROGRAM_VERSION & " new version: " & version & vbNewLine & vbNewLine _
