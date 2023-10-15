@@ -412,6 +412,8 @@ Private Sub mnuConnectBNET_Click()
 End Sub
 
 Private Sub mnuConnectIRC_Click()
+    Dim ircServer As String, ircPort As Long, parts() As String
+
     If (config.ircUsername = vbNullString) Then
         MsgBox "IRC username has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
@@ -422,11 +424,6 @@ Private Sub mnuConnectIRC_Click()
         Exit Sub
     End If
     
-    If (config.ircPort = 0) Then
-        MsgBox "IRC port has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
-        Exit Sub
-    End If
-
     If (config.ircChannel = vbNullString) Then
         MsgBox "IRC channel has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
@@ -437,8 +434,28 @@ Private Sub mnuConnectIRC_Click()
         Exit Sub
     End If
 
-    AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & config.ircServer & ":" & config.ircPort & "..."
-    sckIRC.Connect config.ircServer, config.ircPort
+    If (InStr(config.ircServer, ":") > 0) Then
+        parts = Split(config.ircServer, ":")
+        
+        If (Not IsNumeric(parts(1))) Then
+            MsgBox "IRC port is not numeric."
+            Exit Sub
+        End If
+        
+        If (parts(1) < 1 Or parts(1) > 65535) Then
+            MsgBox "IRC port must be an integer between 1 and 65535."
+            Exit Sub
+        End If
+        
+        ircServer = parts(0)
+        ircPort = parts(1)
+    Else
+        ircServer = config.ircServer
+        ircPort = 6667
+    End If
+
+    AddChat rtbChatIRCConsole, vbYellow, "[IRC] Connecting to " & ircServer & ":" & ircPort & "..."
+    sckIRC.Connect ircServer, ircPort
     tmrIRCConnectionTimeout.Enabled = True
   
     mnuConnectIRC.Enabled = False

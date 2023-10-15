@@ -206,17 +206,7 @@ Public Sub loadConfig()
     config.ircQuitMessage = ReadINI("IRC", "QuitMessage", "Config.ini")
     config.ircUpdateChannelOnChannelJoin = IIf(UCase(ReadINI("IRC", "UpdateChannelOnChannelJoin", "Config.ini")) = "Y", True, False)
   
-    val = ReadINI("IRC", "Server", "Config.ini")
-  
-    If (InStr(val, ":") > 0) Then
-        parts = Split(val, ":")
-  
-        config.ircServer = parts(0)
-        config.ircPort = parts(1)
-    Else
-        config.ircServer = val
-        config.ircPort = 6667
-    End If
+    config.ircServer = ReadINI("IRC", "Server", "Config.ini")
 End Sub
 
 Public Sub saveConfig()

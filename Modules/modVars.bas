@@ -78,7 +78,6 @@ Public Type ConfigStructure
     ircUsername As String
     ircPassword As String
     ircServer As String
-    ircPort As Long
     ircChannel As String
     ircQuitMessage As String
     ircUpdateChannelOnChannelJoin As Boolean

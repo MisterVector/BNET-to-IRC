@@ -773,23 +773,12 @@ Private Sub btnOk_Click()
         Next i
     End If
   
+    config.ircServer = txtIRCServer.text
     config.ircUsername = txtIRCUsername.text
     config.ircChannel = txtIRCChannel.text
     config.ircQuitMessage = txtIRCQuitMessage.text
     config.ircUpdateChannelOnChannelJoin = IIf(chkUpdateChannelOnChannelJoin.Value = 1, True, False)
-  
-    val = txtIRCServer.text
-  
-    If (InStr(val, ":") > 0) Then
-        parts = Split(val, ":")
-  
-        config.ircServer = parts(0)
-        config.ircPort = parts(1)
-    Else
-        config.ircServer = val
-        config.ircPort = 6667
-    End If
-  
+ 
     config.rememberWindowPosition = IIf(chkRememberWindowPosition.Value = 1, True, False)
     config.checkUpdateOnStartup = IIf(chkCheckUpdateOnStartup.Value = 1, True, False)
     config.connectionTimeout = txtConnectionTimeout.text
