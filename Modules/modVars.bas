@@ -100,8 +100,10 @@ Public Type BNETDataStructure
     verByte As Long
     clientToken As Long
     serverToken As Long
+    dwLowDateTime As Long
+    dwHighDateTime As Long
     valueString As String
-    lockdownFile As String
+    archiveFileName As String
     checksumFormula As String
     exeInfo As String
     exeVersion As String

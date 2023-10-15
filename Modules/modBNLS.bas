@@ -1,21 +1,20 @@
 Attribute VB_Name = "modBNLS"
-Public Sub Send_BNLS_0x09(index As Integer)
-    Dim lockdownFile As String
-    lockdownFile = Mid$(bnetData(index).lockdownFile, InStr(bnetData(index).lockdownFile, "mpq") - 3, 2)
-  
-    If Not IsNumeric(lockdownFile) Or Left(lockdownFile, 1) = "-" Then lockdownFile = Mid$(lockdownFile, 2)
-
+Public Sub Send_BNLS_0x1a(index As Integer)
     AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Requesting version info..."
   
     With bnlsPacketHandler(index)
         .InsertDWORD getProdID(bnetData(index).product)
-        .InsertDWORD lockdownFile
+        .InsertDWORD &H0
+        .InsertDWORD &H0
+        .InsertDWORD bnetData(index).dwLowDateTime
+        .InsertDWORD bnetData(index).dwHighDateTime
+        .InsertNTString bnetData(index).archiveFileName
         .InsertNTString bnetData(index).valueString
-        .sendPacket &H9
+        .sendPacket &H1A
     End With
 End Sub
 
-Public Sub Recv_BNLS_0x09(index As Integer)
+Public Sub Recv_BNLS_0x1a(index As Integer)
     If bnlsPacketHandler(index).GetDWORD = &H0 Then
         AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNLS] Failed to get version info!"
     

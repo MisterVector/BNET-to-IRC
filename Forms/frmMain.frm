@@ -94,7 +94,6 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0902
@@ -119,7 +118,6 @@ Begin VB.Form frmMain
             _Version        =   393217
             BackColor       =   0
             BorderStyle     =   0
-            Enabled         =   -1  'True
             ReadOnly        =   -1  'True
             ScrollBars      =   2
             TextRTF         =   $"frmMain.frx":0984
@@ -229,7 +227,6 @@ Begin VB.Form frmMain
          _Version        =   393217
          BackColor       =   0
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmMain.frx":0A06
@@ -512,7 +509,7 @@ Private Sub sckBNLS_Connect(index As Integer)
     
     Select Case bnlsType
         Case REQUEST_FILE_INFO
-            Send_BNLS_0x09 index
+            Send_BNLS_0x1a index
         Case UPDATE_VERSION_BYTE
             Send_BNLS_0x10 index, getProdID(bnetData(index).badClientProduct)
     End Select
@@ -528,7 +525,7 @@ Private Sub sckBNLS_DataArrival(index As Integer, ByVal bytesTotal As Long)
         bnlsPacketHandler(index).SetData Mid$(data, 4)
     
         Select Case pID
-            Case &H9: Recv_BNLS_0x09 index
+            Case &H1A: Recv_BNLS_0x1a index
             Case &H10: Recv_BNLS_0x10 index
         End Select
     

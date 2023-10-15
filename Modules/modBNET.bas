@@ -31,8 +31,10 @@ Public Sub Recv0x50(index As Integer)
         .Skip 4
         bnetData(index).clientToken = GetTickCount
         bnetData(index).serverToken = .GetDWORD
-        .Skip 12
-        bnetData(index).lockdownFile = .getNTString
+       .Skip 4
+        bnetData(index).dwLowDateTime = .GetDWORD
+        bnetData(index).dwHighDateTime = .GetDWORD
+        bnetData(index).archiveFileName = .getNTString
         bnetData(index).valueString = .getNTString
     End With
 
