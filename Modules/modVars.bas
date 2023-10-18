@@ -71,6 +71,7 @@ Public Type ConfigStructure
     bnetPassword As String
     bnetChannel As String
     bnetKeyCount As Integer
+    bnetBroadcastPrefix As String
 
     bnetW2BNVerByte As Long
     bnetD2DVVerByte As Long
@@ -81,6 +82,7 @@ Public Type ConfigStructure
     ircChannel As String
     ircQuitMessage As String
     ircUpdateChannelOnChannelJoin As Boolean
+    ircBroadcastPrefix As String
 End Type
 Public config As ConfigStructure
 

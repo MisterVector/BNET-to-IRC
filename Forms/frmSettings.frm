@@ -69,21 +69,25 @@ Begin VB.Form frmSettings
       Tab(0).Control(7).Enabled=   0   'False
       Tab(0).Control(8)=   "Label14"
       Tab(0).Control(8).Enabled=   0   'False
-      Tab(0).Control(9)=   "txtBNETChannel"
+      Tab(0).Control(9)=   "Label18"
       Tab(0).Control(9).Enabled=   0   'False
-      Tab(0).Control(10)=   "txtBNLSServer"
+      Tab(0).Control(10)=   "txtBNETChannel"
       Tab(0).Control(10).Enabled=   0   'False
-      Tab(0).Control(11)=   "cmbBNETServer"
+      Tab(0).Control(11)=   "txtBNLSServer"
       Tab(0).Control(11).Enabled=   0   'False
-      Tab(0).Control(12)=   "txtBNETUsername"
+      Tab(0).Control(12)=   "cmbBNETServer"
       Tab(0).Control(12).Enabled=   0   'False
-      Tab(0).Control(13)=   "txtBNETPassword"
+      Tab(0).Control(13)=   "txtBNETUsername"
       Tab(0).Control(13).Enabled=   0   'False
-      Tab(0).Control(14)=   "txtW2BNVerByte"
+      Tab(0).Control(14)=   "txtBNETPassword"
       Tab(0).Control(14).Enabled=   0   'False
-      Tab(0).Control(15)=   "txtD2DVVerByte"
+      Tab(0).Control(15)=   "txtW2BNVerByte"
       Tab(0).Control(15).Enabled=   0   'False
-      Tab(0).ControlCount=   16
+      Tab(0).Control(16)=   "txtD2DVVerByte"
+      Tab(0).Control(16).Enabled=   0   'False
+      Tab(0).Control(17)=   "txtBNETBroadcastPrefix"
+      Tab(0).Control(17).Enabled=   0   'False
+      Tab(0).ControlCount=   18
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmSettings.frx":09F0
       Tab(1).ControlEnabled=   0   'False
@@ -115,31 +119,49 @@ Begin VB.Form frmSettings
       Tab(2).Control(3).Enabled=   0   'False
       Tab(2).Control(4)=   "Label15"
       Tab(2).Control(4).Enabled=   0   'False
-      Tab(2).Control(5)=   "txtIRCUsername"
+      Tab(2).Control(5)=   "Label19"
       Tab(2).Control(5).Enabled=   0   'False
-      Tab(2).Control(6)=   "txtIRCChannel"
+      Tab(2).Control(6)=   "txtIRCUsername"
       Tab(2).Control(6).Enabled=   0   'False
-      Tab(2).Control(7)=   "txtIRCServer"
+      Tab(2).Control(7)=   "txtIRCChannel"
       Tab(2).Control(7).Enabled=   0   'False
-      Tab(2).Control(8)=   "txtIRCQuitMessage"
+      Tab(2).Control(8)=   "txtIRCServer"
       Tab(2).Control(8).Enabled=   0   'False
-      Tab(2).Control(9)=   "chkUpdateChannelOnChannelJoin"
+      Tab(2).Control(9)=   "txtIRCQuitMessage"
       Tab(2).Control(9).Enabled=   0   'False
-      Tab(2).ControlCount=   10
+      Tab(2).Control(10)=   "chkUpdateChannelOnChannelJoin"
+      Tab(2).Control(10).Enabled=   0   'False
+      Tab(2).Control(11)=   "txtIRCBroadcastPrefix"
+      Tab(2).Control(11).Enabled=   0   'False
+      Tab(2).ControlCount=   12
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmSettings.frx":0A28
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "Label16"
+      Tab(3).Control(0)=   "txtConnectionTimeout"
       Tab(3).Control(0).Enabled=   0   'False
-      Tab(3).Control(1)=   "Label17"
+      Tab(3).Control(1)=   "chkCheckUpdateOnStartup"
       Tab(3).Control(1).Enabled=   0   'False
       Tab(3).Control(2)=   "chkRememberWindowPosition"
       Tab(3).Control(2).Enabled=   0   'False
-      Tab(3).Control(3)=   "chkCheckUpdateOnStartup"
+      Tab(3).Control(3)=   "Label17"
       Tab(3).Control(3).Enabled=   0   'False
-      Tab(3).Control(4)=   "txtConnectionTimeout"
+      Tab(3).Control(4)=   "Label16"
       Tab(3).Control(4).Enabled=   0   'False
       Tab(3).ControlCount=   5
+      Begin VB.TextBox txtIRCBroadcastPrefix 
+         Height          =   375
+         Left            =   -72720
+         TabIndex        =   43
+         Top             =   2640
+         Width           =   2775
+      End
+      Begin VB.TextBox txtBNETBroadcastPrefix 
+         Height          =   375
+         Left            =   2280
+         TabIndex        =   42
+         Top             =   3600
+         Width           =   2775
+      End
       Begin VB.TextBox txtConnectionTimeout 
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -170,14 +192,14 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -72720
          TabIndex        =   17
-         Top             =   2640
+         Top             =   3120
          Width           =   2775
       End
       Begin VB.TextBox txtIRCQuitMessage 
-         Height          =   1695
+         Height          =   1215
          Left            =   -74760
          TabIndex        =   18
-         Top             =   3240
+         Top             =   3720
          Width           =   4815
       End
       Begin VB.CheckBox chkCheckUpdateOnStartup 
@@ -367,6 +389,40 @@ Begin VB.Form frmSettings
             Object.Width           =   3528
          EndProperty
       End
+      Begin VB.Label Label19 
+         Caption         =   "Broadcast Prefix"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   -74760
+         TabIndex        =   44
+         Top             =   2640
+         Width           =   1935
+      End
+      Begin VB.Label Label18 
+         Caption         =   "Broadcast Prefix"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   240
+         TabIndex        =   41
+         Top             =   3600
+         Width           =   1695
+      End
       Begin VB.Label Label17 
          Alignment       =   2  'Center
          Caption         =   "Miscellaneous Settings"
@@ -416,7 +472,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -74760
          TabIndex        =   37
-         Top             =   2880
+         Top             =   3360
          Width           =   1455
       End
       Begin VB.Label Label14 
@@ -755,6 +811,7 @@ Private Sub btnOk_Click()
     config.bnlsServer = txtBNLSServer.text
     config.bnetServer = cmbBNETServer.text
     config.bnetKeyCount = lvKeyList.ListItems.count
+    config.bnetBroadcastPrefix = txtBNETBroadcastPrefix.text
   
     config.bnetW2BNVerByte = "&H" & txtW2BNVerByte.text
     config.bnetD2DVVerByte = "&H" & txtD2DVVerByte.text
@@ -778,6 +835,7 @@ Private Sub btnOk_Click()
     config.ircChannel = txtIRCChannel.text
     config.ircQuitMessage = txtIRCQuitMessage.text
     config.ircUpdateChannelOnChannelJoin = IIf(chkUpdateChannelOnChannelJoin.Value = 1, True, False)
+    config.ircBroadcastPrefix = txtIRCBroadcastPrefix.text
  
     config.rememberWindowPosition = IIf(chkRememberWindowPosition.Value = 1, True, False)
     config.checkUpdateOnStartup = IIf(chkCheckUpdateOnStartup.Value = 1, True, False)
@@ -803,6 +861,7 @@ Private Sub Form_Load()
     txtBNETPassword.text = config.bnetPassword
     txtBNETChannel.text = config.bnetChannel
     txtBNLSServer.text = config.bnlsServer
+    txtBNETBroadcastPrefix.text = config.bnetBroadcastPrefix
     cmbBNETServer.text = config.bnetServer
   
     txtW2BNVerByte.text = Right("0" & Hex(config.bnetW2BNVerByte), 2)
@@ -821,6 +880,7 @@ Private Sub Form_Load()
     txtIRCChannel.text = config.ircChannel
     txtIRCServer.text = config.ircServer
     txtIRCQuitMessage.text = config.ircQuitMessage
+    txtIRCBroadcastPrefix.text = config.ircBroadcastPrefix
     chkUpdateChannelOnChannelJoin.Value = IIf(config.ircUpdateChannelOnChannelJoin, 1, 0)
   
     chkRememberWindowPosition.Value = IIf(config.rememberWindowPosition = True, 1, 0)
@@ -880,3 +940,4 @@ End Sub
 Private Sub opW2BN_Click()
     productChosen = "W2BN"
 End Sub
+

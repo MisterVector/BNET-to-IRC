@@ -215,7 +215,7 @@ End Sub
 
 Public Sub Recv0x0F(index As Integer)
     Dim user As String, text As String, ID As Long, flags As Long
-    Dim supressEvent As Boolean
+    Dim supressEvent As Boolean, msgPart As String
 
     If index <> findFirstAliveBot Then supressEvent = True
   
@@ -247,6 +247,19 @@ Public Sub Recv0x0F(index As Integer)
                         End If
                     Next i
                   
+                    ' If broadcast prefix is set, check to see if it is present at the start of the message
+                    If (config.bnetBroadcastPrefix <> vbNullString) Then
+                        If (Len(text) < Len(config.bnetBroadcastPrefix)) Then
+                            Exit Sub
+                        End If
+
+                        msgPart = Mid(text, 1, Len(config.bnetBroadcastPrefix))
+
+                        If (msgPart <> config.bnetBroadcastPrefix) Then
+                            Exit Sub
+                        End If
+                    End If
+
                     'SendToIRC "(" & text & " @ " & config.bnetServer & ") " & User & ": " & Text
                     SendToIRC IIf(ID = &H17, "/me ", vbNullString) & user & ": " & text
                 End If

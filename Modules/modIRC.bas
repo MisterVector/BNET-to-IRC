@@ -77,7 +77,7 @@ Public Sub SendPRIVMSG(ByVal target As String, text As String)
 End Sub
 
 Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal text As String)
-    Dim arrTextData() As String, msgTarget As String, msg As String
+    Dim arrTextData() As String, msgTarget As String, msg As String, msgPart As String
     
     arrTextData = Split(text, " ", 2)
     msgTarget = arrTextData(0)
@@ -89,6 +89,19 @@ Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal t
         AddChat frmMain.rtbChatIRCChat, vbYellow, source & " (", vbWhite, msgTarget, vbYellow, ")", vbWhite, ": ", vbYellow, msg
     End If
     
+    ' If broadcast prefix is set, check to see if it is present at the start of the message
+    If (config.ircBroadcastPrefix <> vbNullString) Then
+        If (Len(msg) < Len(config.ircBroadcastPrefix)) Then
+            Exit Sub
+        End If
+
+        msgPart = Mid(msg, 1, Len(config.ircBroadcastPrefix))
+
+        If (msgPart <> config.ircBroadcastPrefix) Then
+            Exit Sub
+        End If
+    End If
+
     SendToBNET source & ": " & text
 End Sub
 

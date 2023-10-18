@@ -177,6 +177,7 @@ Public Sub loadConfig()
     config.bnetChannel = ReadINI("BNET", "Channel", "Config.ini")
     config.bnetServer = ReadINI("BNET", "Server", "Config.ini")
     config.bnlsServer = ReadINI("BNET", "BNLSServer", "Config.ini")
+    config.bnetBroadcastPrefix = ReadINI("BNET", "BroadcastPrefix", "Config.ini")
   
     val = ReadINI("BNET", "KeyCount", "Config.ini")
   
@@ -205,7 +206,7 @@ Public Sub loadConfig()
     config.ircChannel = ReadINI("IRC", "Channel", "Config.ini")
     config.ircQuitMessage = ReadINI("IRC", "QuitMessage", "Config.ini")
     config.ircUpdateChannelOnChannelJoin = IIf(UCase(ReadINI("IRC", "UpdateChannelOnChannelJoin", "Config.ini")) = "Y", True, False)
-  
+    config.ircBroadcastPrefix = ReadINI("IRC", "BroadcastPrefix", "Config.ini")
     config.ircServer = ReadINI("IRC", "Server", "Config.ini")
 End Sub
 
@@ -221,6 +222,7 @@ Public Sub saveConfig()
     WriteINI "BNET", "Server", config.bnetServer, "Config.ini"
     WriteINI "BNET", "BNLSServer", config.bnlsServer, "Config.ini"
     WriteINI "BNET", "KeyCount", config.bnetKeyCount, "Config.ini"
+    WriteINI "BNET", "BroadcastPrefix", config.bnetBroadcastPrefix, "Config.ini"
   
     WriteINI "BNET", "W2BNVerByte", Right("0" & Hex(config.bnetW2BNVerByte), 2), "Config.ini"
     WriteINI "BNET", "D2DVBerByte", Right("0" & Hex(config.bnetD2DVVerByte), 2), "Config.ini"
@@ -230,6 +232,7 @@ Public Sub saveConfig()
     WriteINI "IRC", "Server", config.ircServer, "Config.ini"
     WriteINI "IRC", "QuitMessage", config.ircQuitMessage, "Config.ini"
     WriteINI "IRC", "UpdateChannelOnChannelJoin", IIf(config.ircUpdateChannelOnChannelJoin, "Y", "N"), "Config.ini"
+    WriteINI "IRC", "BroadcastPrefix", config.ircBroadcastPrefix, "Config.ini"
   
     If (config.bnetKeyCount > 0) Then
         For i = 0 To config.bnetKeyCount - 1
