@@ -104,7 +104,7 @@ Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal t
         End If
     End If
 
-    SendToBNET source & ": " & text
+    SendToBNET source & " (" & msgTarget & "): " & msg
 End Sub
 
 Public Sub SendUSER(ByVal username As String)
