@@ -86,9 +86,12 @@ Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal t
         AddChat frmMain.rtbChatIRCChat, vbYellow, source, vbWhite, ": ", vbYellow, msg
     Else
         AddChat frmMain.rtbChatIRCChat, vbYellow, source & " (", vbWhite, msgTarget, vbYellow, ")", vbWhite, ": ", vbYellow, msg
+        
+        'Don't broadcast non-channel messages to Battle.Net
+        Exit Sub
     End If
     
-    ' If broadcast prefix is set, check to see if it is present at the start of the message
+    'If broadcast prefix is set, check to see if it is present at the start of the message
     If (config.ircBroadcastPrefix <> vbNullString) Then
         If (Len(msg) < Len(config.ircBroadcastPrefix)) Then
             Exit Sub
