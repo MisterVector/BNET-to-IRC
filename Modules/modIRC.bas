@@ -65,7 +65,6 @@ End Sub
 
 Public Sub SendPING(ByVal data As String)
     frmMain.sckIRC.SendData "PONG " & data & vbCrLf
-    AddChat frmMain.rtbChatIRCConsole, vbWhite, "PING has been PONG'D"
 End Sub
 
 Public Sub RecvPING(ByVal data As String)
