@@ -156,6 +156,15 @@ Begin VB.Form frmSettings
          Width           =   2775
       End
       Begin VB.TextBox txtBNETBroadcastPrefix 
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
          Height          =   375
          Left            =   2280
          TabIndex        =   42
@@ -165,7 +174,7 @@ Begin VB.Form frmSettings
       Begin VB.TextBox txtConnectionTimeout 
          BeginProperty Font 
             Name            =   "MS Sans Serif"
-            Size            =   9.75
+            Size            =   8.25
             Charset         =   0
             Weight          =   400
             Underline       =   0   'False
@@ -295,7 +304,7 @@ Begin VB.Form frmSettings
       Begin VB.TextBox txtBNETPassword 
          BeginProperty Font 
             Name            =   "MS Sans Serif"
-            Size            =   9.75
+            Size            =   8.25
             Charset         =   0
             Weight          =   400
             Underline       =   0   'False
@@ -313,7 +322,7 @@ Begin VB.Form frmSettings
       Begin VB.TextBox txtBNETUsername 
          BeginProperty Font 
             Name            =   "MS Sans Serif"
-            Size            =   9.75
+            Size            =   8.25
             Charset         =   0
             Weight          =   400
             Underline       =   0   'False
@@ -336,7 +345,7 @@ Begin VB.Form frmSettings
       Begin VB.TextBox txtBNLSServer 
          BeginProperty Font 
             Name            =   "MS Sans Serif"
-            Size            =   9.75
+            Size            =   8.25
             Charset         =   0
             Weight          =   400
             Underline       =   0   'False
@@ -352,7 +361,7 @@ Begin VB.Form frmSettings
       Begin VB.TextBox txtBNETChannel 
          BeginProperty Font 
             Name            =   "MS Sans Serif"
-            Size            =   9.75
+            Size            =   8.25
             Charset         =   0
             Weight          =   400
             Underline       =   0   'False
