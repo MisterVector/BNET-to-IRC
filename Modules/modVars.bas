@@ -95,6 +95,7 @@ Public IRCData As IRCDataStructure
 Public Type BNETDataStructure
     accountName As String
     uniqueName As String
+    currentChannel As String
 
     product As String
     passwordHash As String

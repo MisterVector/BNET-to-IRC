@@ -215,7 +215,7 @@ End Sub
 
 Public Sub Recv0x0F(index As Integer)
     Dim user As String, text As String, ID As Long, flags As Long
-    Dim supressEvent As Boolean, msgPart As String
+    Dim supressEvent As Boolean, msgPart As String, currentChannel As String
 
     If index <> findFirstAliveBot Then supressEvent = True
   
@@ -260,10 +260,13 @@ Public Sub Recv0x0F(index As Integer)
                         End If
                     End If
 
+                    currentChannel = bnetData(index).currentChannel
+
                     'SendToIRC "(" & text & " @ " & config.bnetServer & ") " & User & ": " & Text
-                    SendToIRC IIf(ID = &H17, "/me ", vbNullString) & user & ": " & text
+                    SendToIRC IIf(ID = &H17, "/me ", vbNullString) & user & " (" & currentChannel & "): " & text
                 End If
             Case &H7:
+                bnetData(index).currentChannel = text
                 AddChat frmMain.rtbChatBNET, vbYellow, "You joined the channel ", vbWhite, text
                 SendToIRC bnetData(index).uniqueName & " has joined the Battle.Net channel " & text
         End Select
