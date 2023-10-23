@@ -1,6 +1,6 @@
 Attribute VB_Name = "modIRC"
 Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal command As String, ByVal data As String)
-    Dim connectedUsername As String
+    Dim connectedUsername As String, parts() As String, target As String
     
     connectedUsername = IRCData.connectedUsername
     
@@ -12,7 +12,11 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
         Case "JOIN"
             RecvJOIN data
         Case "PRIVMSG"
-            RecvPRIVMSG source, hostname, data
+            parts = Split(data, " ", 2)
+            target = parts(0)
+            data = Mid$(parts(1), 2)
+        
+            RecvPRIVMSG source, hostname, target, data
         Case "PING"
              RecvPING data
         Case Else
@@ -75,17 +79,13 @@ Public Sub SendPRIVMSG(ByVal target As String, text As String)
     frmMain.sckIRC.SendData "PRIVMSG " & target & " :" & text & vbCrLf
 End Sub
 
-Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal text As String)
-    Dim arrTextData() As String, msgTarget As String, msg As String, msgPart As String
+Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal target As String, ByVal text As String)
+    Dim msgPart As String
     
-    arrTextData = Split(text, " ", 2)
-    msgTarget = arrTextData(0)
-    msg = Mid$(arrTextData(1), 2)
-    
-    If (msgTarget = config.ircChannel) Then
-        AddChat frmMain.rtbChatIRCChat, vbYellow, source, vbWhite, ": ", vbYellow, msg
+    If (target = config.ircChannel) Then
+        AddChat frmMain.rtbChatIRCChat, vbYellow, source, vbWhite, ": ", vbYellow, text
     Else
-        AddChat frmMain.rtbChatIRCChat, vbYellow, source & " (", vbWhite, msgTarget, vbYellow, ")", vbWhite, ": ", vbYellow, msg
+        AddChat frmMain.rtbChatIRCChat, vbYellow, source & " (", vbWhite, target, vbYellow, ")", vbWhite, ": ", vbYellow, text
         
         'Don't broadcast non-channel messages to Battle.Net
         Exit Sub
@@ -93,18 +93,18 @@ Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal t
     
     'If broadcast prefix is set, check to see if it is present at the start of the message
     If (config.ircBroadcastPrefix <> vbNullString) Then
-        If (Len(msg) < Len(config.ircBroadcastPrefix)) Then
+        If (Len(text) < Len(config.ircBroadcastPrefix)) Then
             Exit Sub
         End If
 
-        msgPart = Mid(msg, 1, Len(config.ircBroadcastPrefix))
+        msgPart = Mid(text, 1, Len(config.ircBroadcastPrefix))
 
         If (msgPart <> config.ircBroadcastPrefix) Then
             Exit Sub
         End If
     End If
 
-    SendToBNET source & " (" & msgTarget & "): " & msg
+    SendToBNET source & " (" & target & "): " & text
 End Sub
 
 Public Sub SendUSER(ByVal username As String)
