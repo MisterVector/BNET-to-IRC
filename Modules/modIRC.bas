@@ -80,7 +80,25 @@ Public Sub SendPRIVMSG(ByVal target As String, text As String)
 End Sub
 
 Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal target As String, ByVal text As String)
-    Dim msgPart As String
+    Dim msgPart As String, parts() As String, command As String, message As String, isEmote As Boolean
+
+    isEmote = False
+
+    ' Check for CTCP
+    If (Left$(text, 1) = Chr$(&H1) And Right$(text, 1) = Chr$(&H1)) Then
+        text = Mid(text, 2, Len(text) - 2) ' Length 2 to skip last null character
+        parts = Split(text, " ", 2)
+        command = parts(0)
+        text = parts(1)
+        
+        Select Case command
+            Case "ACTION"
+                isEmote = True
+            Case Else
+                AddChat frmMain.rtbChatIRCConsole, vbRed, "CTCP command not supported: " & command
+                Exit Sub
+        End Select
+    End If
     
     If (target = config.ircChannel) Then
         AddChat frmMain.rtbChatIRCChat, vbYellow, source, vbWhite, ": ", vbYellow, text
@@ -104,7 +122,15 @@ Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal t
         End If
     End If
 
-    SendToBNET source & " (" & target & "): " & text
+    message = source & " (" & target & "): "
+
+    If (isEmote) Then
+        message = "/me " & message & source & " " & text
+    Else
+        message = message & text
+    End If
+
+    SendToBNET message
 End Sub
 
 Public Sub SendUSER(ByVal username As String)
