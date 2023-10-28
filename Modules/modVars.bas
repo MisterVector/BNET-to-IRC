@@ -73,6 +73,7 @@ Public Type ConfigStructure
     bnetKeyCount As Integer
     bnetBroadcastPrefix As String
 
+    bnetLocalHashing As Boolean
     bnetW2BNVerByte As Long
     bnetD2DVVerByte As Long
 

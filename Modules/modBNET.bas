@@ -27,6 +27,8 @@ Public Sub Send0x50(index As Integer)
 End Sub
 
 Public Sub Recv0x50(index As Integer)
+    Dim FT As FILETIME, archiveTime As String, exeVersion As Long, Checksum As Long, exeInfo As String, result As Long, error As String
+
     With bnetPacketHandler(index)
         .Skip 4
         bnetData(index).clientToken = GetTickCount
@@ -38,13 +40,50 @@ Public Sub Recv0x50(index As Integer)
         bnetData(index).valueString = .getNTString
     End With
 
-    AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Connecting to " & config.bnlsServer & "..."
+    If (config.bnetLocalHashing) Then
+        AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [HASH] Checking version..."
 
-    bnlsType = BNLSRequestType.REQUEST_FILE_INFO
-    bnetData(index).bnetConnectionState = ConnectionTimeoutState.BNLS_CONNECT
+        exeInfo = String$(255, Chr$(0))
 
-    frmMain.sckBNLS(index).Connect config.bnlsServer, 9367
-    frmMain.tmrBNETConnectionTimeout(index).Enabled = True
+        With bnetData(index)
+            FT.dwLowDateTime = .dwLowDateTime
+            FT.dwHighDateTime = .dwHighDateTime
+            archiveTime = GetFTTime(FT)
+
+            result = check_revision(archiveTime, .archiveFileName, .valueString, App.Path & "\VersionCheck.ini", .product, exeVersion, Checksum, exeInfo)
+        End With
+
+        If (result > 0) Then
+            error = String$(crev_max_result, Chr$(0))
+            crev_error_description result, error, Len(error)
+
+            AddChat frmMain.rtbChatBNET, vbRed, "[HASH] Version check failed! Error: " & error
+
+            disconnectAll
+
+            Exit Sub
+        End If
+
+        AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [HASH] Version check passed!"
+
+        exeInfo = KillNull(exeInfo)
+
+        With bnetData(index)
+            .exeVersion = exeVersion
+            .Checksum = Checksum
+            .exeInfo = exeInfo
+        End With
+
+        Send0x51 index
+    Else
+        AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Connecting to " & config.bnlsServer & "..."
+
+        bnlsType = BNLSRequestType.REQUEST_FILE_INFO
+        bnetData(index).bnetConnectionState = ConnectionTimeoutState.BNLS_CONNECT
+
+        frmMain.sckBNLS(index).Connect config.bnlsServer, 9367
+        frmMain.tmrBNETConnectionTimeout(index).Enabled = True
+    End If
 End Sub
 
 Public Sub Send0x51(index As Integer)

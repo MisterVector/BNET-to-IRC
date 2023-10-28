@@ -375,9 +375,11 @@ Private Sub mnuConnectBNET_Click()
         Exit Sub
     End If
 
-    If (config.bnlsServer = vbNullString) Then
-        MsgBox "BNLS server has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
-        Exit Sub
+    If (Not config.bnetLocalHashing) Then
+        If (config.bnlsServer = vbNullString) Then
+            MsgBox "BNLS server has not been configured.", vbOKOnly Or vbInformation, PROGRAM_TITLE
+            Exit Sub
+        End If
     End If
 
     If (config.bnetUsername = vbNullString) Then

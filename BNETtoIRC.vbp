@@ -22,6 +22,7 @@ Module=BNCSutil; Modules\BNCSutil.bas
 Object={48E59290-9880-11CF-9754-00AA00C00908}#1.0#0; MSINET.OCX
 Module=JSON; Modules\JSON.bas
 Class=cStringBuilder; Classes\cStringBuilder.cls
+Module=modVersionCheck; Modules\modVersionCheck.bas
 IconForm="frmMain"
 Startup="frmMain"
 HelpFile=""

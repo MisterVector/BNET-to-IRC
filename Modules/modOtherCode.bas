@@ -196,6 +196,8 @@ Public Sub loadConfig()
         Next i
     End If
   
+    config.bnetLocalHashing = ReadINI("BNET", "LocalHashing", "Config.ini") = "Y"
+  
     val = "&H" & ReadINI("BNET", "W2BNVerByte", "Config.ini")
     config.bnetW2BNVerByte = IIf(IsNumeric(val), val, VERBYTE_W2BN)
   
@@ -223,7 +225,8 @@ Public Sub saveConfig()
     WriteINI "BNET", "BNLSServer", config.bnlsServer, "Config.ini"
     WriteINI "BNET", "KeyCount", config.bnetKeyCount, "Config.ini"
     WriteINI "BNET", "BroadcastPrefix", config.bnetBroadcastPrefix, "Config.ini"
-  
+
+    WriteINI "BNET", "LocalHashing", IIf(config.bnetLocalHashing, "Y", "N"), "Config.ini"
     WriteINI "BNET", "W2BNVerByte", Right("0" & Hex(config.bnetW2BNVerByte), 2), "Config.ini"
     WriteINI "BNET", "D2DVBerByte", Right("0" & Hex(config.bnetD2DVVerByte), 2), "Config.ini"
   
@@ -365,10 +368,18 @@ Public Function makeCompatibleDate(ByVal dateTimeString As String) As Date
     makeCompatibleDate = dateTimeString
 End Function
 
+Public Function KillNull(ByVal text As String) As String
+    Dim pos As Integer
+  
+    pos = InStr(text, Chr$(0))
+  
+    KillNull = IIf(pos > 0, Mid$(text, 1, pos - 1), text)
+End Function
+
 Public Function checkProgramUpdate(ByVal manualUpdateCheck As Boolean) As Boolean
     On Error GoTo err
     
-    Dim text As String, status As Integer, requestReleaseTime As Date, releaseTime As Date, requestVersion As String, version As String
+    Dim text As String, status As Integer, requestReleaseTime As Date, releaseTime As Date, requestVersion As String, Version As String
     Dim isoRequestReleaseTime As String, isoReleaseTime As String
     Dim jsonResponse As Dictionary, jsonContents As Dictionary
     Dim updateMsg As String, msgBoxResult As Integer
@@ -390,13 +401,13 @@ Public Function checkProgramUpdate(ByVal manualUpdateCheck As Boolean) As Boolea
         isoRequestReleaseTime = jsonContents.Item("request_release_time")
         requestVeresion = jsonContents.Item("request_version")
         isoReleaseTime = jsonContents.Item("release_time")
-        version = jsonContents.Item("version")
+        Version = jsonContents.Item("version")
         
         requestReleaseTime = makeCompatibleDate(isoRequestReleaseTime)
         releaseTime = makeCompatibleDate(isoReleaseTime)
         
         If (releaseTime > requestReleaseTime) Then
-            updateMsg = "There is a new update for " & PROGRAM_NAME & "!" & vbNewLine & vbNewLine & "Your version: " & PROGRAM_VERSION & " new version: " & version & vbNewLine & vbNewLine _
+            updateMsg = "There is a new update for " & PROGRAM_NAME & "!" & vbNewLine & vbNewLine & "Your version: " & PROGRAM_VERSION & " new version: " & Version & vbNewLine & vbNewLine _
                       & "Would you like to view the changelog and download the latest update?"
         
             msgBoxResult = MsgBox(updateMsg, vbYesNo Or vbInformation, "New version for " & PROGRAM_TITLE)

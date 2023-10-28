@@ -4,19 +4,19 @@ Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmSettings 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Settings for Battle.Net to IRC"
-   ClientHeight    =   6075
+   ClientHeight    =   6645
    ClientLeft      =   1875
    ClientTop       =   1995
    ClientWidth     =   5295
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6075
+   ScaleHeight     =   6645
    ScaleWidth      =   5295
    ShowInTaskbar   =   0   'False
    Begin MSComctlLib.ImageList ilIcons 
       Left            =   2280
-      Top             =   5280
+      Top             =   5760
       _ExtentX        =   1005
       _ExtentY        =   1005
       BackColor       =   -2147483643
@@ -37,13 +37,13 @@ Begin VB.Form frmSettings
       EndProperty
    End
    Begin TabDlg.SSTab SSTab2 
-      Height          =   5175
+      Height          =   5535
       Left            =   0
       TabIndex        =   27
       Top             =   0
       Width           =   5295
       _ExtentX        =   9340
-      _ExtentY        =   9128
+      _ExtentY        =   9763
       _Version        =   393216
       Tabs            =   4
       TabsPerRow      =   4
@@ -87,7 +87,9 @@ Begin VB.Form frmSettings
       Tab(0).Control(16).Enabled=   0   'False
       Tab(0).Control(17)=   "txtBNETBroadcastPrefix"
       Tab(0).Control(17).Enabled=   0   'False
-      Tab(0).ControlCount=   18
+      Tab(0).Control(18)=   "chkBNETLocalHashing"
+      Tab(0).Control(18).Enabled=   0   'False
+      Tab(0).ControlCount=   19
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmSettings.frx":09F0
       Tab(1).ControlEnabled=   0   'False
@@ -137,17 +139,34 @@ Begin VB.Form frmSettings
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmSettings.frx":0A28
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "txtConnectionTimeout"
+      Tab(3).Control(0)=   "Label16"
       Tab(3).Control(0).Enabled=   0   'False
-      Tab(3).Control(1)=   "chkCheckUpdateOnStartup"
+      Tab(3).Control(1)=   "Label17"
       Tab(3).Control(1).Enabled=   0   'False
       Tab(3).Control(2)=   "chkRememberWindowPosition"
       Tab(3).Control(2).Enabled=   0   'False
-      Tab(3).Control(3)=   "Label17"
+      Tab(3).Control(3)=   "chkCheckUpdateOnStartup"
       Tab(3).Control(3).Enabled=   0   'False
-      Tab(3).Control(4)=   "Label16"
+      Tab(3).Control(4)=   "txtConnectionTimeout"
       Tab(3).Control(4).Enabled=   0   'False
       Tab(3).ControlCount=   5
+      Begin VB.CheckBox chkBNETLocalHashing 
+         Caption         =   "Use Local Hashing"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   2280
+         TabIndex        =   45
+         Top             =   2160
+         Width           =   2415
+      End
       Begin VB.TextBox txtIRCBroadcastPrefix 
          Height          =   375
          Left            =   -72720
@@ -156,31 +175,13 @@ Begin VB.Form frmSettings
          Width           =   2775
       End
       Begin VB.TextBox txtBNETBroadcastPrefix 
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          Height          =   375
          Left            =   2280
          TabIndex        =   42
-         Top             =   3600
+         Top             =   3960
          Width           =   2775
       End
       Begin VB.TextBox txtConnectionTimeout 
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          Height          =   360
          Left            =   -72720
          TabIndex        =   38
@@ -205,7 +206,7 @@ Begin VB.Form frmSettings
          Width           =   2775
       End
       Begin VB.TextBox txtIRCQuitMessage 
-         Height          =   1215
+         Height          =   1575
          Left            =   -74760
          TabIndex        =   18
          Top             =   3720
@@ -223,14 +224,14 @@ Begin VB.Form frmSettings
          Height          =   360
          Left            =   3360
          TabIndex        =   7
-         Top             =   4560
+         Top             =   4920
          Width           =   735
       End
       Begin VB.TextBox txtW2BNVerByte 
          Height          =   375
          Left            =   1440
          TabIndex        =   6
-         Top             =   4560
+         Top             =   4920
          Width           =   735
       End
       Begin VB.CheckBox chkRememberWindowPosition 
@@ -246,7 +247,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -73680
          TabIndex        =   11
-         Top             =   4080
+         Top             =   4320
          Width           =   975
       End
       Begin VB.OptionButton opW2BN 
@@ -254,7 +255,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -74760
          TabIndex        =   10
-         Top             =   4080
+         Top             =   4320
          Width           =   1095
       End
       Begin VB.TextBox txtIRCServer 
@@ -282,7 +283,7 @@ Begin VB.Form frmSettings
          Height          =   345
          Left            =   -74760
          TabIndex        =   9
-         Top             =   3600
+         Top             =   3840
          Width           =   4815
       End
       Begin VB.CommandButton btnRemove 
@@ -290,7 +291,7 @@ Begin VB.Form frmSettings
          Height          =   375
          Left            =   -72360
          TabIndex        =   13
-         Top             =   4560
+         Top             =   4800
          Width           =   2415
       End
       Begin VB.CommandButton btnAdd 
@@ -298,41 +299,23 @@ Begin VB.Form frmSettings
          Height          =   375
          Left            =   -74760
          TabIndex        =   12
-         Top             =   4560
+         Top             =   4800
          Width           =   2415
       End
       Begin VB.TextBox txtBNETPassword 
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          Height          =   360
          IMEMode         =   3  'DISABLE
          Left            =   2280
          PasswordChar    =   "*"
          TabIndex        =   4
-         Top             =   2640
+         Top             =   3000
          Width           =   2775
       End
       Begin VB.TextBox txtBNETUsername 
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          Height          =   360
          Left            =   2280
          TabIndex        =   3
-         Top             =   2160
+         Top             =   2520
          Width           =   2775
       End
       Begin VB.ComboBox cmbBNETServer 
@@ -343,15 +326,6 @@ Begin VB.Form frmSettings
          Width           =   2775
       End
       Begin VB.TextBox txtBNLSServer 
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          Height          =   360
          Left            =   2280
          TabIndex        =   2
@@ -359,29 +333,20 @@ Begin VB.Form frmSettings
          Width           =   2775
       End
       Begin VB.TextBox txtBNETChannel 
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          Height          =   360
          Left            =   2280
          TabIndex        =   5
-         Top             =   3120
+         Top             =   3480
          Width           =   2775
       End
       Begin MSComctlLib.ListView lvKeyList 
-         Height          =   2295
+         Height          =   2535
          Left            =   -74760
          TabIndex        =   8
          Top             =   1200
          Width           =   4815
          _ExtentX        =   8493
-         _ExtentY        =   4048
+         _ExtentY        =   4471
          View            =   2
          LabelEdit       =   1
          LabelWrap       =   -1  'True
@@ -429,7 +394,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   240
          TabIndex        =   41
-         Top             =   3600
+         Top             =   3960
          Width           =   1695
       End
       Begin VB.Label Label17 
@@ -498,7 +463,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   2400
          TabIndex        =   36
-         Top             =   4560
+         Top             =   4920
          Width           =   855
       End
       Begin VB.Label Label13 
@@ -515,7 +480,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   360
          TabIndex        =   35
-         Top             =   4560
+         Top             =   4920
          Width           =   975
       End
       Begin VB.Label Label12 
@@ -533,7 +498,7 @@ Begin VB.Form frmSettings
          Height          =   375
          Left            =   240
          TabIndex        =   34
-         Top             =   4080
+         Top             =   4440
          Width           =   4815
       End
       Begin VB.Label Label11 
@@ -672,7 +637,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   240
          TabIndex        =   25
-         Top             =   2640
+         Top             =   3000
          Width           =   975
       End
       Begin VB.Label Label1 
@@ -689,7 +654,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   240
          TabIndex        =   24
-         Top             =   2160
+         Top             =   2520
          Width           =   1215
       End
       Begin VB.Label Label5 
@@ -723,7 +688,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   240
          TabIndex        =   26
-         Top             =   3120
+         Top             =   3480
          Width           =   855
       End
    End
@@ -741,7 +706,7 @@ Begin VB.Form frmSettings
       Height          =   495
       Left            =   3360
       TabIndex        =   22
-      Top             =   5400
+      Top             =   5880
       Width           =   1695
    End
    Begin VB.CommandButton btnOk 
@@ -758,7 +723,7 @@ Begin VB.Form frmSettings
       Height          =   495
       Left            =   240
       TabIndex        =   21
-      Top             =   5400
+      Top             =   5880
       Width           =   1695
    End
 End
@@ -822,6 +787,7 @@ Private Sub btnOk_Click()
     config.bnetKeyCount = lvKeyList.ListItems.count
     config.bnetBroadcastPrefix = txtBNETBroadcastPrefix.text
   
+    config.bnetLocalHashing = chkBNETLocalHashing.Value = 1
     config.bnetW2BNVerByte = "&H" & txtW2BNVerByte.text
     config.bnetD2DVVerByte = "&H" & txtD2DVVerByte.text
   
@@ -873,6 +839,7 @@ Private Sub Form_Load()
     txtBNETBroadcastPrefix.text = config.bnetBroadcastPrefix
     cmbBNETServer.text = config.bnetServer
   
+    chkBNETLocalHashing.Value = IIf(config.bnetLocalHashing, 1, 0)
     txtW2BNVerByte.text = Right("0" & Hex(config.bnetW2BNVerByte), 2)
     txtD2DVVerByte.text = Right("0" & Hex(config.bnetD2DVVerByte), 2)
   
