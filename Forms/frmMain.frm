@@ -312,6 +312,8 @@ Private Sub Form_Load()
 
     Dim arrGateways() As Variant, gateway As String, IPs() As String
 
+    AddChat rtbChatBNET, vbYellow, "Welcome to " & PROGRAM_NAME, vbWhite, " v" & PROGRAM_VERSION, vbYellow, " by Vector."
+
     If (Dir$(App.Path & "\Config.ini") <> vbNullString) Then
         loadConfig
   
