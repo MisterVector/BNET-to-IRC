@@ -11,10 +11,12 @@ Public Sub Send0x25(index As Integer)
 End Sub
 
 Public Sub Send0x50(index As Integer)
+    bnetData(index).verByte = getVerByte(bnetData(index).product)
+
     With bnetPacketHandler(index)
         .InsertDWORD &H0
         .InsertNonNTString "68XI" & StrReverse(bnetData(index).product)
-        .InsertDWORD getVerByte(bnetData(index).product)
+        .InsertDWORD bnetData(index).verByte
         .InsertDWORD &H0
         .InsertDWORD &H0
         .InsertDWORD &H0
