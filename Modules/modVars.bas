@@ -37,12 +37,6 @@ Public canSendQuit As Boolean
 
 Public loadedFromCSDSClient As Boolean
 
-Public Enum BNLSRequestType
-    REQUEST_FILE_INFO
-    UPDATE_VERSION_BYTE
-End Enum
-Public bnlsType As BNLSRequestType
-
 Public Enum packetType
     BNCS
     BNLS
@@ -100,6 +94,7 @@ Public Type BNETDataStructure
 
     product As String
     passwordHash As String
+    oldVerByte As Long
     verByte As Long
     clientToken As Long
     serverToken As Long
@@ -117,7 +112,6 @@ Public Type BNETDataStructure
   
     nls_P As Long
 
-    badClientProduct As String
     lastQueueTime As Long
     bnetConnectionState As ConnectionTimeoutState
 End Type

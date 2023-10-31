@@ -80,9 +80,7 @@ Public Sub Recv0x50(index As Integer)
     Else
         AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Connecting to " & config.bnlsServer & "..."
 
-        bnlsType = BNLSRequestType.REQUEST_FILE_INFO
         bnetData(index).bnetConnectionState = ConnectionTimeoutState.BNLS_CONNECT
-
         frmMain.sckBNLS(index).Connect config.bnlsServer, 9367
         frmMain.tmrBNETConnectionTimeout(index).Enabled = True
     End If
@@ -121,7 +119,7 @@ Public Sub Send0x51(index As Integer)
 End Sub
 
 Public Sub Recv0x51(index As Integer)
-    Dim results As Long
+    Dim results As Long, oldVerByte As String, verByte As String
   
     results = bnetPacketHandler(index).GetDWORD
   
@@ -129,17 +127,25 @@ Public Sub Recv0x51(index As Integer)
         Case &H0:    AddChat frmMain.rtbChatBNET, vbGreen, "Bot #" & index & ": [BNET] CDKey is accepted."
         Case &H100:
             AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Your game is out of date."
-            AddChat frmMain.rtbChatBNET, vbYellow, "Bot #" & index & ": [BNLS] Attempting to update version byte..."
-                  
-            bnetData(index).badClientProduct = bnetData(index).product
+
+            disconnectAll
             
-            bnlsType = BNLSRequestType.UPDATE_VERSION_BYTE
-            bnetData(index).bnetConnectionState = ConnectionTimeoutState.BNLS_CONNECT
-                 
-            frmMain.sckBNET(index).Close
-            frmMain.sckBNLS(index).Connect config.bnlsServer, 9367
-            frmMain.tmrBNETConnectionTimeout(index).Enabled = True
-                 
+            If (Not config.bnetLocalHashing) Then
+                oldVerByte = "0x" & Right("0" & Hex(bnetData(index).oldVerByte), 2)
+                verByte = "0x" & Right("0" & Hex(bnetData(index).verByte), 2)
+                
+                If (oldVerByte <> verByte) Then
+                    AddChat frmMain.rtbChatBNET, vbYellow, "[INFO] When communicating with the BNLS server, your"
+                    AddChat frmMain.rtbChatBNET, vbYellow, "[INFO] version byte was updated from " & oldVerByte & " to " & verByte & "."
+                    AddChat frmMain.rtbChatBNET, vbYellow, "[INFO] Attempting to reconnect..."
+                    AddChat frmMain.rtbChatBNET, vbYellow, "Bot #0: [BNET] Connecting..."
+                
+                    bnetData(0).bnetConnectionState = ConnectionTimeoutState.BNET_CONNECT
+                    frmMain.sckBNET(0).Connect config.bnetServer, 6112
+                    frmMain.tmrBNETConnectionTimeout(0).Enabled = True
+                End If
+            End If
+            
             Exit Sub
         Case &H101:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Invalid game version."
         Case &H102:  AddChat frmMain.rtbChatBNET, vbRed, "Bot #" & index & ": [BNET] Downgrade game version."
