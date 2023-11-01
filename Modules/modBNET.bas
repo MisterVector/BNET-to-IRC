@@ -270,15 +270,16 @@ Public Sub Recv0x0F(index As Integer)
         text = .getNTString
     
         Select Case ID
-            Case &H2:
+            Case &H2, &H3:
                 If Not supressEvent Then
-                    AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " joined " & text
-                    SendToIRC user & " has joined " & text & "."
-                End If
-            Case &H3:
-                If Not supressEvent Then
-                    AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " left " & text
-                    SendToIRC user & " has left " & text & "."
+                    If (ID = &H2) Then
+                        action = "joined"
+                    Else
+                        action = "left"
+                    End If
+                
+                    AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " " & action & " " & text
+                    SendToIRC user & " has " & action & " " & text & "."
                 End If
             Case &H5, &H17:
                 If Not supressEvent Then
