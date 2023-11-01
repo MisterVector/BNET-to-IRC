@@ -1,5 +1,5 @@
 Attribute VB_Name = "modVars"
-Public Const PROGRAM_VERSION                        As String = "1.1.3"
+Public Const PROGRAM_VERSION                        As String = "1.2.0"
 Public Const PROGRAM_NAME                           As String = "Battle.Net to IRC"
 Public Const PROGRAM_TITLE                          As String = PROGRAM_NAME & " v" & PROGRAM_VERSION & " by Vector"
 Public Const PROGRAM_SLUG                           As String = "battle-net-to-irc"

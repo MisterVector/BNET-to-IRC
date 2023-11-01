@@ -1,4 +1,37 @@
-Version 1.1.3 - Released on May 26, 2020
+Version 1.2.0 - Released on November 1, 2023
+
+  - Fixed an issue that prevented the program from connecting to a PvPGN server
+    while going through a JBLS server
+  - The IRC port is now correctly saved to the configuration
+  - Broadcast prefixes have been added for BNET to IRC and IRC to BNET
+    - If a message starts with the prefix, then the message will be broadcast
+  - Removed the "PING has been PONG'd" message from the IRC console
+  - Whispering the IRC bot will not broadcast the message to Battle.Net
+  - Improved the message that is broadcast to Battle.Net from IRC
+  - The font size is now consistent for the text boxes in the settings window
+  - The channel name is now sent in Battle.Net to IRC broadcasts
+  - Emotes are now sent to IRC with the username added to the message in
+    italicized text
+  - Emote messages from IRC clients (that support them) are broadcast to
+    Battle.Net properly
+  - Added local hashing
+  - Added a welcome message when starting the program
+  - Updated the message for when the product that you are connecting
+    with is out of date
+  - The window title of the new update notification popup no longer
+    includes the version of the program including the author
+  - Updated Battle.Net error messages related to the game version
+  - The font size is now consistent for the radio buttons / checkboxes in
+    the settings window
+  - Attempt to reconnect if connecting to BNLS during login and
+    Battle.Net sends an error saying the game is too new
+  - When users join/leave a Battle.Net channel, the channel name was not being
+    displayed correctly
+  - Fixed an earlier release date
+    - May 26, 2020 to May 26, 2021
+  - Updated the Read Me
+
+Version 1.1.3 - Released on May 26, 2021
 
   - A custom user agent is once again sent when checking for updates
     - Went missing after a previous change to the update check code
