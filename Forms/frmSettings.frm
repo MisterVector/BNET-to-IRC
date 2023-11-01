@@ -214,11 +214,20 @@ Begin VB.Form frmSettings
       End
       Begin VB.CheckBox chkCheckUpdateOnStartup 
          Caption         =   "Check for Update on Startup"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
          Height          =   255
          Left            =   -74760
          TabIndex        =   20
          Top             =   2040
-         Width           =   2415
+         Width           =   3015
       End
       Begin VB.TextBox txtD2DVVerByte 
          Height          =   360
@@ -236,27 +245,54 @@ Begin VB.Form frmSettings
       End
       Begin VB.CheckBox chkRememberWindowPosition 
          Caption         =   "Remember Window Position"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
          Height          =   255
          Left            =   -74760
          TabIndex        =   19
          Top             =   1680
-         Width           =   2415
+         Width           =   2895
       End
       Begin VB.OptionButton opD2DV 
          Caption         =   "Diablo II"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
          Height          =   255
-         Left            =   -73680
+         Left            =   -73440
          TabIndex        =   11
          Top             =   4320
-         Width           =   975
+         Width           =   1095
       End
       Begin VB.OptionButton opW2BN 
          Caption         =   "Warcraft II"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
          Height          =   255
          Left            =   -74760
          TabIndex        =   10
          Top             =   4320
-         Width           =   1095
+         Width           =   1215
       End
       Begin VB.TextBox txtIRCServer 
          Height          =   345
