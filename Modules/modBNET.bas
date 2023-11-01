@@ -258,9 +258,11 @@ End Sub
 Public Sub Recv0x0F(index As Integer)
     Dim user As String, text As String, ID As Long, flags As Long
     Dim supressEvent As Boolean, msgPart As String, currentChannel As String
-    Dim message As String
+    Dim message As String, action As String
 
     If index <> findFirstAliveBot Then supressEvent = True
+  
+    currentChannel = bnetData(index).currentChannel
   
     With bnetPacketHandler(index)
         ID = .GetDWORD
@@ -278,8 +280,8 @@ Public Sub Recv0x0F(index As Integer)
                         action = "left"
                     End If
                 
-                    AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " " & action & " " & text
-                    SendToIRC user & " has " & action & " " & text & "."
+                    AddChat frmMain.rtbChatBNET, vbWhite, user, vbYellow, " " & action & " " & currentChannel
+                    SendToIRC user & " has " & action & " " & currentChannel & "."
                 End If
             Case &H5, &H17:
                 If Not supressEvent Then
@@ -304,9 +306,8 @@ Public Sub Recv0x0F(index As Integer)
                         End If
                     End If
 
-                    currentChannel = bnetData(index).currentChannel
                     message = user & " (" & currentChannel & "): "
-
+    
                     If (ID = &H17) Then
                         message = message & Chr(&H1D) & user & " " & text & Chr(&H1D)
                     Else
