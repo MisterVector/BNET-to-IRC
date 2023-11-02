@@ -12,7 +12,6 @@ Begin VB.Form frmMain
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   MinButton       =   0   'False
    ScaleHeight     =   6600
    ScaleWidth      =   16200
    StartUpPosition =   3  'Windows Default
