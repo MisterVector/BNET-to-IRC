@@ -163,6 +163,7 @@ Public Sub loadConfig()
     End If
   
     config.checkUpdateOnStartup = IIf(UCase(ReadINI("Main", "CheckUpdateOnStartup", "Config.ini")) = "Y", True, False)
+    config.minimizeToTray = IIf(UCase(ReadINI("Main", "MinimizeToTray", "Config.ini")) = "Y", True, False)
 
     val = ReadINI("Main", "ConnectionTimeout", "Config.ini")
     
@@ -214,9 +215,9 @@ End Sub
 
 Public Sub saveConfig()
     WriteINI "Window", "RememberWindowPosition", IIf(config.rememberWindowPosition, "Y", "N"), "Config.ini"
-  
     WriteINI "Main", "CheckUpdateOnStartup", IIf(config.checkUpdateOnStartup, "Y", "N"), "Config.ini"
     WriteINI "Main", "ConnectionTimeout", config.connectionTimeout, "Config.ini"
+    WriteINI "Main", "MinimizeToTray", IIf(config.minimizeToTray, "Y", "N"), "Config.ini"
   
     WriteINI "BNET", "Username", config.bnetUsername, "Config.ini"
     WriteINI "BNET", "Password", config.bnetPassword, "Config.ini"

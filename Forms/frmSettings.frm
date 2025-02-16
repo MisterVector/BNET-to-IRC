@@ -94,47 +94,28 @@ Begin VB.Form frmSettings
       TabPicture(1)   =   "frmSettings.frx":09F0
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "Label2"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).Control(1)=   "lvKeyList"
-      Tab(1).Control(1).Enabled=   0   'False
       Tab(1).Control(2)=   "btnAdd"
-      Tab(1).Control(2).Enabled=   0   'False
       Tab(1).Control(3)=   "btnRemove"
-      Tab(1).Control(3).Enabled=   0   'False
       Tab(1).Control(4)=   "txtBNETKey"
-      Tab(1).Control(4).Enabled=   0   'False
       Tab(1).Control(5)=   "opW2BN"
-      Tab(1).Control(5).Enabled=   0   'False
       Tab(1).Control(6)=   "opD2DV"
-      Tab(1).Control(6).Enabled=   0   'False
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmSettings.frx":0A0C
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "Label9"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "Label8"
-      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).Control(2)=   "Label7"
-      Tab(2).Control(2).Enabled=   0   'False
       Tab(2).Control(3)=   "Label10"
-      Tab(2).Control(3).Enabled=   0   'False
       Tab(2).Control(4)=   "Label15"
-      Tab(2).Control(4).Enabled=   0   'False
       Tab(2).Control(5)=   "Label19"
-      Tab(2).Control(5).Enabled=   0   'False
       Tab(2).Control(6)=   "txtIRCUsername"
-      Tab(2).Control(6).Enabled=   0   'False
       Tab(2).Control(7)=   "txtIRCChannel"
-      Tab(2).Control(7).Enabled=   0   'False
       Tab(2).Control(8)=   "txtIRCServer"
-      Tab(2).Control(8).Enabled=   0   'False
       Tab(2).Control(9)=   "txtIRCQuitMessage"
-      Tab(2).Control(9).Enabled=   0   'False
       Tab(2).Control(10)=   "chkUpdateChannelOnChannelJoin"
-      Tab(2).Control(10).Enabled=   0   'False
       Tab(2).Control(11)=   "txtIRCBroadcastPrefix"
-      Tab(2).Control(11).Enabled=   0   'False
       Tab(2).ControlCount=   12
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmSettings.frx":0A28
@@ -149,7 +130,26 @@ Begin VB.Form frmSettings
       Tab(3).Control(3).Enabled=   0   'False
       Tab(3).Control(4)=   "txtConnectionTimeout"
       Tab(3).Control(4).Enabled=   0   'False
-      Tab(3).ControlCount=   5
+      Tab(3).Control(5)=   "chkMinimizeToTray"
+      Tab(3).Control(5).Enabled=   0   'False
+      Tab(3).ControlCount=   6
+      Begin VB.CheckBox chkMinimizeToTray 
+         Caption         =   "Minimize to Tray"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   -74760
+         TabIndex        =   46
+         Top             =   2400
+         Width           =   3015
+      End
       Begin VB.CheckBox chkBNETLocalHashing 
          Caption         =   "Use Local Hashing"
          BeginProperty Font 
@@ -851,6 +851,7 @@ Private Sub btnOk_Click()
     config.rememberWindowPosition = IIf(chkRememberWindowPosition.Value = 1, True, False)
     config.checkUpdateOnStartup = IIf(chkCheckUpdateOnStartup.Value = 1, True, False)
     config.connectionTimeout = txtConnectionTimeout.text
+    config.minimizeToTray = IIf(chkMinimizeToTray.Value = 1, True, False)
 
     frmMain.tmrIRCConnectionTimeout.Interval = config.connectionTimeout
 
@@ -898,6 +899,7 @@ Private Sub Form_Load()
     chkRememberWindowPosition.Value = IIf(config.rememberWindowPosition = True, 1, 0)
     chkCheckUpdateOnStartup.Value = IIf(config.checkUpdateOnStartup = True, 1, 0)
     txtConnectionTimeout.text = config.connectionTimeout
+    chkMinimizeToTray.Value = IIf(config.minimizeToTray = True, 1, 0)
   
     arrGateways = Array("uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net", _
                         "connect-eur.classic.blizzard.com", "connect-kor.classic.blizzard.com", _

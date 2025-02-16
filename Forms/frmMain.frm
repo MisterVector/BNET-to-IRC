@@ -292,6 +292,20 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Dim nid As NOTIFYICONDATA ' trayicon variable
+
+Sub minimize_to_tray()
+    Me.Hide
+    nid.cbSize = Len(nid)
+    nid.hwnd = Me.hwnd
+    nid.uId = vbNull
+    nid.uFlags = NIF_ICON Or NIF_TIP Or NIF_MESSAGE
+    nid.uCallBackMessage = WM_MOUSEMOVE
+    nid.hIcon = Me.Icon ' the icon will be your Form1 project icon
+    nid.szTip = PROGRAM_TITLE & vbNullChar
+    Shell_NotifyIcon NIM_ADD, nid
+End Sub
+
 Private Sub chkBtoBNET_Click()
     If chkBtoBNET.Value = 1 Then
         isBroadcastToBNET = True
@@ -338,6 +352,35 @@ Private Sub Form_Load()
     End If
     
     tmrIRCConnectionTimeout.Interval = config.connectionTimeout
+End Sub
+
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
+    Dim msg As Long
+    Dim sFilter As String
+    msg = x / Screen.TwipsPerPixelX
+  
+    Select Case msg
+        Case WM_LBUTTONDOWN
+        Case WM_LBUTTONUP
+            If (isMinimizedToTray) Then
+                Me.WindowState = vbNormal
+                Me.Show
+                Shell_NotifyIcon NIM_DELETE, nid ' del tray icon
+                
+                isMinimizedToTray = False
+            End If
+        Case WM_LBUTTONDBLCLK
+        Case WM_RBUTTONDOWN
+        Case WM_RBUTTONUP
+        Case WM_RBUTTONDBLCLK
+    End Select
+End Sub
+
+Private Sub Form_Resize()
+    If (Me.WindowState = vbMinimized And config.minimizeToTray) Then
+        minimize_to_tray
+        isMinimizedToTray = True
+    End If
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)

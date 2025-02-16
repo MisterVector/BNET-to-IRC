@@ -37,6 +37,8 @@ Public canSendQuit As Boolean
 
 Public loadedFromCSDSClient As Boolean
 
+Public isMinimizedToTray As Boolean
+
 Public Enum packetType
     BNCS
     BNLS
@@ -58,6 +60,7 @@ Public Type ConfigStructure
     rememberWindowPosition As Boolean
     checkUpdateOnStartup As Boolean
     connectionTimeout As Integer
+    minimizeToTray As Boolean
 
     bnlsServer As String
     bnetServer As String
