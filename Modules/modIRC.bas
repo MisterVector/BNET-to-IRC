@@ -7,7 +7,9 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
     Select Case command
         Case "353"
             AddChat frmMain.rtbChatIRCChat, vbYellow, data
-        Case "376"
+        Case "372", "375" 'MOTD
+            AddChat frmMain.rtbChatIRCConsole, vbWhite, data
+        Case "376" 'End of MOTD, now join home channel
             SendJOIN config.ircChannel
         Case "JOIN"
             RecvJOIN data
