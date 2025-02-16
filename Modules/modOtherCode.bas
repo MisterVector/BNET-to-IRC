@@ -153,13 +153,13 @@ Public Sub loadConfig()
     config.rememberWindowPosition = IIf(UCase(ReadINI("Window", "RememberWindowPosition", "Config.ini")) = "Y", True, False)
     val = ReadINI("Window", "Top", "Config.ini")
   
-    If (IsNumeric(val) And val > 0) Then
+    If (IsNumeric(val) And val > 0) And val <= 32767 Then
         config.formTop = val
     End If
   
     val = ReadINI("Window", "Left", "Config.ini")
   
-    If (IsNumeric(val) And val > 0) Then
+    If (IsNumeric(val) And val > 0) And val <= 32767 Then
         config.formLeft = val
     End If
   
