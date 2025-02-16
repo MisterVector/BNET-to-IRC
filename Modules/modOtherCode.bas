@@ -144,6 +144,7 @@ Public Sub setDefaultValues()
     config.bnetW2BNVerByte = VERBYTE_W2BN
     config.bnetD2DVVerByte = VERBYTE_D2DV
     config.ircUpdateChannelOnChannelJoin = DEFAULT_UPDATE_CHANNEL_ON_CHANNEL_JOIN
+    config.minimizeToTray = DEFAULT_MINIMIZE_TO_TRAY
 End Sub
 
 Public Sub loadConfig()
