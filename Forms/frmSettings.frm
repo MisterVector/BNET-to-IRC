@@ -93,29 +93,41 @@ Begin VB.Form frmSettings
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmSettings.frx":09F0
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "opD2DV"
-      Tab(1).Control(1)=   "opW2BN"
-      Tab(1).Control(2)=   "txtBNETKey"
+      Tab(1).Control(0)=   "Label2"
+      Tab(1).Control(1)=   "lvKeyList"
+      Tab(1).Control(2)=   "btnAdd"
       Tab(1).Control(3)=   "btnRemove"
-      Tab(1).Control(4)=   "btnAdd"
-      Tab(1).Control(5)=   "lvKeyList"
-      Tab(1).Control(6)=   "Label2"
+      Tab(1).Control(4)=   "txtBNETKey"
+      Tab(1).Control(5)=   "opW2BN"
+      Tab(1).Control(6)=   "opD2DV"
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmSettings.frx":0A0C
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "txtIRCBroadcastPrefix"
-      Tab(2).Control(1)=   "chkUpdateChannelOnChannelJoin"
-      Tab(2).Control(2)=   "txtIRCQuitMessage"
-      Tab(2).Control(3)=   "txtIRCServer"
-      Tab(2).Control(4)=   "txtIRCChannel"
-      Tab(2).Control(5)=   "txtIRCUsername"
-      Tab(2).Control(6)=   "Label19"
-      Tab(2).Control(7)=   "Label15"
-      Tab(2).Control(8)=   "Label10"
-      Tab(2).Control(9)=   "Label7"
-      Tab(2).Control(10)=   "Label8"
-      Tab(2).Control(11)=   "Label9"
+      Tab(2).Control(0)=   "Label9"
+      Tab(2).Control(0).Enabled=   0   'False
+      Tab(2).Control(1)=   "Label8"
+      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(2)=   "Label7"
+      Tab(2).Control(2).Enabled=   0   'False
+      Tab(2).Control(3)=   "Label10"
+      Tab(2).Control(3).Enabled=   0   'False
+      Tab(2).Control(4)=   "Label15"
+      Tab(2).Control(4).Enabled=   0   'False
+      Tab(2).Control(5)=   "Label19"
+      Tab(2).Control(5).Enabled=   0   'False
+      Tab(2).Control(6)=   "txtIRCUsername"
+      Tab(2).Control(6).Enabled=   0   'False
+      Tab(2).Control(7)=   "txtIRCChannel"
+      Tab(2).Control(7).Enabled=   0   'False
+      Tab(2).Control(8)=   "txtIRCServer"
+      Tab(2).Control(8).Enabled=   0   'False
+      Tab(2).Control(9)=   "txtIRCQuitMessage"
+      Tab(2).Control(9).Enabled=   0   'False
+      Tab(2).Control(10)=   "chkUpdateChannelOnChannelJoin"
+      Tab(2).Control(10).Enabled=   0   'False
+      Tab(2).Control(11)=   "txtIRCBroadcastPrefix"
+      Tab(2).Control(11).Enabled=   0   'False
       Tab(2).ControlCount=   12
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmSettings.frx":0A28
@@ -165,7 +177,7 @@ Begin VB.Form frmSettings
          Height          =   375
          Left            =   -72720
          TabIndex        =   43
-         Top             =   2640
+         Top             =   3000
          Width           =   2775
       End
       Begin VB.TextBox txtBNETBroadcastPrefix 
@@ -196,14 +208,14 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -72720
          TabIndex        =   17
-         Top             =   3120
+         Top             =   2640
          Width           =   2775
       End
       Begin VB.TextBox txtIRCQuitMessage 
-         Height          =   1575
+         Height          =   1455
          Left            =   -74760
          TabIndex        =   18
-         Top             =   3720
+         Top             =   3840
          Width           =   4815
       End
       Begin VB.CheckBox chkCheckUpdateOnStartup 
@@ -407,7 +419,7 @@ Begin VB.Form frmSettings
          Height          =   375
          Left            =   -74760
          TabIndex        =   44
-         Top             =   2640
+         Top             =   3000
          Width           =   1935
       End
       Begin VB.Label Label18 
@@ -476,7 +488,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -74760
          TabIndex        =   37
-         Top             =   3360
+         Top             =   3480
          Width           =   1455
       End
       Begin VB.Label Label14 
