@@ -329,20 +329,16 @@ Private Sub Form_Load()
 
     AddChat rtbChatBNET, vbYellow, "Welcome to " & PROGRAM_NAME, vbWhite, " v" & PROGRAM_VERSION, vbYellow, " by Vector."
 
-    If (Dir$(App.Path & "\Config.ini") <> vbNullString) Then
-        loadConfig
+    loadConfig
   
-        If (config.rememberWindowPosition) Then
-            If (config.formTop > 0) Then
-                Me.Top = config.formTop
-            End If
-    
-            If (config.formLeft > 0) Then
-                Me.Left = config.formLeft
-            End If
+    If (config.rememberWindowPosition) Then
+        If (config.formTop > 0) Then
+            Me.Top = config.formTop
         End If
-    Else
-        setDefaultValues
+
+        If (config.formLeft > 0) Then
+            Me.Left = config.formLeft
+        End If
     End If
     
     If (InStr(command, "--csds-launch") > 0) Then
@@ -385,8 +381,8 @@ End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
     If (config.rememberWindowPosition) Then
-        WriteINI "Window", "Top", Me.Top, "Config.ini"
-        WriteINI "Window", "Left", Me.Left, "Config.ini"
+        modConfig.writeNumericValue "Window", "Top", Me.Top
+        modConfig.writeNumericValue "Window", "Left", Me.Left
     End If
 
     If sckIRC.State = sckConnected Then
