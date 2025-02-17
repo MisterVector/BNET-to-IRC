@@ -3,6 +3,7 @@ Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmMain 
+   BorderStyle     =   1  'Fixed Single
    Caption         =   "Battle.Net to IRC %v"
    ClientHeight    =   6600
    ClientLeft      =   150
