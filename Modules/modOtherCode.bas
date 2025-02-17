@@ -250,6 +250,10 @@ Public Function joinArrayAtIndex(arr() As String, index As Integer)
     joinArrayAtIndex = finalString
 End Function
 
+Public Function hexToString(ByVal val As Long) As String
+    hexToString = Right("0" & hex(val), 2)
+End Function
+
 Public Function makeCompatibleDate(ByVal dateTimeString As String) As Date
     dateTimeString = Replace(dateTimeString, "T", " ")
     dateTimeString = Replace(dateTimeString, "Z", "")
