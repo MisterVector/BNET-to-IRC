@@ -130,7 +130,7 @@ Public Sub saveConfig()
     
     writeBooleanValue "BNET", "LocalHashing", config.bnetLocalHashing
     writeHexValue "BNET", "W2BNVerByte", config.bnetW2BNVerByte
-    writeHexValue "BNET", "D2DVBerByte", config.bnetD2DVVerByte
+    writeHexValue "BNET", "D2DVVerByte", config.bnetD2DVVerByte
     
     writeStringValue "IRC", "Username", config.ircUsername
     writeStringValue "IRC", "Channel", config.ircChannel
