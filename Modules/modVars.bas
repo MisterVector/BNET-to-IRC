@@ -10,6 +10,7 @@ Public Const VERBYTE_W2BN                           As Long = &H4F
 Public Const VERBYTE_D2DV                           As Long = &HE
 
 Public Const DEFAULT_BNLS_SERVER                    As String = "jbls.davnit.net"
+Public Const DEFAULT_USE_LOCAL_HASHING              As Boolean = False
 Public Const DEFAULT_REMEMBER_WINDOW_POSITION       As Boolean = False
 Public Const DEFAULT_CHECK_UPDATE_ON_STARTUP        As Boolean = True
 Public Const DEFAULT_UPDATE_CHANNEL_ON_CHANNEL_JOIN As Boolean = False

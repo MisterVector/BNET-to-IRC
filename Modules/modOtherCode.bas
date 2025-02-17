@@ -138,6 +138,7 @@ End Sub
 
 Public Sub setDefaultValues()
     config.bnlsServer = DEFAULT_BNLS_SERVER
+    config.bnetLocalHashing = DEFAULT_USE_LOCAL_HASHING
     config.rememberWindowPosition = DEFAULT_REMEMBER_WINDOW_POSITION
     config.checkUpdateOnStartup = DEFAULT_CHECK_UPDATE_ON_STARTUP
     config.connectionTimeout = DEFAULT_CONNECTION_TIMEOUT
