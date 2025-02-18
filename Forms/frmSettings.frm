@@ -805,20 +805,22 @@ Private Sub btnCancel_Click()
 End Sub
 
 Private Sub btnOk_Click()
-    Dim oldKeyCount As Integer, li As ListItem, val As Variant
+    Dim oldKeyCount As Integer, li As ListItem, val As Variant, test As String
   
     If (IsNumeric(txtConnectionTimeout.text)) Then
-        If (txtConnectionTimeout.text < 1 Or txtConnectionTimeout.text > 30000) Then
-            MsgBox "Connection timeout must be a value between 1 and 30000.", vbOKOnly, PROGRAM_NAME
+        If (txtConnectionTimeout.text < 1 Or txtConnectionTimeout.text > 32767) Then
+            MsgBox "Connection timeout must be a value between 1 and 32767.", vbOKOnly, PROGRAM_NAME
             
             Exit Sub
         End If
     Else
-        MsgBox "Connection timeout must be a value between 1 and 30000.", vbOKOnly, PROGRAM_NAME
+        MsgBox "Connection timeout must be a value between 1 and 32767.", vbOKOnly, PROGRAM_NAME
         
         Exit Sub
     End If
   
+    test = "&H" & txtW2BNVerByte.text
+    
     If (Not IsNumeric("&H" & txtW2BNVerByte.text)) Then
         MsgBox "The Warcraft II version byte must be numeric. (I.E. " & hexToString(VERBYTE_W2BN) & ")"
         Exit Sub
@@ -893,8 +895,8 @@ Private Sub Form_Load()
     cmbBNETServer.text = config.bnetServer
   
     chkBNETLocalHashing.Value = IIf(config.bnetLocalHashing, 1, 0)
-    txtW2BNVerByte.text = Right("0" & Hex(config.bnetW2BNVerByte), 2)
-    txtD2DVVerByte.text = Right("0" & Hex(config.bnetD2DVVerByte), 2)
+    txtW2BNVerByte.text = Right("0" & hex(config.bnetW2BNVerByte), 2)
+    txtD2DVVerByte.text = Right("0" & hex(config.bnetD2DVVerByte), 2)
   
     If (config.bnetKeyCount > 0) Then
         For i = 0 To config.bnetKeyCount - 1
