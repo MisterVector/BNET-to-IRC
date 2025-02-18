@@ -19,7 +19,7 @@ End Sub
 Public Function readNumericValue(ByVal section As String, ByVal key As String, Optional ByVal defaultValue As Integer = 0) As Integer
     Dim val As String
     
-    val = ReadINI(name, key, "Config.ini")
+    val = ReadINI(section, key, "Config.ini")
     
     If (IsNumeric(val)) Then
         If (val > 0 And val <= 32767) Then
