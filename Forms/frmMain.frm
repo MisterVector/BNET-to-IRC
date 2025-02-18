@@ -349,6 +349,9 @@ Private Sub Form_Load()
     End If
     
     tmrIRCConnectionTimeout.Interval = config.connectionTimeout
+    
+    Me.chkBtoBNET.Value = IIf(modConfig.readBooleanValue("Main", "BroadcastToBNET", DEFAULT_BROADCAST_TO_BNET), 1, 0)
+    Me.chkBtoIRC.Value = IIf(modConfig.readBooleanValue("Main", "BroadcastToIRC", DEFAULT_BROADCAST_TO_IRC), 1, 0)
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, Y As Single)
@@ -385,6 +388,9 @@ Private Sub Form_Unload(Cancel As Integer)
         modConfig.writeNumericValue "Window", "Top", Me.Top
         modConfig.writeNumericValue "Window", "Left", Me.Left
     End If
+
+    modConfig.writeBooleanValue "Main", "BroadcastToIRC", chkBtoIRC.Value
+    modConfig.writeBooleanValue "Main", "BroadcastToBNET", chkBtoBNET.Value
 
     If sckIRC.State = sckConnected Then
         sckIRC.SendData "QUIT" & IIf(config.ircQuitMessage <> vbNullString, " :" & config.ircQuitMessage, vbNullString) & vbCrLf

@@ -16,6 +16,8 @@ Public Const DEFAULT_CHECK_UPDATE_ON_STARTUP        As Boolean = True
 Public Const DEFAULT_UPDATE_CHANNEL_ON_CHANNEL_JOIN As Boolean = False
 Public Const DEFAULT_CONNECTION_TIMEOUT             As Integer = 10000
 Public Const DEFAULT_MINIMIZE_TO_TRAY               As Boolean = False
+Public Const DEFAULT_BROADCAST_TO_IRC               As Boolean = False
+Public Const DEFAULT_BROADCAST_TO_BNET              As Boolean = False
 
 Public Const LAST_NON_QUEUE_THRESHOLD_TIME          As Long = 7000
 
