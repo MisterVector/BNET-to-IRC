@@ -102,7 +102,7 @@ Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal t
         End Select
     End If
     
-    If (target = config.ircChannel) Then
+    If (LCase(target) = LCase(config.ircChannel)) Then
         AddChat frmMain.rtbChatIRCChat, vbYellow, source, vbWhite, ": ", vbYellow, text
     Else
         AddChat frmMain.rtbChatIRCChat, vbYellow, source & " (", vbWhite, target, vbYellow, ")", vbWhite, ": ", vbYellow, text
