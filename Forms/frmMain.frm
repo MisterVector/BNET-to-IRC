@@ -405,7 +405,7 @@ End Sub
 
 Private Sub mnuCheckForUpdate_Click()
     If (loadedFromCSDSClient) Then
-        MsgBox "Cannot check update as Maelstrom was loaded by the Code Speak Distribution Client!", vbOKOnly Or vbExclamation, PROGRAM_TITLE
+        MsgBox "Cannot check update as " & PROGRAM_NAME & " was loaded by the Code Speak Distribution Client!", vbOKOnly Or vbExclamation, PROGRAM_TITLE
         Exit Sub
     End If
     
