@@ -831,6 +831,11 @@ Private Sub btnOk_Click()
         Exit Sub
     End If
   
+    If (txtIRCChannel.text <> vbNullString And Left(txtIRCChannel.text, 1) <> "#") Then
+        MsgBox "The IRC channel name must start with a #."
+        Exit Sub
+    End If
+  
     oldKeyCount = config.bnetKeyCount
 
     config.bnetUsername = txtBNETUsername.text
