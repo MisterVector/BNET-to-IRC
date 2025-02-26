@@ -93,13 +93,13 @@ Begin VB.Form frmSettings
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmSettings.frx":09F0
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "opD2DV"
-      Tab(1).Control(1)=   "opW2BN"
-      Tab(1).Control(2)=   "txtBNETKey"
+      Tab(1).Control(0)=   "Label2"
+      Tab(1).Control(1)=   "lvKeyList"
+      Tab(1).Control(2)=   "btnAdd"
       Tab(1).Control(3)=   "btnRemove"
-      Tab(1).Control(4)=   "btnAdd"
-      Tab(1).Control(5)=   "lvKeyList"
-      Tab(1).Control(6)=   "Label2"
+      Tab(1).Control(4)=   "txtBNETKey"
+      Tab(1).Control(5)=   "opW2BN"
+      Tab(1).Control(6)=   "opD2DV"
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmSettings.frx":0A0C
@@ -134,12 +134,18 @@ Begin VB.Form frmSettings
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmSettings.frx":0A28
       Tab(3).ControlEnabled=   0   'False
-      Tab(3).Control(0)=   "chkMinimizeToTray"
-      Tab(3).Control(1)=   "txtConnectionTimeout"
-      Tab(3).Control(2)=   "chkCheckUpdateOnStartup"
-      Tab(3).Control(3)=   "chkRememberWindowPosition"
-      Tab(3).Control(4)=   "Label17"
-      Tab(3).Control(5)=   "Label16"
+      Tab(3).Control(0)=   "Label16"
+      Tab(3).Control(0).Enabled=   0   'False
+      Tab(3).Control(1)=   "Label17"
+      Tab(3).Control(1).Enabled=   0   'False
+      Tab(3).Control(2)=   "chkRememberWindowPosition"
+      Tab(3).Control(2).Enabled=   0   'False
+      Tab(3).Control(3)=   "chkCheckUpdateOnStartup"
+      Tab(3).Control(3).Enabled=   0   'False
+      Tab(3).Control(4)=   "txtConnectionTimeout"
+      Tab(3).Control(4).Enabled=   0   'False
+      Tab(3).Control(5)=   "chkMinimizeToTray"
+      Tab(3).Control(5).Enabled=   0   'False
       Tab(3).ControlCount=   6
       Begin VB.CheckBox chkIRCFocusChatTabOnChannelJoin 
          Caption         =   "Focus Chat Tab On Channel Join"
@@ -186,11 +192,11 @@ Begin VB.Form frmSettings
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   255
-         Left            =   2280
+         Height          =   360
+         Left            =   240
          TabIndex        =   45
          Top             =   2160
-         Width           =   2415
+         Width           =   2175
       End
       Begin VB.TextBox txtIRCBroadcastPrefix 
          Height          =   375
@@ -203,7 +209,7 @@ Begin VB.Form frmSettings
          Height          =   375
          Left            =   2280
          TabIndex        =   42
-         Top             =   3960
+         Top             =   4080
          Width           =   2775
       End
       Begin VB.TextBox txtConnectionTimeout 
@@ -369,14 +375,14 @@ Begin VB.Form frmSettings
          Left            =   2280
          PasswordChar    =   "*"
          TabIndex        =   4
-         Top             =   3000
+         Top             =   3120
          Width           =   2775
       End
       Begin VB.TextBox txtBNETUsername 
          Height          =   360
          Left            =   2280
          TabIndex        =   3
-         Top             =   2520
+         Top             =   2640
          Width           =   2775
       End
       Begin VB.ComboBox cmbBNETServer 
@@ -397,7 +403,7 @@ Begin VB.Form frmSettings
          Height          =   360
          Left            =   2280
          TabIndex        =   5
-         Top             =   3480
+         Top             =   3600
          Width           =   2775
       End
       Begin MSComctlLib.ListView lvKeyList 
@@ -455,7 +461,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   240
          TabIndex        =   41
-         Top             =   3960
+         Top             =   4080
          Width           =   1695
       End
       Begin VB.Label Label17 
@@ -698,7 +704,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   240
          TabIndex        =   25
-         Top             =   3000
+         Top             =   3120
          Width           =   975
       End
       Begin VB.Label Label1 
@@ -715,7 +721,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   240
          TabIndex        =   24
-         Top             =   2520
+         Top             =   2640
          Width           =   1215
       End
       Begin VB.Label Label5 
@@ -749,7 +755,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   240
          TabIndex        =   26
-         Top             =   3480
+         Top             =   3600
          Width           =   855
       End
    End
@@ -920,8 +926,8 @@ Private Sub Form_Load()
     cmbBNETServer.text = config.bnetServer
   
     chkBNETLocalHashing.Value = IIf(config.bnetLocalHashing, 1, 0)
-    txtW2BNVerByte.text = Right("0" & hex(config.bnetW2BNVerByte), 2)
-    txtD2DVVerByte.text = Right("0" & hex(config.bnetD2DVVerByte), 2)
+    txtW2BNVerByte.text = Right("0" & Hex(config.bnetW2BNVerByte), 2)
+    txtD2DVVerByte.text = Right("0" & Hex(config.bnetD2DVVerByte), 2)
   
     If (config.bnetKeyCount > 0) Then
         For i = 0 To config.bnetKeyCount - 1
