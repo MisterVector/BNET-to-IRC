@@ -46,7 +46,6 @@ Begin VB.Form frmSettings
       _ExtentY        =   10398
       _Version        =   393216
       Tabs            =   4
-      Tab             =   2
       TabsPerRow      =   4
       TabHeight       =   520
       TabCaption(0)   =   "Battle.Net"
