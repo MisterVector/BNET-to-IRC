@@ -46,11 +46,12 @@ Begin VB.Form frmSettings
       _ExtentY        =   10398
       _Version        =   393216
       Tabs            =   4
+      Tab             =   2
       TabsPerRow      =   4
       TabHeight       =   520
       TabCaption(0)   =   "Battle.Net"
       TabPicture(0)   =   "frmSettings.frx":09D4
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "Label6"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Label5"
@@ -103,7 +104,7 @@ Begin VB.Form frmSettings
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmSettings.frx":0A0C
-      Tab(2).ControlEnabled=   0   'False
+      Tab(2).ControlEnabled=   -1  'True
       Tab(2).Control(0)=   "Label9"
       Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "Label8"
@@ -135,17 +136,11 @@ Begin VB.Form frmSettings
       TabPicture(3)   =   "frmSettings.frx":0A28
       Tab(3).ControlEnabled=   0   'False
       Tab(3).Control(0)=   "Label16"
-      Tab(3).Control(0).Enabled=   0   'False
       Tab(3).Control(1)=   "Label17"
-      Tab(3).Control(1).Enabled=   0   'False
       Tab(3).Control(2)=   "chkRememberWindowPosition"
-      Tab(3).Control(2).Enabled=   0   'False
       Tab(3).Control(3)=   "chkCheckUpdateOnStartup"
-      Tab(3).Control(3).Enabled=   0   'False
       Tab(3).Control(4)=   "txtConnectionTimeout"
-      Tab(3).Control(4).Enabled=   0   'False
       Tab(3).Control(5)=   "chkMinimizeToTray"
-      Tab(3).Control(5).Enabled=   0   'False
       Tab(3).ControlCount=   6
       Begin VB.CheckBox chkIRCFocusChatTabOnChannelJoin 
          Caption         =   "Focus Chat Tab On Channel Join"
@@ -158,8 +153,8 @@ Begin VB.Form frmSettings
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   375
-         Left            =   -74760
+         Height          =   255
+         Left            =   240
          TabIndex        =   47
          Top             =   3000
          Width           =   3375
@@ -193,21 +188,21 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   360
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   45
          Top             =   2160
          Width           =   2175
       End
       Begin VB.TextBox txtIRCBroadcastPrefix 
          Height          =   375
-         Left            =   -72720
+         Left            =   2280
          TabIndex        =   43
-         Top             =   3480
+         Top             =   3360
          Width           =   2775
       End
       Begin VB.TextBox txtBNETBroadcastPrefix 
          Height          =   375
-         Left            =   2280
+         Left            =   -72720
          TabIndex        =   42
          Top             =   4080
          Width           =   2775
@@ -220,7 +215,7 @@ Begin VB.Form frmSettings
          Width           =   2775
       End
       Begin VB.CheckBox chkUpdateChannelOnChannelJoin 
-         Caption         =   "Update On Channel Join"
+         Caption         =   "Update Channel On Channel Join"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   9.75
@@ -231,16 +226,16 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -72720
+         Left            =   240
          TabIndex        =   17
          Top             =   2640
-         Width           =   2775
+         Width           =   3375
       End
       Begin VB.TextBox txtIRCQuitMessage 
-         Height          =   1335
-         Left            =   -74760
+         Height          =   1455
+         Left            =   240
          TabIndex        =   18
-         Top             =   4320
+         Top             =   4080
          Width           =   4815
       End
       Begin VB.CheckBox chkCheckUpdateOnStartup 
@@ -262,14 +257,14 @@ Begin VB.Form frmSettings
       End
       Begin VB.TextBox txtD2DVVerByte 
          Height          =   360
-         Left            =   3360
+         Left            =   -71640
          TabIndex        =   7
          Top             =   5280
          Width           =   735
       End
       Begin VB.TextBox txtW2BNVerByte 
          Height          =   375
-         Left            =   1440
+         Left            =   -73560
          TabIndex        =   6
          Top             =   5280
          Width           =   735
@@ -327,21 +322,21 @@ Begin VB.Form frmSettings
       End
       Begin VB.TextBox txtIRCServer 
          Height          =   345
-         Left            =   -72720
+         Left            =   2280
          TabIndex        =   14
          Top             =   1200
          Width           =   2775
       End
       Begin VB.TextBox txtIRCChannel 
          Height          =   345
-         Left            =   -72720
+         Left            =   2280
          TabIndex        =   16
          Top             =   2160
          Width           =   2775
       End
       Begin VB.TextBox txtIRCUsername 
          Height          =   345
-         Left            =   -72720
+         Left            =   2280
          TabIndex        =   15
          Top             =   1680
          Width           =   2775
@@ -372,7 +367,7 @@ Begin VB.Form frmSettings
       Begin VB.TextBox txtBNETPassword 
          Height          =   360
          IMEMode         =   3  'DISABLE
-         Left            =   2280
+         Left            =   -72720
          PasswordChar    =   "*"
          TabIndex        =   4
          Top             =   3120
@@ -380,28 +375,28 @@ Begin VB.Form frmSettings
       End
       Begin VB.TextBox txtBNETUsername 
          Height          =   360
-         Left            =   2280
+         Left            =   -72720
          TabIndex        =   3
          Top             =   2640
          Width           =   2775
       End
       Begin VB.ComboBox cmbBNETServer 
          Height          =   315
-         Left            =   2280
+         Left            =   -72720
          TabIndex        =   1
          Top             =   1200
          Width           =   2775
       End
       Begin VB.TextBox txtBNLSServer 
          Height          =   360
-         Left            =   2280
+         Left            =   -72720
          TabIndex        =   2
          Top             =   1680
          Width           =   2775
       End
       Begin VB.TextBox txtBNETChannel 
          Height          =   360
-         Left            =   2280
+         Left            =   -72720
          TabIndex        =   5
          Top             =   3600
          Width           =   2775
@@ -442,9 +437,9 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   44
-         Top             =   3480
+         Top             =   3360
          Width           =   1935
       End
       Begin VB.Label Label18 
@@ -459,7 +454,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   41
          Top             =   4080
          Width           =   1695
@@ -511,9 +506,9 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   37
-         Top             =   3960
+         Top             =   3720
          Width           =   1455
       End
       Begin VB.Label Label14 
@@ -528,7 +523,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   2400
+         Left            =   -72600
          TabIndex        =   36
          Top             =   5280
          Width           =   855
@@ -545,7 +540,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   360
+         Left            =   -74640
          TabIndex        =   35
          Top             =   5280
          Width           =   975
@@ -563,7 +558,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   34
          Top             =   4800
          Width           =   4815
@@ -581,7 +576,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   33
          Top             =   600
          Width           =   4815
@@ -599,7 +594,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   32
          Top             =   600
          Width           =   4815
@@ -616,7 +611,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   31
          Top             =   1680
          Width           =   975
@@ -633,7 +628,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   30
          Top             =   2160
          Width           =   855
@@ -650,7 +645,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -74760
+         Left            =   240
          TabIndex        =   29
          Top             =   1200
          Width           =   615
@@ -685,7 +680,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   0
          Top             =   1200
          Width           =   735
@@ -702,7 +697,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   25
          Top             =   3120
          Width           =   975
@@ -719,7 +714,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   24
          Top             =   2640
          Width           =   1215
@@ -736,7 +731,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   23
          Top             =   1680
          Width           =   1335
@@ -753,7 +748,7 @@ Begin VB.Form frmSettings
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   240
+         Left            =   -74760
          TabIndex        =   26
          Top             =   3600
          Width           =   855
