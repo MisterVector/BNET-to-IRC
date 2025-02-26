@@ -18,6 +18,7 @@ Public Const DEFAULT_CONNECTION_TIMEOUT             As Integer = 10000
 Public Const DEFAULT_MINIMIZE_TO_TRAY               As Boolean = False
 Public Const DEFAULT_BROADCAST_TO_IRC               As Boolean = False
 Public Const DEFAULT_BROADCAST_TO_BNET              As Boolean = False
+Public Const DEFAULT_FOCUS_CHAT_TAB_ON_CHANNEL_JOIN As Boolean = False
 
 Public Const LAST_NON_QUEUE_THRESHOLD_TIME          As Long = 7000
 
@@ -82,6 +83,7 @@ Public Type ConfigStructure
     ircPassword As String
     ircServer As String
     ircChannel As String
+    ircFocusChatTabOnChannelJoin As Boolean
     ircQuitMessage As String
     ircUpdateChannelOnChannelJoin As Boolean
     ircBroadcastPrefix As String

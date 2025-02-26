@@ -108,6 +108,7 @@ Public Sub loadConfig()
     
     config.ircUsername = readStringValue("IRC", "Username")
     config.ircChannel = readStringValue("IRC", "Channel")
+    config.ircFocusChatTabOnChannelJoin = readBooleanValue("IRC", "FocusChatTabOnChannelJoin", DEFAULT_FOCUS_CHAT_TAB_ON_CHANNEL_JOIN)
     config.ircQuitMessage = readStringValue("IRC", "QuitMessage")
     config.ircUpdateChannelOnChannelJoin = readBooleanValue("IRC", "UpdateChannelOnChannelJoin", DEFAULT_UPDATE_CHANNEL_ON_CHANNEL_JOIN)
     config.ircBroadcastPrefix = readStringValue("IRC", "BroadcastPrefix")
@@ -134,6 +135,7 @@ Public Sub saveConfig()
     
     writeStringValue "IRC", "Username", config.ircUsername
     writeStringValue "IRC", "Channel", config.ircChannel
+    writeBooleanValue "IRC", "FocusChatTabOnChannelJoin", config.ircFocusChatTabOnChannelJoin
     writeStringValue "IRC", "Server", config.ircServer
     writeStringValue "IRC", "QuitMessage", config.ircQuitMessage
     writeBooleanValue "IRC", "UpdateChannelOnChannelJoin", config.ircUpdateChannelOnChannelJoin

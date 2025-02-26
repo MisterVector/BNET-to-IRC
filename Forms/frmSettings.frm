@@ -4,19 +4,19 @@ Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmSettings 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Settings for Battle.Net to IRC"
-   ClientHeight    =   6645
+   ClientHeight    =   6825
    ClientLeft      =   1875
    ClientTop       =   1995
    ClientWidth     =   5295
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6645
+   ScaleHeight     =   6825
    ScaleWidth      =   5295
    ShowInTaskbar   =   0   'False
    Begin MSComctlLib.ImageList ilIcons 
       Left            =   2280
-      Top             =   5760
+      Top             =   6120
       _ExtentX        =   1005
       _ExtentY        =   1005
       BackColor       =   -2147483643
@@ -37,13 +37,13 @@ Begin VB.Form frmSettings
       EndProperty
    End
    Begin TabDlg.SSTab SSTab2 
-      Height          =   5535
+      Height          =   5895
       Left            =   0
       TabIndex        =   27
       Top             =   0
       Width           =   5295
       _ExtentX        =   9340
-      _ExtentY        =   9763
+      _ExtentY        =   10398
       _Version        =   393216
       Tabs            =   4
       TabsPerRow      =   4
@@ -93,13 +93,13 @@ Begin VB.Form frmSettings
       TabCaption(1)   =   "Key Manager"
       TabPicture(1)   =   "frmSettings.frx":09F0
       Tab(1).ControlEnabled=   0   'False
-      Tab(1).Control(0)=   "Label2"
-      Tab(1).Control(1)=   "lvKeyList"
-      Tab(1).Control(2)=   "btnAdd"
+      Tab(1).Control(0)=   "opD2DV"
+      Tab(1).Control(1)=   "opW2BN"
+      Tab(1).Control(2)=   "txtBNETKey"
       Tab(1).Control(3)=   "btnRemove"
-      Tab(1).Control(4)=   "txtBNETKey"
-      Tab(1).Control(5)=   "opW2BN"
-      Tab(1).Control(6)=   "opD2DV"
+      Tab(1).Control(4)=   "btnAdd"
+      Tab(1).Control(5)=   "lvKeyList"
+      Tab(1).Control(6)=   "Label2"
       Tab(1).ControlCount=   7
       TabCaption(2)   =   "IRC"
       TabPicture(2)   =   "frmSettings.frx":0A0C
@@ -128,7 +128,9 @@ Begin VB.Form frmSettings
       Tab(2).Control(10).Enabled=   0   'False
       Tab(2).Control(11)=   "txtIRCBroadcastPrefix"
       Tab(2).Control(11).Enabled=   0   'False
-      Tab(2).ControlCount=   12
+      Tab(2).Control(12)=   "chkIRCFocusChatTabOnChannelJoin"
+      Tab(2).Control(12).Enabled=   0   'False
+      Tab(2).ControlCount=   13
       TabCaption(3)   =   "Miscellaneous"
       TabPicture(3)   =   "frmSettings.frx":0A28
       Tab(3).ControlEnabled=   0   'False
@@ -139,6 +141,23 @@ Begin VB.Form frmSettings
       Tab(3).Control(4)=   "Label17"
       Tab(3).Control(5)=   "Label16"
       Tab(3).ControlCount=   6
+      Begin VB.CheckBox chkIRCFocusChatTabOnChannelJoin 
+         Caption         =   "Focus Chat Tab On Channel Join"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   -74760
+         TabIndex        =   47
+         Top             =   3000
+         Width           =   3375
+      End
       Begin VB.CheckBox chkMinimizeToTray 
          Caption         =   "Minimize to Tray"
          BeginProperty Font 
@@ -177,7 +196,7 @@ Begin VB.Form frmSettings
          Height          =   375
          Left            =   -72720
          TabIndex        =   43
-         Top             =   3000
+         Top             =   3480
          Width           =   2775
       End
       Begin VB.TextBox txtBNETBroadcastPrefix 
@@ -212,10 +231,10 @@ Begin VB.Form frmSettings
          Width           =   2775
       End
       Begin VB.TextBox txtIRCQuitMessage 
-         Height          =   1455
+         Height          =   1335
          Left            =   -74760
          TabIndex        =   18
-         Top             =   3840
+         Top             =   4320
          Width           =   4815
       End
       Begin VB.CheckBox chkCheckUpdateOnStartup 
@@ -239,14 +258,14 @@ Begin VB.Form frmSettings
          Height          =   360
          Left            =   3360
          TabIndex        =   7
-         Top             =   4920
+         Top             =   5280
          Width           =   735
       End
       Begin VB.TextBox txtW2BNVerByte 
          Height          =   375
          Left            =   1440
          TabIndex        =   6
-         Top             =   4920
+         Top             =   5280
          Width           =   735
       End
       Begin VB.CheckBox chkRememberWindowPosition 
@@ -280,7 +299,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -73440
          TabIndex        =   11
-         Top             =   4320
+         Top             =   4800
          Width           =   1095
       End
       Begin VB.OptionButton opW2BN 
@@ -297,7 +316,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -74760
          TabIndex        =   10
-         Top             =   4320
+         Top             =   4800
          Width           =   1215
       End
       Begin VB.TextBox txtIRCServer 
@@ -325,7 +344,7 @@ Begin VB.Form frmSettings
          Height          =   345
          Left            =   -74760
          TabIndex        =   9
-         Top             =   3840
+         Top             =   4320
          Width           =   4815
       End
       Begin VB.CommandButton btnRemove 
@@ -333,7 +352,7 @@ Begin VB.Form frmSettings
          Height          =   375
          Left            =   -72360
          TabIndex        =   13
-         Top             =   4800
+         Top             =   5280
          Width           =   2415
       End
       Begin VB.CommandButton btnAdd 
@@ -341,7 +360,7 @@ Begin VB.Form frmSettings
          Height          =   375
          Left            =   -74760
          TabIndex        =   12
-         Top             =   4800
+         Top             =   5280
          Width           =   2415
       End
       Begin VB.TextBox txtBNETPassword 
@@ -382,13 +401,13 @@ Begin VB.Form frmSettings
          Width           =   2775
       End
       Begin MSComctlLib.ListView lvKeyList 
-         Height          =   2535
+         Height          =   2895
          Left            =   -74760
          TabIndex        =   8
          Top             =   1200
          Width           =   4815
          _ExtentX        =   8493
-         _ExtentY        =   4471
+         _ExtentY        =   5106
          View            =   2
          LabelEdit       =   1
          LabelWrap       =   -1  'True
@@ -419,7 +438,7 @@ Begin VB.Form frmSettings
          Height          =   375
          Left            =   -74760
          TabIndex        =   44
-         Top             =   3000
+         Top             =   3480
          Width           =   1935
       End
       Begin VB.Label Label18 
@@ -488,7 +507,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   -74760
          TabIndex        =   37
-         Top             =   3480
+         Top             =   3960
          Width           =   1455
       End
       Begin VB.Label Label14 
@@ -505,7 +524,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   2400
          TabIndex        =   36
-         Top             =   4920
+         Top             =   5280
          Width           =   855
       End
       Begin VB.Label Label13 
@@ -522,7 +541,7 @@ Begin VB.Form frmSettings
          Height          =   255
          Left            =   360
          TabIndex        =   35
-         Top             =   4920
+         Top             =   5280
          Width           =   975
       End
       Begin VB.Label Label12 
@@ -540,7 +559,7 @@ Begin VB.Form frmSettings
          Height          =   375
          Left            =   240
          TabIndex        =   34
-         Top             =   4440
+         Top             =   4800
          Width           =   4815
       End
       Begin VB.Label Label11 
@@ -748,7 +767,7 @@ Begin VB.Form frmSettings
       Height          =   495
       Left            =   3360
       TabIndex        =   22
-      Top             =   5880
+      Top             =   6120
       Width           =   1695
    End
    Begin VB.CommandButton btnOk 
@@ -765,7 +784,7 @@ Begin VB.Form frmSettings
       Height          =   495
       Left            =   240
       TabIndex        =   21
-      Top             =   5880
+      Top             =   6120
       Width           =   1695
    End
 End
@@ -867,6 +886,7 @@ Private Sub btnOk_Click()
     config.ircServer = txtIRCServer.text
     config.ircUsername = txtIRCUsername.text
     config.ircChannel = txtIRCChannel.text
+    config.ircFocusChatTabOnChannelJoin = IIf(chkIRCFocusChatTabOnChannelJoin.Value, True, False)
     config.ircQuitMessage = txtIRCQuitMessage.text
     config.ircUpdateChannelOnChannelJoin = IIf(chkUpdateChannelOnChannelJoin.Value = 1, True, False)
     config.ircBroadcastPrefix = txtIRCBroadcastPrefix.text
@@ -914,6 +934,7 @@ Private Sub Form_Load()
 
     txtIRCUsername.text = config.ircUsername
     txtIRCChannel.text = config.ircChannel
+    chkIRCFocusChatTabOnChannelJoin.Value = IIf(config.ircFocusChatTabOnChannelJoin, 1, 0)
     txtIRCServer.text = config.ircServer
     txtIRCQuitMessage.text = config.ircQuitMessage
     txtIRCBroadcastPrefix.text = config.ircBroadcastPrefix

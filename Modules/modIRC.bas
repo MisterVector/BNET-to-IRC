@@ -43,8 +43,9 @@ Public Sub SendJOIN(ByVal channel As String)
 End Sub
 
 Public Sub RecvJOIN(ByVal channel As String)
-    frmMain.IRCTab.TabCaption(1) = "Chat (" & channel & ")"
     IRCData.joinedChannel = channel
+
+    frmMain.IRCTab.TabCaption(1) = "Chat (" & channel & ")"
     
     If (config.ircUpdateChannelOnChannelJoin) Then
         If (channel <> config.ircChannel) Then
@@ -58,6 +59,13 @@ Public Sub RecvJOIN(ByVal channel As String)
     
     If (Not canSendQuit) Then
         canSendQuit = True
+    End If
+    
+    If (config.ircFocusChatTabOnChannelJoin) Then
+        ' Only switch tabs if the current tab is not the chat tab
+        If (frmMain.IRCTab.Tab <> 1) Then
+            frmMain.IRCTab.Tab = 1
+        End If
     End If
 End Sub
 
@@ -82,7 +90,7 @@ Public Sub SendPRIVMSG(ByVal target As String, text As String)
 End Sub
 
 Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal target As String, ByVal text As String)
-    Dim msgPart As String, parts() As String, command As String, message As String, isEmote As Boolean
+    Dim msgPart As String, parts() As String, command As String, Message As String, isEmote As Boolean
 
     isEmote = False
 
@@ -124,15 +132,15 @@ Public Sub RecvPRIVMSG(ByVal source As String, ByVal hostname As String, ByVal t
         End If
     End If
 
-    message = source & " (" & target & "): "
+    Message = source & " (" & target & "): "
 
     If (isEmote) Then
-        message = "/me " & message & source & " " & text
+        Message = "/me " & Message & source & " " & text
     Else
-        message = message & text
+        Message = Message & text
     End If
 
-    SendToBNET message
+    SendToBNET Message
 End Sub
 
 Public Sub SendUSER(ByVal username As String)
