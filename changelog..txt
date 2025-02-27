@@ -1,3 +1,31 @@
+Version 1.3.0 - Released on February 27, 2025
+
+  - Added the minimize button to the form
+  - Added the ability to minimize to the system tray with an option to enable it
+    (thanks Arana)
+  - The MOTD messages in the IRC console are now colored white
+  - Fixed a crash when the top and left window position values are too high when
+    loading the program
+  - Prevent bad values from being used for the Warcraft II and Diablo II version bytes
+    in the settings configuration
+  - The state of the "Broadcast to IRC" and "Broadcast to BNET" checkboxes is now saved
+    to the config
+  - The max value for the connection timeout is now 32,767 instead of 30,000
+  - Fixed an issue where it was impossible to broadcast an IRC message to Battle.Net if
+    the text casing of the configured IRC channel differed from the text casing of that
+    channel on the IRC server
+  - When configuring the IRC channel name, it must start with #
+  - Fixed being unable to automatically join the IRC channel if the IRC server does
+    not have a MOTD
+  - Added a setting to automatically switch to the IRC chat tab whenever joining an
+    IRC channel
+  - Updated the text of the "Update On Channel Join" setting to "Update Channel On Channel Join"
+  - Various visual changes in the Settings window for visual consistency
+  - Remove all dashes from keys when adding them to the key manager
+  - Handle channel name prepended by a colon by stripping the colon away
+  - Fixed being unable to send messages to channels on some IRC servers
+  - Updated the Read Me
+
 Version 1.2.0 - Released on November 1, 2023
 
   - Fixed an issue that prevented the program from connecting to a PvPGN server
