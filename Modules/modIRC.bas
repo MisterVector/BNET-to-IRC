@@ -12,6 +12,11 @@ Public Sub handleIRCData(ByVal source As String, ByVal hostname As String, ByVal
         Case "372", "375" 'MOTD
             AddChat frmMain.rtbChatIRCConsole, vbWhite, data
         Case "JOIN"
+            ' The data may or may not include a colon at the beginning, so strip it away if it does
+            If (Left(data, 1) = ":") Then
+                data = Mid(data, 2)
+            End If
+        
             RecvJOIN data
         Case "PRIVMSG"
             parts = Split(data, " ", 2)
