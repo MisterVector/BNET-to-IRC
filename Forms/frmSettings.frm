@@ -802,7 +802,7 @@ Attribute VB_Exposed = False
 Private productChosen As String
 
 Private Sub btnAdd_Click()
-    Dim li As ListItem
+    Dim li As ListItem, key As String
 
     If (txtBNETKey.text = vbNullString) Then
         MsgBox "You must enter a CD-Key.", vbOKOnly Or vbInformation, PROGRAM_TITLE
@@ -814,12 +814,15 @@ Private Sub btnAdd_Click()
         Exit Sub
     End If
 
-    If (Not isValidKey(txtBNETKey.text)) Then
+    key = txtBNETKey.text
+    key = Replace(key, "-", vbNullString)
+
+    If (Not isValidKey(key)) Then
         MsgBox "You did not enter a valid " & productChosen & " key.", vbOKOnly Or vbInformation, PROGRAM_TITLE
         Exit Sub
     End If
   
-    Set li = lvKeyList.ListItems.Add(, , txtBNETKey.text, , productChosen)
+    Set li = lvKeyList.ListItems.Add(, , key, , productChosen)
     li.Tag = productChosen
   
     txtBNETKey.text = vbNullString
