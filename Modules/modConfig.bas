@@ -52,7 +52,7 @@ Public Function readHexValue(ByVal section As String, ByVal key As String, Optio
 End Function
 
 Public Sub writeHexValue(ByVal section As String, ByVal key As String, ByVal val As Long)
-    WriteINI section, key, Right("0" & hex(val), 2), "Config.ini"
+    WriteINI section, key, Right("0" & Hex(val), 2), "Config.ini"
 End Sub
 
 Public Function readStringValue(ByVal section As String, ByVal key As String, Optional ByVal defaultValue As String = vbNullString) As String
